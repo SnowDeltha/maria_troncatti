@@ -12,11 +12,6 @@ class InicioSesionScreen extends StatefulWidget {
 class _InicioSesionScreenState extends State<InicioSesionScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: ListView(
-
-      )
-    );
+    return Scaffold();
   }
 }
