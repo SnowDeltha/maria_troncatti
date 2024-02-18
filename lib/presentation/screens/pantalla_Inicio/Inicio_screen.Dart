@@ -36,9 +36,9 @@ class InicioScreen extends StatelessWidget {
               ];
             },
             onSelected: (value) {
-              if (value == 'opcion1') {
+              if (value == 'Perfil') {
               // Realiza acciones para la opción 1
-              } else if (value == 'opcion2') {
+              } else if (value == 'Acerca de') {
               // Realiza acciones para la opción 2
               }
             }
