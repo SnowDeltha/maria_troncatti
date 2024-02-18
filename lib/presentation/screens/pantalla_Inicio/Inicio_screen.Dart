@@ -11,19 +11,40 @@ class InicioScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      primary: false,
-      padding: const EdgeInsets.all(20),
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      crossAxisCount: 2,
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(8),
-          child: const 
-          Text("Asistencia"),
-        ),
-      ],
+    return Scaffold(
+      appBar:AppBar(
+        title:Text('María Troncatti'),
+        backgroundColor: Colors.yellow,
+        actions: <Widget>[
+          Text("Persona"),
+          PopupMenuButton(
+            icon: Icon(Icons.person),
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem(
+                  child: Text('Perfil'),
+                  value: 'Perfil',
+                ),
+                PopupMenuItem(
+                  child: Text('Acerca de'),
+                  value: 'Acerca de',
+                ),
+                PopupMenuItem(
+                  child: Text('Cerrar Sesión'),
+                 value: 'Cerrar Sesión',
+                ),
+              ];
+            },
+            onSelected: (value) {
+              if (value == 'opcion1') {
+              // Realiza acciones para la opción 1
+              } else if (value == 'opcion2') {
+              // Realiza acciones para la opción 2
+              }
+            }
+          )
+        ]
+      ),
     );
   }
 }
