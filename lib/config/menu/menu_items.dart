@@ -102,7 +102,12 @@ const appMenuItems = <MenuItem>[
     link: '/Inicio_screen', 
     icon: Icons.color_lens_outlined
   ),
-
+  MenuItem(
+    title: 'Acerca De', 
+    subTitle: 'Acerca de', 
+    link: '/Acercade', 
+    icon: Icons.color_lens_outlined
+  ),
 
 
 ];

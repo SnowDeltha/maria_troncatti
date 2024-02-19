@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 
 void main() {
   runApp(const InicioScreen());
@@ -38,7 +39,12 @@ class InicioScreen extends StatelessWidget {
               if (value == 'Perfil') {
                 // Realiza acciones para la opción 1
               } else if (value == 'Acerca de') {
-                // Realiza acciones para la opción 2
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AcercaScreen(),
+                  ),
+                );
               }
             },
           )
