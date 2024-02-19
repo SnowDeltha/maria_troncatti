@@ -83,6 +83,11 @@ final appRouter = GoRouter(
       name: InicioScreen.name,
       builder: (context, state) => const InicioScreen(),
     ),
+    GoRoute(
+      path: '/Acerca_screen',
+      name: AcercaScreen.name,
+      builder: (context, state) => const AcercaScreen(),
+    ),
   ],
 );
 
