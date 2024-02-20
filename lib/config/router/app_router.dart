@@ -3,6 +3,7 @@ import 'package:widgets_app/presentation/screens/administracion_aulas/administra
 import 'package:widgets_app/presentation/screens/administracion_usuarios/administracion_de_usuarios_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_asistencia/modulo_asistencia_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
+import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 import 'package:widgets_app/presentation/screens/registro_asistencia/registro_asistencia_screen.dart';
 import 'package:widgets_app/presentation/screens/screens.dart';
 
@@ -116,6 +117,12 @@ final appRouter = GoRouter(
       path: '/modulo_configuracion',
       name: ModuloConfiguracion.name,
       builder: (context, state) => const ModuloConfiguracion(),
+    ),
+
+    GoRoute(
+      path: '/perfil',
+      name: PerfilScreen.name,
+      builder: (context, state) => const PerfilScreen()
     ),
   ],
 );

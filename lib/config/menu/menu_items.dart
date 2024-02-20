@@ -144,6 +144,13 @@ const appMenuItems = <MenuItem>[
     icon: Icons.color_lens_outlined
   ),
 
+  MenuItem(
+    title: 'Perfil', 
+    subTitle: 'Perfil del usuario', 
+    link: '/perfil', 
+    icon: Icons.color_lens_outlined
+  ),
+
 
 ];
 
