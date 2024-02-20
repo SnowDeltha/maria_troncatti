@@ -13,81 +13,46 @@ class _HuellaDactilarScreenState extends State<HuellaDactilarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: ListView(
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 60,
-                  horizontal: 0,
-                ),
-                child: Image.asset('assets/images/Escuela.png'),
-              ),
+      // appBar: AppBar(
+      //   title: const Text(''),
+      //   backgroundColor: Colors.yellow,
 
-              const SizedBox(
-                width: 160,
-                height: 20,
-              ),
-              
-              const Text(
-                'Gestor de Asistencias',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, 
-                    fontSize: 30, 
-                    color: Colors.orange),
-              ),
-              const SizedBox(
-                width: 160,
-                height: 60,
-              ),
-
-              const Botoneshorizontales(),
-
-              const Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 30,
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      'Usuario ycontraseña',
-                      style: TextStyle(
-                        fontWeight:FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                      ),
-                    
-                
-                    SizedBox(
-                  width: 45,
-                  height: 20,
-                ),
-                
-                    Text(
-                      'Huella Dactilar/Face ID',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      // ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 100,
+            ),
+            child: Image.asset('assets/images/Escuela.png'),
           ),
 
-          const SizedBox(
-                width: 45,
-                height: 268,
-              ),
+          const Text(
+            'Gestor de Asistencia',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+              color: Colors.orange,
+            ),
+          ),
 
+          const SizedBox(height: 50),
+
+          const Botoneshorizontales(),
+
+
+          const Expanded(
+            child: Divider(
+              thickness: 0.5,
+              color: Colors.white,
+            ),
+          ),
+          // Pie de página
           Container(
             color: Colors.green,
             width: double.infinity,
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
             child: const Text(
               '©2024 Instituto Tecnológico Superior Japón',
               style: TextStyle(fontSize: 16, color: Colors.white),
@@ -100,6 +65,8 @@ class _HuellaDactilarScreenState extends State<HuellaDactilarScreen> {
   }
 }
 
+// Botones Personalizados
+
 class Botoneshorizontales extends StatelessWidget {
   const Botoneshorizontales({super.key});
 
@@ -108,29 +75,66 @@ class Botoneshorizontales extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        IconButton(
-          onPressed: () {},
-          iconSize: 50,
-          icon: const Icon(Icons.person),
-          style: const ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(Colors.green),
-            iconColor: MaterialStatePropertyAll(Colors.white),
-          ), 
-        ),
-        
-        const SizedBox(
-          width: 125,
-          height: 100,
+        Column(
+          children: [
+            IconButton(
+              onPressed: () {},
+              iconSize: 50,
+              icon: const Icon(Icons.person),
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.green),
+                iconColor: MaterialStatePropertyAll(Colors.white),
+              ),
+            ),
+
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10,
+              ),
+              child: Text('Huella dactilar',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+              
+              ),
+            ),  
+          ],
         ),
 
-        IconButton(
-          onPressed: () {},
-          iconSize: 50,
-          icon: const Icon(Icons.fingerprint),
-          style: const ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(Colors.green),
-            iconColor: MaterialStatePropertyAll(Colors.white),
-          ),
+
+
+
+
+        const SizedBox(
+          width: 90,
+        ),
+
+
+
+        Column(
+          children: [
+            IconButton(
+              onPressed: () {},
+              iconSize: 50,
+              icon: const Icon(Icons.fingerprint),
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.green),
+                iconColor: MaterialStatePropertyAll(Colors.white),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 10,
+              ),
+              child: Text('Huella Dactilar',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14
+              ),
+              ),
+            )
+          ],
         ),
       ],
     );

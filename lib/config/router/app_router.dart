@@ -70,7 +70,7 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/inicio_sesion',
       name: InicioSesionScreen.name,
-      builder: (context, state) => const InicioSesionScreen(),
+      builder: (context, state) => InicioSesionScreen(),
     ),
     
     GoRoute(
