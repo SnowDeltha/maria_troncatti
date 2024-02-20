@@ -1,4 +1,9 @@
 import 'package:go_router/go_router.dart';
+import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
+import 'package:widgets_app/presentation/screens/administracion_usuarios/administracion_de_usuarios_screen.dart';
+import 'package:widgets_app/presentation/screens/modulo_asistencia/modulo_asistencia_screen.dart';
+import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
+import 'package:widgets_app/presentation/screens/registro_asistencia/registro_asistencia_screen.dart';
 import 'package:widgets_app/presentation/screens/screens.dart';
 
 // GoRouter configuration
@@ -10,12 +15,6 @@ final appRouter = GoRouter(
       path: '/',
       name: HomeScreen.name,
       builder: (context, state) => const HomeScreen(),
-    ),
-
-    GoRoute(
-      path: '/buttons',
-      name: ButtonsScreen.name,
-      builder: (context, state) => const ButtonsScreen(),
     ),
 
     GoRoute(
@@ -54,11 +53,6 @@ final appRouter = GoRouter(
       builder: (context, state) => const AppTutorialScreen(),
     ),
 
-    GoRoute(
-      path: '/infinite',
-      name: InfiniteScrollScreen.name,
-      builder: (context, state) => const InfiniteScrollScreen(),
-    ),
 
     GoRoute(
       path: '/counter-river',
@@ -87,6 +81,41 @@ final appRouter = GoRouter(
       path: '/Acerca_screen',
       name: AcercaScreen.name,
       builder: (context, state) => const AcercaScreen(),
+    ),
+    GoRoute(
+      path: '/huella_dactilar_screen',
+      name: HuellaDactilarScreen.name,
+      builder: (context, state) => const HuellaDactilarScreen(),
+    ),
+
+    GoRoute(
+      path: '/administracion_aulas',
+      name: AdministracioAulasScreen.name,
+      builder: (context, state) => const AdministracioAulasScreen(),
+    ),
+
+    GoRoute(
+      path: '/administracion_usuarios',
+      name: AdministracionUsuariosScreen.name,
+      builder: (context, state) => const AdministracionUsuariosScreen(),
+    ),
+
+    GoRoute(
+      path: '/registro_asistencia',
+      name: RegistroAsistenciaScreen.name,
+      builder: (context, state) => const RegistroAsistenciaScreen(),
+    ),
+
+    GoRoute(
+      path: '/modulo_asistencia',
+      name: ModuloAsistenciaScreen.name,
+      builder: (context, state) => const ModuloAsistenciaScreen(),
+    ),
+
+    GoRoute(
+      path: '/modulo_configuracion',
+      name: ModuloConfiguracion.name,
+      builder: (context, state) => const ModuloConfiguracion(),
     ),
   ],
 );

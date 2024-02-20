@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 
-void main() {
-  runApp(const InicioScreen());
-}
+//void main() {
+  //runApp(const InicioScreen());
+//}
 
 class InicioScreen extends StatelessWidget {
+
   static const name = 'Inicio';
+  
   const InicioScreen({super.key});
 
   @override
@@ -66,10 +68,7 @@ class InicioScreen extends StatelessWidget {
                     },
                     icon: Column(
                       children: [
-                        Image(
-                          image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                          width: 100,
-                        ),
+                        Image.asset('assets/images/1.png'),
                         Text('Asistencia'),
                       ],
                     ),
@@ -80,10 +79,7 @@ class InicioScreen extends StatelessWidget {
                     },
                     icon: Column(
                       children: [
-                        Image(
-                          image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                          width: 100,
-                        ),
+                        Image.asset('assets/images/2.png'),
                         Text('Generar Reporte'),
                       ],
                     ),
@@ -94,10 +90,7 @@ class InicioScreen extends StatelessWidget {
                     },
                     icon: Column(
                       children: [
-                        Image(
-                          image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                          width: 100,
-                        ),
+                        Image.asset('assets/images/3.png'),
                         Text('Administrador'),
                       ],
                     ),

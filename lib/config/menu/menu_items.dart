@@ -76,13 +76,6 @@ const appMenuItems = <MenuItem>[
   ),
 
   MenuItem(
-    title: 'InfiniteScroll y Pull', 
-    subTitle: 'Listas infinitas y pull to refresh', 
-    link: '/infinite', 
-    icon: Icons.list_alt_rounded
-  ),
-
-  MenuItem(
     title: 'Cambiar tema', 
     subTitle: 'Cambiar tema de la aplicación', 
     link: '/theme-changer', 
@@ -105,7 +98,49 @@ const appMenuItems = <MenuItem>[
   MenuItem(
     title: 'Acerca De', 
     subTitle: 'Acerca de', 
-    link: '/Acercade', 
+    link: '/Acerca_screen', 
+    icon: Icons.color_lens_outlined
+  ),
+
+  MenuItem(
+    title: 'Acceder con Huella Dactilar', 
+    subTitle: 'Huella Dactilar', 
+    link: '/huella_dactilar_screen', 
+    icon: Icons.color_lens_outlined
+  ),
+
+  MenuItem(
+    title: 'Administracion de Aulas', 
+    subTitle: 'Administracion de Aulas', 
+    link: '/administracion_aulas', 
+    icon: Icons.color_lens_outlined
+  ),
+
+  MenuItem(
+    title: 'Administracion de Usuarios', 
+    subTitle: 'Administracion de Usuarios', 
+    link: '/administracion_usuarios', 
+    icon: Icons.color_lens_outlined
+  ),
+
+  MenuItem(
+    title: 'Registro Asistencia', 
+    subTitle: 'Registro Asistencia', 
+    link: '/registro_asistencia', 
+    icon: Icons.color_lens_outlined
+  ),
+
+  MenuItem(
+    title: 'Modulo de Asistencia', 
+    subTitle: 'Modulo de Asistencia', 
+    link: '/modulo_asistencia', 
+    icon: Icons.color_lens_outlined
+  ),
+
+  MenuItem(
+    title: 'Modulo de Configuracion', 
+    subTitle: 'Modulo de Configuracion', 
+    link: '/modulo_configuracion', 
     icon: Icons.color_lens_outlined
   ),
 
