@@ -41,7 +41,6 @@ class _HuellaDactilarScreenState extends State<HuellaDactilarScreen> {
 
           const Botoneshorizontales(),
 
-
           const Expanded(
             child: Divider(
               thickness: 0.5,
@@ -86,32 +85,35 @@ class Botoneshorizontales extends StatelessWidget {
                 iconColor: MaterialStatePropertyAll(Colors.white),
               ),
             ),
-
             const Padding(
               padding: EdgeInsets.symmetric(
-                vertical: 10,
+                vertical: 5,
               ),
-              child: Text('Huella dactilar',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
+              child: Text(
+                'Usuario',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
               ),
-              
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 0,
               ),
-            ),  
+              child: Text(
+                'Contraseña',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
           ],
         ),
-
-
-
-
-
         const SizedBox(
           width: 90,
         ),
-
-
-
         Column(
           children: [
             IconButton(
@@ -125,13 +127,21 @@ class Botoneshorizontales extends StatelessWidget {
             ),
             const Padding(
               padding: EdgeInsets.symmetric(
-                vertical: 10,
+                vertical: 5,
               ),
-              child: Text('Huella Dactilar',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14
+              child: Text(
+                'Huella Dactilar',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
+            ),
+
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 0,
+              ),
+              child: Text(
+                'Face ID',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
             )
           ],
