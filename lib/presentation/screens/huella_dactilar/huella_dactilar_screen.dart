@@ -223,6 +223,8 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+
+                          
                         ],
                       ),
                     ],
