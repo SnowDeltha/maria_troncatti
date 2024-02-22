@@ -85,8 +85,8 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/huella_dactilar_screen',
-      name: HuellaDactilarScreen.name,
-      builder: (context, state) => const HuellaDactilarScreen(),
+      name: HuellaDactillarScreen.name,
+      builder: (context, state) => const HuellaDactillarScreen()
     ),
 
     GoRoute(

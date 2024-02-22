@@ -1,22 +1,21 @@
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 
 void main() {
-  runApp(const HuellaDactillarScreen());
+  runApp(const MyApp());
 }
 
-class HuellaDactillarScreen extends StatefulWidget {
-  static const String name = 'huella_dactilar_screen';
-
-  const HuellaDactillarScreen({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
-  State<HuellaDactillarScreen> createState() => _HuellaDactillarScreenState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
+class _MyAppState extends State<MyApp> {
   final LocalAuthentication auth = LocalAuthentication();
   _SupportState _supportState = _SupportState.unknown;
   bool? _canCheckBiometrics;
@@ -137,97 +136,82 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
     });
   }
 
+  Future<void> _cancelAuthentication() async {
+    await auth.stopAuthentication();
+    setState(() => _isAuthenticating = false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
+        ),
         body: ListView(
           padding: const EdgeInsets.only(top: 30),
           children: <Widget>[
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 50,
-                  ),
-                  child: Image.asset('assets/images/Escuela.png'),
+                if (_supportState == _SupportState.unknown)
+                  const CircularProgressIndicator()
+                else if (_supportState == _SupportState.supported)
+                  const Text('This device is supported')
+                else
+                  const Text('This device is not supported'),
+                const Divider(height: 100),
+                Text('Can check biometrics: $_canCheckBiometrics\n'),
+                ElevatedButton(
+                  onPressed: _checkBiometrics,
+                  child: const Text('Check biometrics'),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Text(
-                    'Gestor de Asistencia',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.orange,
+                const Divider(height: 100),
+                Text('Available biometrics: $_availableBiometrics\n'),
+                ElevatedButton(
+                  onPressed: _getAvailableBiometrics,
+                  child: const Text('Get available biometrics'),
+                ),
+                const Divider(height: 100),
+                Text('Current State: $_authorized\n'),
+                if (_isAuthenticating)
+                  ElevatedButton(
+                    onPressed: _cancelAuthentication,
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text('Cancel Authentication'),
+                        Icon(Icons.cancel),
+                      ],
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 50,
-                    horizontal: 80,
-                  ),
-                  child: Row(
+                  )
+                else
+                  Column(
                     children: <Widget>[
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            iconSize: 50,
-                            icon: const Icon(Icons.person),
-                            style: const ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.green),
-                              iconColor: MaterialStatePropertyAll(Colors.white),
-                            ),
-                          ),
-                          const Text(
-                            'Usuario',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Text(
-                            'Contraseña',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      ElevatedButton(
+                        onPressed: _authenticate,
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text('Authenticate'),
+                            Icon(Icons.perm_device_information),
+                          ],
+                        ),
                       ),
-                      const SizedBox(width: 60),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: _authenticate,
-                            iconSize: 50,
-                            icon: const Icon(Icons.fingerprint),
-                            style: const ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.green),
-                              iconColor: MaterialStatePropertyAll(Colors.white),
-                            ),
-                          ),
-                          const Text(
-                            'Huella Dactilar',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Text(
-                            'Face ID',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      ElevatedButton(
+                        onPressed: _authenticateWithBiometrics,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text(_isAuthenticating
+                                ? 'Cancel'
+                                : 'Authenticate: biometrics only'),
+                            const Icon(Icons.fingerprint),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ),
               ],
             ),
           ],
@@ -242,3 +226,4 @@ enum _SupportState {
   supported,
   unsupported,
 }
+

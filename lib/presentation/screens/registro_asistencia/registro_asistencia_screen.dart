@@ -11,6 +11,7 @@ class RegistroAsistenciaScreen extends StatefulWidget {
 
 class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
   DateTime selectedDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,20 +28,24 @@ class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
             ),
             ),
           ),
-          
+
           backgroundColor: Colors.yellow,
           ),
+
+
+
         body: Column(
           children: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 20,
-              horizontal: 150,
+              vertical: 30,
+              horizontal: 0,
             ),
             child: Text(
               "${selectedDate.year} - ${selectedDate.month} - ${selectedDate.day}",
             ),
           ),
+          
           ElevatedButton(
             child: const Text("Seleccione Fecha"),
             onPressed: () async {
@@ -58,27 +63,52 @@ class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
             },
           ),
 
-          const DataTableExample(),
+          const SizedBox(
+                width: 0,
+                height: 10,
+              ),
 
-          const Expanded(
-            child: Divider(
-              thickness: 0.5,
-              color: Colors.white,
+          Expanded(
+            child: Center(
+              child: GridView.count( 
+                shrinkWrap: false,
+                crossAxisCount: 1,
+
+                children: const [
+                                   
+                  DataTableRegistro(),
+                  
+                ],
+              ),
             ),
           ),
+
+          const SizedBox(
+                width: 0,
+                height: 10,
+              ),
+
+          const BotonPersonalizado2(),
+
+           const Expanded(
+            child: SizedBox(
+                 width: 0,
+                 height: 10,
+               ),
+           ),
+
+          
           // Pie de página
           Container(
             color: Colors.green,
             width: double.infinity,
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: const Text(
               '©2024 Instituto Tecnológico Superior Japón',
               style: TextStyle(fontSize: 16, color: Colors.white),
               textAlign: TextAlign.center,
             ),
           ),
-
-
         ],
         ),
       ),
@@ -87,8 +117,8 @@ class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
 }
 
 // Aqui empieza la tabla de datos 
-class DataTableExample extends StatelessWidget {
-  const DataTableExample({super.key});
+class DataTableRegistro extends StatelessWidget {
+  const DataTableRegistro({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +127,7 @@ class DataTableExample extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'Name',
+              'Nombre',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -130,7 +160,7 @@ class DataTableExample extends StatelessWidget {
       rows: const <DataRow>[
         DataRow(
           cells: <DataCell>[
-            DataCell(Text('Alumno')),
+            DataCell(Text('Maria')),
             DataCell(Text('x')),
             DataCell(Text('')),
             DataCell(Text('')),
@@ -138,7 +168,7 @@ class DataTableExample extends StatelessWidget {
         ),
         DataRow(
           cells: <DataCell>[
-            DataCell(Text('Alumno')),
+            DataCell(Text('Jesus')),
             DataCell(Text('')),
             DataCell(Text('x')),
             DataCell(Text('')),
@@ -146,7 +176,7 @@ class DataTableExample extends StatelessWidget {
         ),
         DataRow(
           cells: <DataCell>[
-            DataCell(Text('Alumno')),
+            DataCell(Text('Jose')),
             DataCell(Text('')),
             DataCell(Text('')),
             DataCell(Text('x')),
@@ -154,15 +184,93 @@ class DataTableExample extends StatelessWidget {
         ),
         DataRow(
           cells: <DataCell>[
-            DataCell(Text('Alumno')),
+            DataCell(Text('Judas')),
             DataCell(Text('')),
             DataCell(Text('x')),
             DataCell(Text('')),
           ],
         ),
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Judas')),
+            DataCell(Text('')),
+            DataCell(Text('x')),
+            DataCell(Text('')),
+          ],
+        ),
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Judas')),
+            DataCell(Text('')),
+            DataCell(Text('x')),
+            DataCell(Text('')),
+          ],
+        ),
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Judas')),
+            DataCell(Text('')),
+            DataCell(Text('x')),
+            DataCell(Text('')),
+          ],
+        ),
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Judas')),
+            DataCell(Text('')),
+            DataCell(Text('x')),
+            DataCell(Text('')),
+          ],
+        ),
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Judas')),
+            DataCell(Text('')),
+            DataCell(Text('x')),
+            DataCell(Text('')),
+          ],
+        ),
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Judas')),
+            DataCell(Text('')),
+            DataCell(Text('x')),
+            DataCell(Text('')),
+            
+          ],
+        ),
+
       ],
     );
   }
 }
+
+class BotonPersonalizado2 extends StatelessWidget {
+  const BotonPersonalizado2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(50),
+      child: Material(
+        color: Colors.green,
+        child: InkWell(
+          onTap: () {   
+          },
+
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Text('Guardar y salir',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.yellow,
+                )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 
   
