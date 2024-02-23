@@ -166,8 +166,8 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString('token', body['token']);
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(body['token']),));
-
-    if (body['token']){
+    
+    if (body['token']!=''){
       print('exitoso');
       Navigator.push(
         context,
@@ -175,7 +175,6 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
           builder: (context) => AdministracioAulasScreen(),
         ),
       );
-    
   }else{
     print('Error');
   } 
