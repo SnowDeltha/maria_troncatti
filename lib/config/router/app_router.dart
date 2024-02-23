@@ -19,53 +19,16 @@ final appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/cards',
-      name: CardsScreen.name,
-      builder: (context, state) => const CardsScreen(),
-    ),
-
-    GoRoute(
-      path: '/progress',
-      name: ProgressScreen.name,
-      builder: (context, state) => const ProgressScreen(),
-    ),
-
-    GoRoute(
-      path: '/snackbars',
-      name: SnackbarScreen.name,
-      builder: (context, state) => const SnackbarScreen(),
-    ),
-
-    GoRoute(
-      path: '/animated',
-      name: AnimatedScreen.name,
-      builder: (context, state) => const AnimatedScreen(),
-    ),
-
-    GoRoute(
       path: '/ui-controls',
       name: UiControlsScreen.name,
       builder: (context, state) => const UiControlsScreen(),
     ),
 
-    GoRoute(
-      path: '/tutorial',
-      name: AppTutorialScreen.name,
-      builder: (context, state) => const AppTutorialScreen(),
-    ),
-
-
-    GoRoute(
-      path: '/counter-river',
-      name: CounterScreen.name,
-      builder: (context, state) => const CounterScreen(),
-    ),
-
-    GoRoute(
-      path: '/theme-changer',
-      name: ThemeChangerScreen.name,
-      builder: (context, state) => const ThemeChangerScreen(),
-    ),
+    // GoRoute(
+    //   path: '/theme-changer',
+    //   name: ThemeChangerScreen.name,
+    //   builder: (context, state) => const ThemeChangerScreen(),
+    // ),
 
     GoRoute(
       path: '/inicio_sesion',
@@ -92,7 +55,7 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/administracion_aulas',
       name: AdministracioAulasScreen.name,
-      builder: (context, state) => const AdministracioAulasScreen(),
+      builder: (context, state) =>  AdministracioAulasScreen()
     ),
 
     GoRoute(
@@ -122,7 +85,7 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/perfil',
       name: PerfilScreen.name,
-      builder: (context, state) => const PerfilScreen()
+      builder: (context, state) =>  const PerfilScreen(imageUrl: '', name: '', designation: '', website: '', email: '', phone_number: '',)
     ),
   ],
 );

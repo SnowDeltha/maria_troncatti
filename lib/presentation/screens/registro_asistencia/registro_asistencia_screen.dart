@@ -1,16 +1,47 @@
 import 'package:flutter/material.dart';
+import '../../../model/apirespuesta.dart';
+import '../../../api/ConsumoApi.dart';
 
 class RegistroAsistenciaScreen extends StatefulWidget {
   static const String name = 'registro_asistencia_screen';
-  const RegistroAsistenciaScreen({super.key});
+  const RegistroAsistenciaScreen();
 
   @override
   State<RegistroAsistenciaScreen> createState() =>
       _RegistroAsistenciaScreenState();
+
+      
+
 }
 
 class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
   DateTime selectedDate = DateTime.now();
+  List<dynamic> registrosList = [];
+  String? error;
+  late bool _isLoading;
+
+  Future<void> mostrarRegistros() async {
+    _isLoading = true;
+    ApiRespuesta res =
+        await CallApi().getRegistros('');
+    if (res.error == null) {
+      setState(() {
+        registrosList = res.data as List<dynamic>;
+      });
+    } else {
+      setState(() {
+        error = res.error;
+      });
+    }
+    _isLoading = false;
+  }
+
+
+   @override
+  void initState() {
+    mostrarRegistros();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
