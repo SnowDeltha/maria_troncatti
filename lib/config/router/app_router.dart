@@ -24,16 +24,11 @@ final appRouter = GoRouter(
       builder: (context, state) => const UiControlsScreen(),
     ),
 
-    // GoRoute(
-    //   path: '/theme-changer',
-    //   name: ThemeChangerScreen.name,
-    //   builder: (context, state) => const ThemeChangerScreen(),
-    // ),
 
     GoRoute(
       path: '/inicio_sesion',
       name: InicioSesionScreen.name,
-      builder: (context, state) => InicioSesionScreen(),
+      builder: (context, state) => const InicioSesionScreen(),
     ),
     
     GoRoute(
@@ -85,7 +80,7 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/perfil',
       name: PerfilScreen.name,
-      builder: (context, state) =>  const PerfilScreen(imageUrl: '', name: '', designation: '', website: '', email: '', phone_number: '',)
+      builder: (context, state) =>  const PerfilScreen()
     ),
   ],
 );

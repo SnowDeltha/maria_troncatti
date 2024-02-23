@@ -17,7 +17,18 @@ class MenuItem {
 
 
 const appMenuItems = <MenuItem>[
-
+  MenuItem(
+    title: 'Perfil', 
+    subTitle: 'Perfil del usuario', 
+    link: '/perfil', 
+    icon: Icons.color_lens_outlined
+  ),
+  MenuItem(
+    title: 'Acerca De', 
+    subTitle: 'Acerca de', 
+    link: '/Acerca_screen', 
+    icon: Icons.color_lens_outlined
+  ),
   MenuItem(
     title: 'Inicio de Sesion', 
     subTitle: 'Inicio de Secion', 
@@ -31,12 +42,7 @@ const appMenuItems = <MenuItem>[
     link: '/Inicio_screen', 
     icon: Icons.color_lens_outlined
   ),
-  MenuItem(
-    title: 'Acerca De', 
-    subTitle: 'Acerca de', 
-    link: '/Acerca_screen', 
-    icon: Icons.color_lens_outlined
-  ),
+  
 
   MenuItem(
     title: 'Acceder con Huella Dactilar', 
@@ -80,12 +86,7 @@ const appMenuItems = <MenuItem>[
     icon: Icons.color_lens_outlined
   ),
 
-  MenuItem(
-    title: 'Perfil', 
-    subTitle: 'Perfil del usuario', 
-    link: '/perfil', 
-    icon: Icons.color_lens_outlined
-  ),
+  
 
 
 ];

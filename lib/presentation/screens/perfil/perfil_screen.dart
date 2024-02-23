@@ -1,30 +1,52 @@
 import 'package:flutter/material.dart';
 
 
-class PerfilScreen extends StatefulWidget {
-  static const name = 'perfil_screen';
-  // ignore: non_constant_identifier_names
-  const PerfilScreen({super.key, required String imageUrl, required String name, required String website, required String designation, required String email, required String phone_number});
+//void main() {
+  //runApp(const InicioScreen());
+//}
 
-  @override
-  State<PerfilScreen> createState() => _PerfilScreenState();
-}
+class PerfilScreen extends StatelessWidget {
 
-class _PerfilScreenState extends State<PerfilScreen> {
+  static const name = 'perfil';
+  
+  const PerfilScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        body: Center(
-          child: PerfilScreen(
-            imageUrl: "https://images.unsplash.com/photo-1598618356794-eb1720430eb4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-            name: "Shamim Miah",
-            website: "shamimmiah.com",
-            designation: "Project Manager | Flutter & Blockchain Developer",
-            email: "cse.shamimosmanpailot@gmail.com",
-            phone_number: "01757736053",
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Perfil'),
+        backgroundColor: Colors.yellow,
+        
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Center(
+              child: GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 2,
+                padding: const EdgeInsets.all(8.0),
+                children: const [
+                  
+                ],
+              ),
+            ),
           ),
-        ));
+          // Pie de página
+          Container(
+            color: Colors.green,
+            width: double.infinity,
+            padding: const EdgeInsets.all(10),
+            child: const Text(
+              '©2024 Instituto Tecnológico Superior Japón',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
-
-  

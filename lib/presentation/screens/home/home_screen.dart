@@ -20,6 +20,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
+        backgroundColor: Colors.yellow,
         title: const Text('Maria Troncatti'),
       ),
       body: const _HomeView(),
