@@ -4,6 +4,8 @@ import 'package:widgets_app/presentation/screens/registro_asistencia/registro_as
 import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_asistencia/modulo_asistencia_screen.dart';
 
+import 'package:widgets_app/presentation/screens/home/home_screen.dart';
+
 
 //void main() {
   //runApp(const InicioScreen());
@@ -83,6 +85,12 @@ class InicioScreen extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       // Acción cuando se presiona el botón
+
+                      
+                      Navigator.push(
+                       context,
+                       MaterialPageRoute(builder: (context) => HomeScreen()),
+                        );
                        
                     },
                     icon: Column(

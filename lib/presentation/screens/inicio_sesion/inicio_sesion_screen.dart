@@ -164,7 +164,7 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
     print(body);
     //print(body['status']);
 
-    if (body['token'] != '') {
+    if (body['message'] != 'Informacion invalida') {
       print('exitoso');
        SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString('token', body['token']);

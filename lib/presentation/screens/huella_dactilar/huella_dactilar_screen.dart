@@ -132,6 +132,15 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
         _isAuthenticating = false;
         _authorized = 'Authenticating';
       });
+
+      if(_isAuthenticating = true){
+        Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => InicioScreen()),
+                );
+      }else{
+        print('Error con la huella');
+      }
     } on PlatformException catch (e) {
       print(e);
       setState(() {
