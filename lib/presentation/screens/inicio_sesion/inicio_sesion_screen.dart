@@ -1,15 +1,15 @@
 import 'dart:convert';
-
+import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/src/widgets/navigator.dart';
 import 'package:widgets_app/presentation/screens/home/home_screen.dart';
+import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 import 'package:widgets_app/config/menu/menu_items.dart';
 import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
 import '../../../api/ConsumoApi.dart';
-
-
+import 'package:widgets_app/presentation/screens/pantalla_inicio/Inicio_screen.dart';
 
 //import 'package:http/http.dart';
 
@@ -24,7 +24,6 @@ class InicioSesionScreen extends StatefulWidget {
 
 class _InicioSesionScreenState extends State<InicioSesionScreen> {
   //final apiurl = '';
-
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   @override
@@ -69,6 +68,7 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
               autofocus: true,
               decoration: InputDecoration(
                   //hintText: 'Usuario',
+                  
                   labelText: ' Usuario',
                   floatingLabelAlignment: FloatingLabelAlignment.center,
                   //suffixIcon: Icon(Icons.verified_user),
@@ -115,6 +115,7 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
               color: Colors.green,
               child: InkWell(
                 onTap: () {
+                  //Navigator.pop(context);
                   onSubmit();
                 },
                 child: const Padding(
@@ -136,17 +137,17 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
             ),
           ),
 
-          // Pie de página
-          // Container(
-          //   color: Colors.green,
-          //   width: double.infinity,
-          //   padding: const EdgeInsets.all(10),
-          //   child: const Text(
-          //     '©2024 Instituto Tecnológico Superior Japón',
-          //     style: TextStyle(fontSize: 16, color: Colors.white),
-          //     textAlign: TextAlign.center,
-          //   ),
-          // ),
+           //Pie de página
+          //  Container(
+          //    color: Colors.green,
+          //    width: double.infinity,
+          //    padding: const EdgeInsets.all(10),
+          //    child: const Text(
+          //      '©2024 Instituto Tecnológico Superior Japón',
+          //      style: TextStyle(fontSize: 16, color: Colors.white),
+          //      textAlign: TextAlign.center,
+          //    ),
+          //  ),
         ],
       ),
     );
@@ -163,22 +164,20 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
     print(body);
     //print(body['status']);
 
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString('token', body['token']);
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(body['token']),));
-    
-    if (body['token']!=''){
+    if (body['token'] != '') {
       print('exitoso');
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AdministracioAulasScreen(),
-        ),
-      );
-  }else{
-    print('Error');
-  } 
-    
+       SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString('token', body['token']);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(body['token']),
+    ));
+        Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => InicioScreen()),
+                );
+    } else {
+      print('Error');
+    }
 
     /* Navigator.of(context).pushReplacement(
         MaterialPageRoute(
@@ -186,12 +185,8 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
         ),
       );  */
 
-             
-
     //var status = json.decode(res.statusCode);
     //var argstoken = 'hola';
-  
-
   }
 }
 

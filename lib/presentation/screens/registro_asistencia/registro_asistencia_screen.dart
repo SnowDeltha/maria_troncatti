@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_app/presentation/screens/Pantalla_Inicio/inicio_screen.dart';
 import '../../../model/apirespuesta.dart';
 import '../../../api/ConsumoApi.dart';
 
@@ -286,7 +287,11 @@ class BotonPersonalizado2 extends StatelessWidget {
       child: Material(
         color: Colors.green,
         child: InkWell(
-          onTap: () {   
+          onTap: () {  
+            Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const InicioScreen()),
+                );  
           },
 
           child: const Padding(

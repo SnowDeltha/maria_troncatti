@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
+import 'package:widgets_app/presentation/screens/pantalla_inicio/Inicio_screen.dart';
 
 void main() {
   runApp(const HuellaDactillarScreen());
@@ -84,6 +87,16 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
       setState(() {
         _isAuthenticating = false;
       });
+
+      if(_isAuthenticating = true){
+        Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => InicioScreen()),
+                );
+      }else{
+        print('Error con la huella');
+      }
+      
     } on PlatformException catch (e) {
       print(e);
       setState(() {
@@ -170,60 +183,73 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
                     vertical: 50,
                     horizontal: 80,
                   ),
-                  child: Row(
-                    children: <Widget>[
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            iconSize: 50,
-                            icon: const Icon(Icons.person),
-                            style: const ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.green),
-                              iconColor: MaterialStatePropertyAll(Colors.white),
-                            ),
-                          ),
-                          const Text(
-                            'Usuario',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Text(
-                            'Contraseña',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 60),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: _authenticate,
-                            iconSize: 50,
-                            icon: const Icon(Icons.fingerprint),
-                            style: const ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.green),
-                              iconColor: MaterialStatePropertyAll(Colors.white),
-                            ),
-                          ),
-                          const Text(
-                            'Huella Dactilar',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Text(
-                            'Face ID',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                  child: Column(
+                    children: [
 
+
+
+
+                      Column(
+                        children: <Widget>[
+                          Column(
+                            children: [
+
+
+                              IconButton(
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => InicioSesionScreen()),);
+                                },
+                                iconSize: 50,
+                                icon: const Icon(Icons.person),
+                                style: const ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStatePropertyAll(Colors.green),
+                                  iconColor: MaterialStatePropertyAll(Colors.white),
+                                ),
+                              ),
+                              const Text(
+                                'Usuario',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Text(
+                                'Contraseña',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+
+                              SizedBox(height: 40,),
+
+
+                              IconButton(
+                                onPressed: _authenticate,
+                                iconSize: 50,
+                                icon: const Icon(Icons.fingerprint),
+                                style: const ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStatePropertyAll(Colors.green),
+                                  iconColor: MaterialStatePropertyAll(Colors.white),
+                                ),
+                              ),
+
+                              const Text(
+                                'Huella Dactilar',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Text(
+                                'Face ID',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          
                           
                         ],
                       ),

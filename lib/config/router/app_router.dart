@@ -7,16 +7,21 @@ import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 import 'package:widgets_app/presentation/screens/registro_asistencia/registro_asistencia_screen.dart';
 import 'package:widgets_app/presentation/screens/screens.dart';
 
+
+
 // GoRouter configuration
 final appRouter = GoRouter(
-  initialLocation: '/',
+  //initialLocation: '/modulo_configuracion',
+  initialLocation: '/huella_dactilar_screen',
+
+  //initialLocation: '/',
   routes: [
 
-    GoRoute(
-      path: '/',
-      name: HomeScreen.name,
-      builder: (context, state) => const HomeScreen(),
-    ),
+     GoRoute(
+       path: '/',
+       name: HomeScreen.name,
+       builder: (context, state) => const HomeScreen()
+     ),
 
     GoRoute(
       path: '/ui-controls',

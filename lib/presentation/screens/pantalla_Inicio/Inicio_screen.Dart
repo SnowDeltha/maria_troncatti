@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
+import 'package:widgets_app/presentation/screens/registro_asistencia/registro_asistencia_screen.dart';
+import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
+import 'package:widgets_app/presentation/screens/modulo_asistencia/modulo_asistencia_screen.dart';
+
 
 //void main() {
   //runApp(const InicioScreen());
@@ -18,7 +22,7 @@ class InicioScreen extends StatelessWidget {
         title: Text('María Troncatti'),
         backgroundColor: Colors.yellow,
         actions: <Widget>[
-          Text("Persona"),
+          const Text("Persona"),
           PopupMenuButton(
             icon: Icon(Icons.person),
             itemBuilder: (BuildContext context) {
@@ -64,8 +68,11 @@ class InicioScreen extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      // Acción cuando se presiona el botón
-                    },
+                      Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegistroAsistenciaScreen()),
+                );
+                },
                     icon: Column(
                       children: [
                         Image.asset('assets/images/1.png'),
@@ -76,6 +83,7 @@ class InicioScreen extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       // Acción cuando se presiona el botón
+                       
                     },
                     icon: Column(
                       children: [
@@ -87,6 +95,10 @@ class InicioScreen extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       // Acción cuando se presiona el botón
+                      Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ModuloConfiguracion()),
+                );
                     },
                     icon: Column(
                       children: [
