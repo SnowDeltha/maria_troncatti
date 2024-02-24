@@ -96,7 +96,7 @@ class InicioScreen extends StatelessWidget {
                     icon: Column(
                       children: [
                         Image.asset('assets/images/2.png'),
-                        Text('Generar Reporte'),
+                        Text('Pantallas'),
                       ],
                     ),
                   ),

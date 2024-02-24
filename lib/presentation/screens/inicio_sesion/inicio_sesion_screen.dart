@@ -1,13 +1,13 @@
 import 'dart:convert';
-import 'package:go_router/go_router.dart';
+//import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+//import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/src/widgets/navigator.dart';
-import 'package:widgets_app/presentation/screens/home/home_screen.dart';
-import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
-import 'package:widgets_app/config/menu/menu_items.dart';
-import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
+//import 'package:widgets_app/presentation/screens/home/home_screen.dart';
+//import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
+//import 'package:widgets_app/config/menu/menu_items.dart';
+//import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
 import '../../../api/ConsumoApi.dart';
 import 'package:widgets_app/presentation/screens/pantalla_inicio/Inicio_screen.dart';
 
