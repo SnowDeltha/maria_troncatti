@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 
 class AdministracionUsuariosScreen extends StatefulWidget {
   static const String name = 'administracion_usuarios_screen';
@@ -34,8 +35,8 @@ class _AdministracionUsuariosScreenState extends State<AdministracionUsuariosScr
 
         body: Column(
           children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(
+          const Padding(
+            padding: EdgeInsets.symmetric(
               vertical: 30,
               horizontal: 0,
             ),
@@ -105,6 +106,10 @@ class BotonPersonalizado2 extends StatelessWidget {
         color: Colors.green,
         child: InkWell(
           onTap: () {   
+            Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ModuloConfiguracion()),
+                );
 
             
           },

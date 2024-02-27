@@ -102,11 +102,7 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
               ),
             ),
 
-            const SizedBox(
-              width: 0,
-              height: 200,
-            ),
-
+            const SizedBox(height: 160,),
             //Pie de página
             Container(
               color: Colors.green,
@@ -118,6 +114,8 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
+
+
           ],
         ),
       ),

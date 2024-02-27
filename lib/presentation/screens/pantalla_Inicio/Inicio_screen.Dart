@@ -21,23 +21,23 @@ class InicioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('María Troncatti'),
+        title: const Text('María Troncatti'),
         backgroundColor: Colors.yellow,
         actions: <Widget>[
           const Text("Persona"),
           PopupMenuButton(
-            icon: Icon(Icons.person),
+            icon: const Icon(Icons.person),
             itemBuilder: (BuildContext context) {
               return [
-                PopupMenuItem(
+                const PopupMenuItem(
                   child: Text('Perfil'),
                   value: 'Perfil',
                 ),
-                PopupMenuItem(
+                const PopupMenuItem(
                   child: Text('Acerca de'),
                   value: 'Acerca de',
                 ),
-                PopupMenuItem(
+                const PopupMenuItem(
                   child: Text('Cerrar Sesión'),
                   value: 'Cerrar Sesión',
                 ),
@@ -50,7 +50,7 @@ class InicioScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AcercaScreen(),
+                    builder: (context) => const AcercaScreen(),
                   ),
                 );
               }
@@ -72,13 +72,13 @@ class InicioScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RegistroAsistenciaScreen()),
+                  MaterialPageRoute(builder: (context) => const ModuloAsistenciaScreen()),
                 );
                 },
                     icon: Column(
                       children: [
                         Image.asset('assets/images/1.png'),
-                        Text('Asistencia'),
+                        const Text('Asistencia'),
                       ],
                     ),
                   ),
@@ -86,17 +86,16 @@ class InicioScreen extends StatelessWidget {
                     onPressed: () {
                       // Acción cuando se presiona el botón
 
-                      
                       Navigator.push(
                        context,
-                       MaterialPageRoute(builder: (context) => HomeScreen()),
+                       MaterialPageRoute(builder: (context) => const HomeScreen()),
                         );
                        
                     },
                     icon: Column(
                       children: [
                         Image.asset('assets/images/2.png'),
-                        Text('Pantallas'),
+                        const Text('Pantallas'),
                       ],
                     ),
                   ),
@@ -105,13 +104,13 @@ class InicioScreen extends StatelessWidget {
                       // Acción cuando se presiona el botón
                       Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ModuloConfiguracion()),
+                  MaterialPageRoute(builder: (context) => const ModuloConfiguracion()),
                 );
                     },
                     icon: Column(
                       children: [
                         Image.asset('assets/images/3.png'),
-                        Text('Administrador'),
+                        const Text('Administrador'),
                       ],
                     ),
                   ),
@@ -123,8 +122,8 @@ class InicioScreen extends StatelessWidget {
           Container(
             color: Colors.green,
             width: double.infinity,
-            padding: EdgeInsets.all(10),
-            child: Text(
+            padding: const EdgeInsets.all(10),
+            child: const Text(
               '©2024 Instituto Tecnológico Superior Japón',
               style: TextStyle(fontSize: 16, color: Colors.white),
               textAlign: TextAlign.center,

@@ -34,7 +34,7 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Administracion Usuarios'),
+        title: const Text('Administracion Aulas'),
         backgroundColor: Colors.yellow,
         
       ),
