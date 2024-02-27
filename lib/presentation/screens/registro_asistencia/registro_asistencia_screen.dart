@@ -63,9 +63,6 @@ class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
 
           backgroundColor: Colors.yellow,
           ),
-
-
-
         body: Column(
           children: <Widget>[
           Padding(
@@ -122,12 +119,7 @@ class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
 
           const BotonPersonalizado2(),
 
-           const Expanded(
-            child: SizedBox(
-                 width: 0,
-                 height: 10,
-               ),
-           ),
+           const Expanded(child: SizedBox()),
 
           
           // Pie de página

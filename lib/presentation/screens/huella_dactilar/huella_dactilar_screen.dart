@@ -88,15 +88,14 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
         _isAuthenticating = false;
       });
 
-      if(_isAuthenticating = true){
+      if (_isAuthenticating = true) {
         Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => InicioScreen()),
-                );
-      }else{
+          context,
+          MaterialPageRoute(builder: (context) => InicioScreen()),
+        );
+      } else {
         print('Error con la huella');
       }
-      
     } on PlatformException catch (e) {
       print(e);
       setState(() {
@@ -133,12 +132,12 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
         _authorized = 'Authenticating';
       });
 
-      if(_isAuthenticating = true){
+      if (_isAuthenticating = true) {
         Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => InicioScreen()),
-                );
-      }else{
+          context,
+          MaterialPageRoute(builder: (context) => InicioScreen()),
+        );
+      } else {
         print('Error con la huella');
       }
     } on PlatformException catch (e) {
@@ -161,59 +160,51 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: ListView(
-          padding: const EdgeInsets.only(top: 30),
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 50,
-                  ),
-                  child: Image.asset('assets/images/Escuela.png'),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Text(
-                    'Gestor de Asistencia',
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(''),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Image.asset('assets/images/Escuela.png'),
+
+            const SizedBox(height: 50,),
+
+            const Text(
+                    'Registro de Asistencias',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                       color: Colors.orange,
+                    
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 50,
-                    horizontal: 80,
-                  ),
-                  child: Column(
-                    children: [
 
+            const SizedBox(height: 100,),
 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
 
-
-                      Column(
-                        children: <Widget>[
-                          Column(
-                            children: [
-
-
-                              IconButton(
+                Column(
+                  children: <Widget>[
+                    IconButton(
                                 onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => InicioSesionScreen()),);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            InicioSesionScreen()),
+                                  );
                                 },
                                 iconSize: 50,
                                 icon: const Icon(Icons.person),
                                 style: const ButtonStyle(
                                   backgroundColor:
                                       MaterialStatePropertyAll(Colors.green),
-                                  iconColor: MaterialStatePropertyAll(Colors.white),
+                                  iconColor:
+                                      MaterialStatePropertyAll(Colors.white),
                                 ),
                               ),
                               const Text(
@@ -228,22 +219,27 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              
+                  ],
+
+                ),
 
 
-                              SizedBox(height: 40,),
+                const SizedBox(width: 50,),
 
-
-                              IconButton(
+                Column(
+                  children: <Widget>[
+                    IconButton(
                                 onPressed: _authenticate,
                                 iconSize: 50,
                                 icon: const Icon(Icons.fingerprint),
                                 style: const ButtonStyle(
                                   backgroundColor:
                                       MaterialStatePropertyAll(Colors.green),
-                                  iconColor: MaterialStatePropertyAll(Colors.white),
+                                  iconColor:
+                                      MaterialStatePropertyAll(Colors.white),
                                 ),
                               ),
-
                               const Text(
                                 'Huella Dactilar',
                                 style: TextStyle(
@@ -256,20 +252,36 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ],
-                          ),
-                          
-                          
-                        ],
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
+                
+                 
               ],
             ),
+
+
+            const Expanded(child: SizedBox()),
+
+            
+
+          
+          // Pie de página
+          Container(
+            color: Colors.green,
+            width: double.infinity,
+            padding: const EdgeInsets.all(10),
+            child: const Text(
+              '©2024 Instituto Tecnológico Superior Japón',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
+
           ],
         ),
+
       ),
+      
     );
   }
 }

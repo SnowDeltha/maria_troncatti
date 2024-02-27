@@ -24,131 +24,142 @@ class InicioSesionScreen extends StatefulWidget {
 
 class _InicioSesionScreenState extends State<InicioSesionScreen> {
   //final apiurl = '';
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text(''),
-      //   backgroundColor: Colors.yellow,
-      // ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 50,
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+
+          children: <Widget>[
+            const SizedBox(
+              width: 0,
+              height: 120,
             ),
-            child: Image.asset('assets/images/Escuela.png'),
-          ),
 
-          const Text(
-            'Gestor de Asistencia',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-              color: Colors.orange,
+            Image.asset('assets/images/Escuela.png'),
+
+            const SizedBox(
+              width: 0,
+              height: 50,
             ),
-          ),
 
-          const SizedBox(
-            width: 0,
-            height: 20,
-          ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
+            const Text(
+              'Gestor de Asistencia',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+                color: Colors.orange,
+              ),
             ),
-            child: TextField(
-              controller: _emailController,
-              enableInteractiveSelection: false,
-              obscureText: false,
-              autofocus: true,
-              decoration: InputDecoration(
-                  //hintText: 'Usuario',
-                  
-                  labelText: ' Usuario',
-                  floatingLabelAlignment: FloatingLabelAlignment.center,
-                  //suffixIcon: Icon(Icons.verified_user),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50.0))),
+
+          
+
+            //TexFormField personalizado para el usuario/contraseña
+
+            const SizedBox(
+              width: 0,
+              height: 50,
             ),
-          ),
 
-          // -------------------Bonton de Acceder para enviar los datos------------------------------------------
+            //TexFormField personalizado para la usuario/email
 
-          const SizedBox(
-            width: 0,
-            height: 20,
-          ),
+            _inputUser(),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 0,
-              horizontal: 20,
+            const SizedBox(
+              width: 0,
+              height: 30,
             ),
-            child: TextField(
-              controller: _passwordController,
-              enableInteractiveSelection: false,
-              obscureText: true,
-              autofocus: true,
-              decoration: InputDecoration(
-                  //hintText: 'Usuario',
-                  labelText: ' Contraseña',
-                  floatingLabelAlignment: FloatingLabelAlignment.center,
-                  //suffixIcon: Icon(Icons.verified_user),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50.0))),
+
+            //TexFormField personalizado para la contraseña
+
+            _inputPassword(),
+
+            const SizedBox(
+              width: 0,
+              height: 50,
             ),
-          ),
 
-          const SizedBox(
-            width: 0,
-            height: 20,
-          ),
-
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Material(
-              color: Colors.green,
-              child: InkWell(
-                onTap: () {
-                  //Navigator.pop(context);
-                  onSubmit();
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text('Accerder',
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.yellow,
-                      )),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Material(
+                color: Colors.green,
+                child: InkWell(
+                  onTap: () {
+                    //Navigator.pop(context);
+                    onSubmit();
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Text('    Accerder    ',
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.yellow,),),
+                  ),
                 ),
               ),
             ),
-          ),
 
-          const Expanded(
-            child: Divider(
-              thickness: 0.5,
-              color: Colors.white,
+            const SizedBox(
+              width: 0,
+              height: 200,
             ),
-          ),
 
-           //Pie de página
-          //  Container(
-          //    color: Colors.green,
-          //    width: double.infinity,
-          //    padding: const EdgeInsets.all(10),
-          //    child: const Text(
-          //      '©2024 Instituto Tecnológico Superior Japón',
-          //      style: TextStyle(fontSize: 16, color: Colors.white),
-          //      textAlign: TextAlign.center,
-          //    ),
-          //  ),
-        ],
+            //Pie de página
+            Container(
+              color: Colors.green,
+              width: double.infinity,
+              padding: const EdgeInsets.all(10),
+              child: const Text(
+                '©2024 Instituto Tecnológico Superior Japón',
+                style: TextStyle(fontSize: 16, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  //Metodo para enviar el user
+  Container _inputUser() {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: Colors.grey)),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      margin: const EdgeInsets.symmetric(horizontal: 30),
+      child: TextFormField(
+        controller: _emailController,
+        enableInteractiveSelection: false,
+        obscureText: false,
+        style: const TextStyle(fontSize: 15),
+        decoration: const InputDecoration(
+            hintText: "                            Usuario",
+            border: InputBorder.none),
+      ),
+    );
+  }
+
+//Metodo para enviar el password
+  Container _inputPassword() {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: Colors.grey)),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      margin: const EdgeInsets.symmetric(horizontal: 30),
+      child: TextFormField(
+        controller: _passwordController,
+        enableInteractiveSelection: false,
+        obscureText: true,
+        style: const TextStyle(fontSize: 15),
+        decoration: const InputDecoration(
+            hintText: "                         Contraseña",
+            border: InputBorder.none),
       ),
     );
   }
@@ -166,15 +177,15 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
 
     if (body['message'] != 'Informacion invalida') {
       print('exitoso');
-       SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString('token', body['token']);
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(body['token']),
-    ));
-        Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => InicioScreen()),
-                );
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      await preferences.setString('token', body['token']);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(body['token']),
+      ));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const InicioScreen()),
+      );
     } else {
       print('Error');
     }
