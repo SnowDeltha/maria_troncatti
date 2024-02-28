@@ -12,7 +12,9 @@ class ModuloConfiguracion extends StatefulWidget {
 }
 
 class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
+
   @override
+
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -21,79 +23,93 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
         appBar: AppBar(
           title: const Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: 70,
+              horizontal:70,
             ),
-            child: Text(
-              'Modulo de Configuracion',
-              style: TextStyle(),
+            child: Text('Modulo de Configuracion',
+            style: TextStyle(
+            ),
             ),
           ),
+
           backgroundColor: Colors.yellow,
-        ),
+          ),
         body: Column(
           children: <Widget>[
+
+
             const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Text(
-                'Modulo de Configuracion',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  color: Colors.orange,
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Text(
+                    'Modulo de Configuracion',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.orange,
+                    
+                    ),
+                  ),
                 ),
-              ),
+
+
+
+                const SizedBox(width: 0,height: 50,),
+                
+
+                const BotonPersonalizado1(),
+
+
+                const SizedBox(width: 0,height: 20,),
+
+                
+                const BotonPersonalizado2(),
+
+
+                const SizedBox(width: 0,height: 20,),
+
+
+                const BotonPersonalizado3(),
+
+
+                const SizedBox(width: 0,height: 20,),
+
+               
+                
+                
+
+                const SizedBox(width: 0,height: 250,),
+
+
+                //Boton Volver
+
+                const BotonPersonalizado4(),
+                
+              
+                
+
+                const Expanded(child: SizedBox(width: 0,height: 10,),),
+                
+
+              
+          
+          // Pie de página
+          Container(
+            color: Colors.green,
+            width: double.infinity,
+            padding: const EdgeInsets.all(10),
+            child: const Text(
+              '©2024 Instituto Tecnológico Superior Japón',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+              textAlign: TextAlign.center,
             ),
-
-            const SizedBox(
-              width: 0,
-              height: 50,
-            ),
-
-            const BotonPersonalizado1(),
-
-            const SizedBox(
-              width: 0,
-              height: 20,
-            ),
-
-            const BotonPersonalizado2(),
-
-            const SizedBox(
-              width: 0,
-              height: 20,
-            ),
-
-            const BotonPersonalizado3(),
-
-            const SizedBox(
-              width: 0,
-              height: 200,
-            ),
-
-            //Boton Volver
-
-            const BotonPersonalizado4(),
-            const Expanded(
-              child: SizedBox(),
-            ),
-
-            // Pie de página
-            Container(
-              color: Colors.green,
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              child: const Text(
-                '©2024 Instituto Tecnológico Superior Japón',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
+          ),
+        ],
         ),
       ),
     );
   }
 }
+
+
 
 class BotonPersonalizado1 extends StatelessWidget {
   const BotonPersonalizado1({super.key});
@@ -105,13 +121,16 @@ class BotonPersonalizado1 extends StatelessWidget {
       child: Material(
         color: Colors.black26,
         child: InkWell(
-          onTap: () {
+          onTap: () { 
+
             Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AdministracionUsuariosScreen()),
-            );
+                  context,
+                  MaterialPageRoute(builder: (context) => AdministracionUsuariosScreen()),
+                ); 
+            
+             
           },
+
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text('Administración de usuarios',
@@ -126,6 +145,8 @@ class BotonPersonalizado1 extends StatelessWidget {
   }
 }
 
+
+
 class BotonPersonalizado2 extends StatelessWidget {
   const BotonPersonalizado2({super.key});
 
@@ -136,13 +157,16 @@ class BotonPersonalizado2 extends StatelessWidget {
       child: Material(
         color: Colors.black26,
         child: InkWell(
-          onTap: () {
+          onTap: () { 
+
             Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AdministracioAulasScreen()),
-            );
+                  context,
+                  MaterialPageRoute(builder: (context) => AdministracioAulasScreen()),
+                ); 
+            
+             
           },
+
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text('   Administrador de aulas    ',
@@ -157,6 +181,8 @@ class BotonPersonalizado2 extends StatelessWidget {
   }
 }
 
+
+
 class BotonPersonalizado3 extends StatelessWidget {
   const BotonPersonalizado3({super.key});
 
@@ -167,7 +193,12 @@ class BotonPersonalizado3 extends StatelessWidget {
       child: Material(
         color: Colors.black26,
         child: InkWell(
-          onTap: () {},
+          onTap: () { 
+
+            
+             
+          },
+
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text('  Backup de base de datos ',
@@ -182,6 +213,8 @@ class BotonPersonalizado3 extends StatelessWidget {
   }
 }
 
+
+
 class BotonPersonalizado4 extends StatelessWidget {
   const BotonPersonalizado4({super.key});
   @override
@@ -191,12 +224,17 @@ class BotonPersonalizado4 extends StatelessWidget {
       child: Material(
         color: Colors.green,
         child: InkWell(
-          onTap: () {
+          onTap: () { 
+
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => InicioScreen()),
-            );
+                  context,
+                  MaterialPageRoute(builder: (context) => InicioScreen()),
+                );
+             
           },
+
+          
+
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text('  Volver  ',
@@ -210,3 +248,17 @@ class BotonPersonalizado4 extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

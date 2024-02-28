@@ -1,63 +1,98 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
+import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 import 'package:widgets_app/presentation/screens/registro_asistencia/registro_asistencia_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_asistencia/modulo_asistencia_screen.dart';
 
 import 'package:widgets_app/presentation/screens/home/home_screen.dart';
 
-
 //void main() {
-  //runApp(const InicioScreen());
+//runApp(const InicioScreen());
 //}
 
 class InicioScreen extends StatelessWidget {
-
   static const name = 'Inicio';
-  
+
   const InicioScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('María Troncatti'),
+    return MaterialApp(
+      debugShowCheckedModeBanner: true,
+      home: Scaffold(
+        appBar: AppBar(
+        title: const Text(''),
         backgroundColor: Colors.yellow,
         actions: <Widget>[
-          const Text("Persona"),
-          PopupMenuButton(
-            icon: const Icon(Icons.person),
-            itemBuilder: (BuildContext context) {
-              return [
-                const PopupMenuItem(
-                  child: Text('Perfil'),
-                  value: 'Perfil',
-                ),
-                const PopupMenuItem(
-                  child: Text('Acerca de'),
-                  value: 'Acerca de',
-                ),
-                const PopupMenuItem(
-                  child: Text('Cerrar Sesión'),
-                  value: 'Cerrar Sesión',
-                ),
-              ];
-            },
-            onSelected: (value) {
-              if (value == 'Perfil') {
-                // Realiza acciones para la opción 1
-              } else if (value == 'Acerca de') {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AcercaScreen(),
-                  ),
-                );
-              }
-            },
-          )
+
+          Expanded(
+            child: Row(
+            children: <Widget>[
+
+              const SizedBox(width:  15),
+
+              Image.asset('assets/images/Escuela.png'),
+
+              const SizedBox(width:  70),
+
+              const Text("Nombre del Usuario"),
+
+              PopupMenuButton(
+                icon: const CircleAvatar(backgroundImage: AssetImage('assets/images/buho2.png')),
+                itemBuilder: (BuildContext context) {
+                  return [
+                     PopupMenuItem(
+                      child: Text('Perfil'),
+                      value: 'Perfil',
+                      onTap: () {
+
+                        Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const PerfilScreen()),
+                        ); 
+                        
+                      },
+                      ),
+                       PopupMenuItem(
+                        child:  Text('Acerca de'),
+                        value: 'Acerca de',
+                        onTap: () {
+                          Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const AcercaScreen()),
+                        ); 
+                        },
+                        ),
+
+                         PopupMenuItem(
+                          child: Text('Cerrar Sesión'),
+                          value: 'Cerrar Sesión',
+                          onTap: () {
+                            Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const InicioScreen()),
+                        ); 
+                          },
+                          ),
+                          ];
+                          },
+                          onSelected: (value) {
+                            if (value == 'Perfil') {
+                              //Realiza la accion de boton
+                            } else if (value == 'Acerca de') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const AcercaScreen(),
+                                ),
+                              );
+                            }
+                          },
+               )
+             ],
+            )),
+
         ],
       ),
+
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -130,6 +165,8 @@ class InicioScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+
       ),
     );
   }
