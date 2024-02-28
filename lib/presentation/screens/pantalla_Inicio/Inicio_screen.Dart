@@ -19,7 +19,7 @@ class InicioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
         title: const Text(''),
@@ -34,7 +34,9 @@ class InicioScreen extends StatelessWidget {
 
               Image.asset('assets/images/Escuela.png'),
 
-              const SizedBox(width:  70),
+              const Expanded(child: SizedBox()),
+
+             // const SizedBox(width:  70),
 
               const Text("Nombre del Usuario"),
 
@@ -86,7 +88,8 @@ class InicioScreen extends StatelessWidget {
                               );
                             }
                           },
-               )
+               ) 
+               //const Sizebox(width :10),
              ],
             )),
 
