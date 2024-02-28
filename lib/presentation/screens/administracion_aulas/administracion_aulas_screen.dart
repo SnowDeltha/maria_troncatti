@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
+import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
+import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
+import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 import '../../../api/ConsumoApi.dart';
 import '../../../model/apirespuesta.dart';
 import '../../../util/AulasModelos.dart';
@@ -32,27 +36,117 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
   }
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Administracion Aulas'),
+    return MaterialApp(
+      debugShowCheckedModeBanner: true,
+      home: Scaffold(
+        appBar: AppBar(
+        title: const Text(''),
         backgroundColor: Colors.yellow,
-        
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        actions: <Widget>[
+
           Expanded(
-            child: Center(
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                padding: const EdgeInsets.all(8.0),
-                children: const [
+            child: Row(
+            children: <Widget>[
+
+              const SizedBox(width:  15),
+
+              Image.asset('assets/images/Escuela.png'),
+
+              const SizedBox(width:  70),
+
+              const Text("Nombre del Usuario"),
+
+              PopupMenuButton(
+                icon: const CircleAvatar(backgroundImage: AssetImage('assets/images/buho2.png')),
+                itemBuilder: (BuildContext context) {
+                  return [
+                     PopupMenuItem(
+                      child: Text('Perfil'),
+                      value: 'Perfil',
+                      onTap: () {
+
+                        Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const PerfilScreen()),
+                        ); 
+                        
+                      },
+                      ),
+                       PopupMenuItem(
+                        child:  Text('Acerca de'),
+                        value: 'Acerca de',
+                        onTap: () {
+                          Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const AcercaScreen()),
+                        ); 
+                        },
+                        ),
+
+                         PopupMenuItem(
+                          child: Text('Cerrar Sesión'),
+                          value: 'Cerrar Sesión',
+                          onTap: () {
+                            Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const InicioScreen()),
+                        ); 
+                          },
+                          ),
+                          ];
+                          },
+                          onSelected: (value) {
+                            if (value == 'Perfil') {
+                              //Realiza la accion de boton
+                            } else if (value == 'Acerca de') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const AcercaScreen(),
+                                ),
+                              );
+                            }
+                          },
+               )
+             ],
+            )),
+
+        ],
+      ),
+
+      body: Column(
+        children: [
+
+          const SizedBox(height: 50,),
+
+          
+
+            const Text(
+                    'Administración de Aulas',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                      color: Colors.orange,
+                    
+                    ),
+                  ),
+
                   
-                ],
-              ),
-            ),
-          ),
+               
+                
+                
+
+                const SizedBox(width: 0,height: 250,),
+
+
+                //Boton Volver
+                const Expanded(child: SizedBox()),
+
+                const _BotonVolver(),
+
+                const SizedBox(width: 0,height: 10,),
+
+
+                  
+
+          
           // Pie de página
           Container(
             color: Colors.green,
@@ -66,144 +160,14 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
           ),
         ],
       ),
-    );
-  }
-  
-
-}
-
-
-class DataTableRegistro extends StatelessWidget {
-  const DataTableRegistro({super.key});
-
-  @override
-  Widget build(BuildContext context){
-    return DataTable(
-      columns: const <DataColumn>[
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Nombre',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'A',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'FJ',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ), 
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'FI',
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-          ),
-        ),
-      ],
-      rows: const <DataRow>[
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Maria')),
-            DataCell(Text('x')),
-            DataCell(Text('')),
-            DataCell(Text('')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Jesus')),
-            DataCell(Text('')),
-            DataCell(Text('x')),
-            DataCell(Text('')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Jose')),
-            DataCell(Text('')),
-            DataCell(Text('')),
-            DataCell(Text('x')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Judas')),
-            DataCell(Text('')),
-            DataCell(Text('x')),
-            DataCell(Text('')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Judas')),
-            DataCell(Text('')),
-            DataCell(Text('x')),
-            DataCell(Text('')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Judas')),
-            DataCell(Text('')),
-            DataCell(Text('x')),
-            DataCell(Text('')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Judas')),
-            DataCell(Text('')),
-            DataCell(Text('x')),
-            DataCell(Text('')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Judas')),
-            DataCell(Text('')),
-            DataCell(Text('x')),
-            DataCell(Text('')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Judas')),
-            DataCell(Text('')),
-            DataCell(Text('x')),
-            DataCell(Text('')),
-          ],
-        ),
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text('Judas')),
-            DataCell(Text('')),
-            DataCell(Text('x')),
-            DataCell(Text('')),
-            
-          ],
-        ),
-
-      ],
+      ),
     );
   }
 }
 
-class BotonPersonalizado2 extends StatelessWidget {
-  const BotonPersonalizado2({super.key});
 
+class _BotonVolver extends StatelessWidget {
+  const _BotonVolver ({super.key});
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -211,14 +175,20 @@ class BotonPersonalizado2 extends StatelessWidget {
       child: Material(
         color: Colors.green,
         child: InkWell(
-          onTap: () {   
-          },
+          onTap: () { 
 
+            Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ModuloConfiguracion()),
+                );
+             
+          },
+          
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text('Guardar y salir',
+            child: Text('  Volver  ',
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 22,
                   color: Colors.yellow,
                 )),
           ),
@@ -227,4 +197,3 @@ class BotonPersonalizado2 extends StatelessWidget {
     );
   }
 }
-    

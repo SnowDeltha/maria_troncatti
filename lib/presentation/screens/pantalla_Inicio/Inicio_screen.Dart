@@ -130,7 +130,7 @@ class InicioScreen extends StatelessWidget {
                     icon: Column(
                       children: [
                         Image.asset('assets/images/2.png'),
-                        const Text('Pantallas'),
+                        const Text('Todas las Pantallas'),
                       ],
                     ),
                   ),

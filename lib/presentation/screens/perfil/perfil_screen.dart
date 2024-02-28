@@ -107,8 +107,15 @@ class PerfilScreen extends StatelessWidget {
                     ),
                   ),
 
-
                   const Expanded(child: SizedBox()),
+
+                  const BotonPersonalizado4(),
+
+                  const SizedBox(width: 0,height: 10,),
+
+
+                  
+
           
           // Pie de página
           Container(
@@ -123,6 +130,38 @@ class PerfilScreen extends StatelessWidget {
           ),
         ],
       ),
+      ),
+    );
+  }
+}
+
+class BotonPersonalizado4 extends StatelessWidget {
+  const BotonPersonalizado4({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(50),
+      child: Material(
+        color: Colors.green,
+        child: InkWell(
+          onTap: () { 
+
+            Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => InicioScreen()),
+                );
+             
+          },
+          
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Text('  Volver  ',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.yellow,
+                )),
+          ),
+        ),
       ),
     );
   }
