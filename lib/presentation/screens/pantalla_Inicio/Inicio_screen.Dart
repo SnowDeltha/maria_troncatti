@@ -35,11 +35,6 @@ class InicioScreen extends StatelessWidget {
               Image.asset('assets/images/Escuela.png'),
 
               const Expanded(child: SizedBox()),
-<<<<<<< HEAD
-=======
-
-             // const SizedBox(width:  70),
->>>>>>> 4378e02060d2bbe29710f695f6bfb312051cf073
 
               const Text("Nombre del Usuario"),
 

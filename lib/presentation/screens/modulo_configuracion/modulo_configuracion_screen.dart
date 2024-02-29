@@ -88,6 +88,8 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
             )),
           ],
         ),
+
+
         body: Column(
           children: [
             const SizedBox(
@@ -130,13 +132,7 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
 
                
 
-                //Boton Volver
-                const Expanded(child: SizedBox()),
-
-                const BotonPersonalizado4(),
-
-                const SizedBox(width: 0,height: 10,),
-
+                
 
                   
 
@@ -144,31 +140,7 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
           // Pie de página
           
 
-            const SizedBox(
-              width: 0,
-              height: 50,
-            ),
-
-            const _BotonAdministracionUsuarios(),
-
-            const SizedBox(
-              width: 0,
-              height: 20,
-            ),
-
-            const _BotonAdministracionAulas(),
-
-            const SizedBox(
-              width: 0,
-              height: 20,
-            ),
-
-            const _BotonBackupBaseDatos(),
-
-            const SizedBox(
-              width: 0,
-              height: 20,
-            ),
+            
 
             const Expanded(child: SizedBox()),
 

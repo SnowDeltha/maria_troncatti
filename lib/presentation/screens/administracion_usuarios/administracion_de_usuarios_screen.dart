@@ -139,23 +139,19 @@ class _AdministracionUsuariosScreenState extends State<AdministracionUsuariosScr
         ],
       ),
 
-      body: _ListaUsuarios(),
+      body: ListView.builder(
+          itemCount: UsuariosList.length,
+         itemBuilder: (BuildContext context, int index){
+          Users categoria = UsuariosList[index];
+            return Text(
+              '${categoria.nombre}'
+              
+            );
+          },
+        ),
 
       ),
     );
-  }
-
-  ListView _ListaUsuarios() {
-    return ListView.builder(
-        itemCount: UsuariosList.length,
-       itemBuilder: (BuildContext context, int index){
-        Users categoria = UsuariosList[index];
-          return Text(
-            '${categoria.nombre}'
-            
-          );
-        },
-      );
   }
 
 }
