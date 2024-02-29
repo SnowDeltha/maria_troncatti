@@ -125,25 +125,21 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
                 const SizedBox(width: 0,height: 20,),
 
 
-                const _BotonBackupBaseDatos(),
+                //const _BotonBackupBaseDatos(),
 
 
-                const SizedBox(width: 0,height: 20,),
+                
 
                
                 
                 
 
-                const SizedBox(width: 0,height: 250,),
-
+               
 
                 //Boton Volver
-
-                const BotonPersonalizado4(),
-
                 const Expanded(child: SizedBox()),
 
-                  
+                const BotonPersonalizado4(),
 
                 const SizedBox(width: 0,height: 10,),
 
