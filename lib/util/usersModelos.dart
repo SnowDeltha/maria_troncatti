@@ -1,6 +1,6 @@
 class Users {
   
-  //final int id;
+  final int? id;
   final String? nombre;
   final String? apellido;
   final String? cargo;
@@ -10,7 +10,7 @@ class Users {
 
   
   const Users({
-    //required this.id,
+     this.id,
      this.nombre,
      this.apellido,
      this.cargo,
@@ -21,7 +21,7 @@ class Users {
 
   factory Users.fromJson(Map<String, dynamic> json) {
     return Users(
-      //id: json['id'],
+      id: json['id'],
       nombre: json['nombre'],
       apellido: json['apellido'],
       cargo: json['cargo'],
@@ -29,5 +29,5 @@ class Users {
       email: json['email'],
       password: json['password'],
     );
-  }
+  } 
 }

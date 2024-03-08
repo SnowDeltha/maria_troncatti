@@ -86,6 +86,13 @@ const appMenuItems = <MenuItem>[
     icon: Icons.settings
   ),
 
+  MenuItem(
+    title: 'Lista de todos los Registros', 
+    subTitle: 'Lista de registros de todas las aulas', 
+    link: '/Registro-Asistencias', 
+    icon: Icons.settings
+  ),
+
   
 
 

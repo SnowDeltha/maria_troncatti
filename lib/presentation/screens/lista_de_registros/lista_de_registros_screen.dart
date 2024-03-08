@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
-import 'package:widgets_app/presentation/screens/home/home_screen.dart';
-import 'package:widgets_app/presentation/screens/lista_de_registros/lista_de_registros_screen.dart';
-import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
+import 'package:widgets_app/presentation/screens/registro_asistencia/registro_asistencia_screen.dart';
 
-class ModuloAsistenciaScreen extends StatefulWidget {
-  static const String name = 'modulo_asistencia_screen';
-  const ModuloAsistenciaScreen({super.key});
+class RegistroAsistencias extends StatefulWidget {
+  static const String name = 'Registro-Asistencias';
+  const RegistroAsistencias({super.key});
 
   @override
-  State<ModuloAsistenciaScreen> createState() => _ModuloAsistenciaScreenState();
+  State<RegistroAsistencias> createState() => _RegistroAsistenciasState();
 }
 
-class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
+class _RegistroAsistenciasState extends State<RegistroAsistencias> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+     return MaterialApp(
       debugShowCheckedModeBanner: true,
       home: Scaffold(
         appBar: AppBar(
@@ -100,7 +98,7 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
           
 
             const Text(
-                    'Modulo de Asistencia',
+                    'Lista de Registros',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 28,
@@ -118,11 +116,10 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
 
 
                 //Boton Volver
-                const Expanded(child: SizedBox()),
-
-                const _ListaDeRegistros(),
-
+                const _CrearNuevoRegistro(),
                 const SizedBox(width: 0,height: 10,),
+
+                const Expanded(child: SizedBox()),
 
                 const _BotonVolverInicio(),
 
@@ -183,8 +180,9 @@ class _BotonVolverInicio extends StatelessWidget {
   }
 }
 
-class _ListaDeRegistros extends StatelessWidget {
-  const _ListaDeRegistros ();
+
+class _CrearNuevoRegistro extends StatelessWidget {
+  const _CrearNuevoRegistro ();
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -196,14 +194,14 @@ class _ListaDeRegistros extends StatelessWidget {
 
             Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const RegistroAsistencias()),
+                  MaterialPageRoute(builder: (context) => const RegistroAsistenciaScreen())
                 );
              
           },
           
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text('Lista de Registros',
+            child: Text('  Crear Nuevo Registro  ',
                 style: TextStyle(
                   fontSize: 22,
                   color: Colors.yellow,
@@ -214,5 +212,6 @@ class _ListaDeRegistros extends StatelessWidget {
     );
   }
 }
+
 
 

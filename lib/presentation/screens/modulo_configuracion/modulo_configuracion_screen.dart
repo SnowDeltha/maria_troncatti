@@ -3,6 +3,7 @@ import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart'
 import 'package:widgets_app/presentation/screens/administracion_usuarios/administracion_de_usuarios_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
+import 'package:widgets_app/presentation/screens/administracion_estudiantes/administrador_estudiantes_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 
 class ModuloConfiguracion extends StatefulWidget {
@@ -12,6 +13,7 @@ class ModuloConfiguracion extends StatefulWidget {
   @override
   State<ModuloConfiguracion> createState() => _ModuloConfiguracionState();
 }
+
 
 class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
   @override
@@ -121,21 +123,21 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
                 const SizedBox(width: 0,height: 20,),
 
 
-                //const _BotonBackupBaseDatos(),
+                const _BotonEstudiantes(),
 
 
+                const SizedBox(width: 0,height: 20,),
+
+
+                
+
+        
+                
                 
 
                
-                
-                
 
-               
-
-                
-
-                  
-
+          
           
           // Pie de página
           
@@ -233,9 +235,8 @@ class _BotonAdministracionAulas extends StatelessWidget {
   }
 }
 
-class _BotonBackupBaseDatos extends StatelessWidget {
-  const _BotonBackupBaseDatos();
-
+class _BotonEstudiantes extends StatelessWidget {
+  const _BotonEstudiantes();
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -243,10 +244,15 @@ class _BotonBackupBaseDatos extends StatelessWidget {
       child: Material(
         color: Colors.black26,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AdministracionEstudiantesScreen()),
+            );
+          },
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text('  Backup de base de datos ',
+            child: Text('   Estudiantes    ',
                 style: TextStyle(
                   fontSize: 22,
                   color: Colors.white,
@@ -257,6 +263,9 @@ class _BotonBackupBaseDatos extends StatelessWidget {
     );
   }
 }
+
+
+
 
 class BotonPersonalizado4 extends StatelessWidget {
   const BotonPersonalizado4({super.key});

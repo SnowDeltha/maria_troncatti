@@ -1,12 +1,39 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
-import '../../../api/ConsumoApi.dart';
+import 'package:widgets_app/presentation/screens/administracion_aulas/agregar_aulas.dart';
+//import '../../../api/ConsumoApi.dart';
 import '../../../model/apirespuesta.dart';
 import '../../../util/AulasModelos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
+Future<ApiRespuesta> getAulas(apiUrl) async {
+  ApiRespuesta apiRespuesta = ApiRespuesta();
+   final String _url = 'http://192.168.1.7:8000/api/';
+   var fullUrl = _url + apiUrl;
+   final response = await http
+       .get(Uri.parse(fullUrl));
+   if (response.statusCode == 200) {
+     // If the server did return a 200 OK response,
+     // then parse the JSON.
+     apiRespuesta.data = jsonDecode(response.body)['aulas']
+              .map((p) => Aulas.fromJson(p))
+              .toList();
+          apiRespuesta.data as List<dynamic>;
+
+    //return Users.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+   } else {
+     // If the server did not return a 200 OK response,
+     // then throw an exception.
+     throw Exception('Fallo al traer la informacion');
+   }
+   return apiRespuesta;
+}
 
 class AdministracioAulasScreen extends StatefulWidget {
   static const String name = 'administracion_aulas_screen';
@@ -19,10 +46,21 @@ class AdministracioAulasScreen extends StatefulWidget {
 class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
   // ignore: non_constant_identifier_names
 
-  List<dynamic> AulasList = [];
+  /* List<dynamic> AulasList = [];
   Future<void> mostrarCategoria() async {
-    ApiRespuesta res = await CallApi().getAulas('aulas');
+    ApiRespuesta res = await getAulas('aulas');
     if (res.error == null) {
+      setState(() {
+        AulasList = res.data as List<dynamic>;
+      });
+    }
+  } */
+
+  late Future<Aulas> futureAulas;
+  List<dynamic> AulasList = [];
+   Future<void> mostrarAulas() async {
+    ApiRespuesta res =await getAulas('aulas');
+   if (res.error == null) {
       setState(() {
         AulasList = res.data as List<dynamic>;
       });
@@ -31,7 +69,7 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
 
   @override
   void initState() {
-    mostrarCategoria();
+    mostrarAulas();
     super.initState();
   }
 
@@ -113,8 +151,21 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
             )),
           ],
         ),
+
+        /* body: ListView.builder(
+          itemCount: UsuariosList.length,
+         itemBuilder: (BuildContext context, int index){
+          Users categoria = UsuariosList[index];
+            return Text(
+              '${categoria.nombre}'
+              '${categoria.id}'
+              
+            );
+          },
+        ), */
+
         body: Column(
-          children: [
+          children: <Widget>[
             const SizedBox(
               height: 50,
             ),
@@ -128,12 +179,38 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
               ),
             ),
 
-            const SizedBox(
-              width: 0,
-              height: 250,
+            const SizedBox(height: 15),
+            const Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  _ButtonAdd(),
+                ],
+              ),
             ),
 
+            
+
+
+
+            Container(
+              height: 300,
+              width: 200,
+              child: ListView.builder(
+                itemCount: AulasList.length,
+                itemBuilder: (BuildContext context, int index){
+                  Aulas categoria = AulasList[index];
+                  return ListTile(
+                    title: Text('${categoria.nombre_al}'),
+                  );
+                },
+              ),
+            ),
+
+            
+
             //Boton Volver
+            
             const Expanded(child: SizedBox()),
 
             const _BotonVolver(),
@@ -142,6 +219,8 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
               width: 0,
               height: 10,
             ),
+
+            
 
             // Pie de página
             Container(
@@ -182,6 +261,37 @@ class _BotonVolver extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 22,
                   color: Colors.yellow,
+                )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class _ButtonAdd extends StatelessWidget {
+  const _ButtonAdd({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(50),
+      child: Material(
+        color: Colors.orange,
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AgregarAulas()),
+            );
+          },
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+            child: Text(' Agregar ',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
                 )),
           ),
         ),

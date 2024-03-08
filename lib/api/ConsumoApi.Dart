@@ -1,22 +1,26 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../util/AulasModelos.dart';
 import '../model/apirespuesta.dart';
+import '../../config/constants/environment.dart';
+//import 'package:maria_troncatti/lib/config/constants/environment.dart';
+
 
 
 
 /* class CallApi {
-    final String _url = 'http://192.168.1.7:8000/api/';
+    final String Environment.mainUrl = 'http://192.168.1.7:8000/api/';
     postData(data, apiUrl) async {
-    var fullUrl = _url + apiUrl  ;
+    var fullUrl = Environment.mainUrl + apiUrl  ;
     return await http.post(Uri.parse(fullUrl),
         body: jsonEncode(data), headers: _setHeaders());
     } 
   Future<ApiRespuesta> getCategoria(apiUrl) async {
     ApiRespuesta apiRespuesta = ApiRespuesta();
     try {
-      var fullUrl = _url + apiUrl;
+      var fullUrl = Environment.mainUrl + apiUrl;
       String token = await guardarToken();
       final respuesta = await http.get(Uri.parse(fullUrl), headers: {
         'Content-type': 'application/json',
@@ -90,7 +94,7 @@ class CallApi{
   }
 
   putData(data, apiUrl, id) async {
-    var fullUrl = _url + apiUrl + id;
+    var fullUrl = Environment.mainUrl + apiUrl + id;
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('token');
     return await http.put(Uri.parse(fullUrl), body: jsonEncode(data), headers: {
@@ -101,7 +105,7 @@ class CallApi{
   }
 
   getData(apiUrl) async {
-    var fullUrl = _url + apiUrl;
+    var fullUrl = Environment.mainUrl + apiUrl;
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('access_token');
     return await http.get(Uri.parse(fullUrl), headers: {
@@ -112,7 +116,12 @@ class CallApi{
   }
 
 
-   
+
+
+
+
+
+ 
 
 
 
@@ -120,7 +129,7 @@ class CallApi{
   Future<ApiRespuesta> getRegistros(apiUrl) async {
     ApiRespuesta apiRespuesta = ApiRespuesta();
     try {
-      var fullUrl = _url + apiUrl;
+      var fullUrl = Environment.mainUrl + apiUrl;
       //var token = await guardarToken();
       final respuesta = await http.get(Uri.parse(fullUrl), headers: {
         'Content-type': 'application/json',
@@ -158,7 +167,7 @@ class CallApi{
  Future<ApiRespuesta> getAulas(apiUrl) async {
     ApiRespuesta apiRespuesta = ApiRespuesta();
     try {
-      var fullUrl = _url + apiUrl;
+      var fullUrl = Environment.mainUrl + apiUrl;
       //var token = await guardarToken();
       final respuesta = await http.get(Uri.parse(fullUrl), headers: {
         'Content-type': 'application/json',

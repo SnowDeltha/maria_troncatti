@@ -5,12 +5,12 @@ import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart'
 import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
-import 'package:widgets_app/presentation/screens/administracion_usuarios/agregar_usuarios.dart';
-import 'package:widgets_app/util/usersModelos.dart';
+import 'package:widgets_app/presentation/screens/administracion_estudiantes/agregar_estudiantes.dart';
+import 'package:widgets_app/util/estudiantesModelo.dart';
 import '../../../model/apirespuesta.dart';
 import 'package:http/http.dart' as http;
 
-Future<ApiRespuesta> getUsuarios(apiUrl) async {
+Future<ApiRespuesta> getEstudiantes(apiUrl) async {
   ApiRespuesta apiRespuesta = ApiRespuesta();
   final String _url = 'http://192.168.1.7:8000/api/';
   var fullUrl = _url + apiUrl;
@@ -18,8 +18,8 @@ Future<ApiRespuesta> getUsuarios(apiUrl) async {
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    apiRespuesta.data = jsonDecode(response.body)['usuarios']
-        .map((p) => Users.fromJson(p))
+    apiRespuesta.data = jsonDecode(response.body)['estudiantes']
+        .map((p) => Estudiantes.fromJson(p))
         .toList();
     apiRespuesta.data as List<dynamic>;
 
@@ -32,33 +32,39 @@ Future<ApiRespuesta> getUsuarios(apiUrl) async {
   return apiRespuesta;
 }
 
-class AdministracionUsuariosScreen extends StatefulWidget {
-  static const String name = 'administracion_usuarios_screen';
-  const AdministracionUsuariosScreen({super.key});
+
+
+class AdministracionEstudiantesScreen extends StatefulWidget {
+  static const String name = 'administracion_estudiantes_screen';
+  const AdministracionEstudiantesScreen({super.key});
 
   @override
-  State<AdministracionUsuariosScreen> createState() =>
-      _AdministracionUsuariosScreenState();
+  State<AdministracionEstudiantesScreen> createState() =>
+      _AdministracionEstudiantesScreenState();
 }
 
-class _AdministracionUsuariosScreenState
-    extends State<AdministracionUsuariosScreen> {
-  late Future<Users> futureUser;
-  List<dynamic> UsuariosList = [];
-  Future<void> mostrarUsuarios() async {
-    ApiRespuesta res = await getUsuarios('users');
+class _AdministracionEstudiantesScreenState
+    extends State<AdministracionEstudiantesScreen> {
+  late Future<Estudiantes> futureUser;
+  List<dynamic> EstudiantesList = [];
+  Future<void> mostrarEstudiantes() async {
+    ApiRespuesta res = await getEstudiantes('estudiantes');
     if (res.error == null) {
       setState(() {
-        UsuariosList = res.data as List<dynamic>;
+        EstudiantesList = res.data as List<dynamic>;
       });
     }
   }
 
   @override
+
   void initState() {
     super.initState();
-    mostrarUsuarios();
+    mostrarEstudiantes();
+    
   }
+
+  
 
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -132,6 +138,7 @@ class _AdministracionUsuariosScreenState
             )),
           ],
         ),
+
         body: Column(
           children: <Widget>[
             const SizedBox(
@@ -140,7 +147,7 @@ class _AdministracionUsuariosScreenState
             const Padding(
               padding: EdgeInsets.only(left: 5),
               child: Text(
-                'Administración de Usuarios',
+                'Administración de Estudiantes',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 28,
@@ -149,7 +156,6 @@ class _AdministracionUsuariosScreenState
               ),
             ),
             const SizedBox(height: 15),
-
             const Padding(
               padding: EdgeInsets.only(left: 10),
               child: Row(
@@ -159,47 +165,45 @@ class _AdministracionUsuariosScreenState
               ),
             ),
 
-            const SizedBox(
-              height: 20,
+            Container(
+              height: 350,
+              width: 200,
+              child: 
+              ListView.builder(
+                itemCount: EstudiantesList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  
+                  Estudiantes categoria = EstudiantesList[index];
+
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: GestureDetector(
+                      child:  SizedBox(
+                        width: 100,
+                        height: 80,
+                        child: Stack(
+                          children:[
+                            Text('${categoria.nombre_es}'),
+  
+                ],
+              )
+            )
+          ),
+        );  
+      }
+    ),
             ),
 
-            SizedBox(
-              height: 400,
-              width: 350,
-              child: ListView.builder(
-                  itemCount: UsuariosList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Users categoria = UsuariosList[index];
-
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 0),
-                      child: GestureDetector(
-                          child: SizedBox(
-                              width: 0,
-                              height: 50,
-                              child: Stack(
-                                children: [
-                                  Text('${categoria.nombre} ${ categoria.apellido}',
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                  ),),
-                                  
-                                ],
-                              ))),
-                    );
-                  }),
-            ),
+            
 
             //const SizedBox(height: 5),
 
             const Expanded(child: SizedBox()),
 
             //const Expanded(child: SizedBox()),
-            const _BotonVolver(),
+            const _BotonVolver(),  
 
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10,),
 
             Container(
               color: Colors.green,
@@ -219,6 +223,9 @@ class _AdministracionUsuariosScreenState
 }
 
 //Implementacion del Builder para crear cada uno de los elementos
+
+
+
 
 class _BotonVolver extends StatelessWidget {
   const _BotonVolver({super.key});
@@ -262,7 +269,7 @@ class _ButtonAdd extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AgregarUsers()),
+              MaterialPageRoute(builder: (context) => AgregarEstudiantes()),
             );
           },
           child: const Padding(
@@ -278,3 +285,6 @@ class _ButtonAdd extends StatelessWidget {
     );
   }
 }
+
+
+
