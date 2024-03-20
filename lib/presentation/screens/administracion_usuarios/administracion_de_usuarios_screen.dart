@@ -179,7 +179,7 @@ class _AdministracionUsuariosScreenState
                               height: 50,
                               child: Stack(
                                 children: [
-                                  Text('${categoria.nombre} ${ categoria.apellido}',
+                                  Text('${categoria.nombre} ${categoria.apellido}',
                                   style: const TextStyle(
                                     fontSize: 20,
                                   ),),

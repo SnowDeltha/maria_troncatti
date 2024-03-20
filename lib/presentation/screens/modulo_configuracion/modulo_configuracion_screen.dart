@@ -252,7 +252,7 @@ class _BotonEstudiantes extends StatelessWidget {
           },
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text('   Estudiantes    ',
+            child: Text('   Administrador de Estudiantes    ',
                 style: TextStyle(
                   fontSize: 22,
                   color: Colors.white,

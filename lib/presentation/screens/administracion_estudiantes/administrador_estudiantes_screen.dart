@@ -45,7 +45,6 @@ class AdministracionEstudiantesScreen extends StatefulWidget {
 
 class _AdministracionEstudiantesScreenState
     extends State<AdministracionEstudiantesScreen> {
-  late Future<Estudiantes> futureUser;
   List<dynamic> EstudiantesList = [];
   Future<void> mostrarEstudiantes() async {
     ApiRespuesta res = await getEstudiantes('estudiantes');

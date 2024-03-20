@@ -89,11 +89,11 @@ final appRouter = GoRouter(
       builder: (context, state) =>  const PerfilScreen()
     ),
 
-    GoRoute(
-      path: '/Registro-Asistencias',
-      name: RegistroAsistencias.name,
-      builder: (context, state) =>  const RegistroAsistencias()
-    ),
+    // GoRoute(
+    //   path: '/Registro-Asistencias',
+    //   name: RegistroAsistencias.name,
+    //   builder: (context, state) =>   RegistroAsistencias()
+    // ),
   ],
 );
 

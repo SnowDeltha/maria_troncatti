@@ -9,12 +9,11 @@ import 'package:widgets_app/presentation/screens/administracion_aulas/agregar_au
 //import '../../../api/ConsumoApi.dart';
 import '../../../model/apirespuesta.dart';
 import '../../../util/AulasModelos.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 Future<ApiRespuesta> getAulas(apiUrl) async {
   ApiRespuesta apiRespuesta = ApiRespuesta();
-   final String _url = 'http://192.168.1.7:8000/api/';
+   const String _url = 'http://192.168.1.7:8000/api/';
    var fullUrl = _url + apiUrl;
    final response = await http
        .get(Uri.parse(fullUrl));
@@ -66,6 +65,48 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
       });
     }
   }
+  EliminarAulas(String id) async {
+  deleteAulas(id);
+}
+
+// Variable para almacenar el estado de la página
+  bool _isLoading = false;
+
+ Future<void> deleteAulas(String id) async {
+  String _url = 'http://192.168.1.7:8000/api/aulasdelete/';
+  var fullUrl = _url + id;
+
+  final response = await http.delete(Uri.parse(fullUrl));
+
+  if (response.statusCode == 200) {
+    print('Eliminar');
+
+     setState(() {
+        _isLoading = true;
+      });
+
+    _reloadPage();
+    
+  } else {
+    // Si el servidor no devuelve un código de estado 200 OK,
+    // lanza una excepción con un mensaje de error.
+    throw Exception('Fallo al eliminar el registro');
+  }
+}
+
+
+// Función para recargar la página
+  Future<void> _reloadPage() async {
+    // Esperar un breve período de tiempo para simular la carga
+    await Future.delayed(Duration(seconds: 1));
+
+    // Actualizar el estado para indicar que la carga ha terminado
+    setState(() {
+      _isLoading = false;
+    });
+    await mostrarAulas();
+  }
+
 
   @override
   void initState() {
@@ -81,6 +122,7 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
         appBar: AppBar(
           title: const Text(''),
           backgroundColor: Colors.yellow,
+          
           actions: <Widget>[
             Expanded(
                 child: Row(
@@ -191,17 +233,42 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
 
             
 
-
-
             Container(
               height: 300,
-              width: 200,
+              width: 300,
               child: ListView.builder(
                 itemCount: AulasList.length,
                 itemBuilder: (BuildContext context, int index){
                   Aulas categoria = AulasList[index];
-                  return ListTile(
-                    title: Text('${categoria.nombre_al}'),
+                  return Row(
+                    children: [
+                      
+                      Column(
+                         children: [
+                              Container(
+                                color: Color(0xffDDDDDD),
+                                width: 250,
+                                height: 50,
+                                padding: EdgeInsets.all(10),
+                               child: Text('${categoria.nombre_al}'),
+                              )
+                          ],
+                      ),
+                     
+                      Column(
+                         children: [
+                              IconButton(
+                              iconSize: 20,
+                              icon: const Icon(Icons.delete),
+                              onPressed: () {
+
+                                EliminarAulas('${categoria.id}');
+                                
+                              },
+                            ),
+                          ],
+                      )
+                    ],
                   );
                 },
               ),
@@ -268,6 +335,10 @@ class _BotonVolver extends StatelessWidget {
     );
   }
 }
+
+
+
+
 
 
 

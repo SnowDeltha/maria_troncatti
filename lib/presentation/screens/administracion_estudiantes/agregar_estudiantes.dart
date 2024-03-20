@@ -1,17 +1,42 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
-import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
+import 'package:widgets_app/presentation/screens/administracion_estudiantes/administrador_estudiantes_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 import 'package:http/http.dart' as http;
-import 'package:widgets_app/util/AulasModelos.dart';
+//import 'package:widgets_app/util/AulasModelos.dart';
+
 import '../../../api/ConsumoApi.dart';
 import '../../../model/apirespuesta.dart';
+import '../../../util/DropAulasModelo.dart';
 
 /* Funcion para traer las aulas */
+
+/* Future<ApiRespuesta> getAulas(apiUrl) async {
+  ApiRespuesta apiRespuesta = ApiRespuesta();
+  final String _url = 'http://192.168.1.7:8000/api/';
+  var fullUrl = _url + apiUrl;
+  final response = await http.get(Uri.parse(fullUrl));
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+     apiRespuesta.data = jsonDecode(response.body)['aulas']
+              .map((p) => Aulas.fromJson(p))
+              .toList();
+          apiRespuesta.data as List<dynamic>; 
+
+    //return Users.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Fallo al traer la informacion');
+  }
+  return apiRespuesta;
+} */
 
 Future<ApiRespuesta> getAulas(apiUrl) async {
   ApiRespuesta apiRespuesta = ApiRespuesta();
@@ -21,10 +46,10 @@ Future<ApiRespuesta> getAulas(apiUrl) async {
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    /*  apiRespuesta.data = jsonDecode(response.body)['aulas']
-              .map((p) => Aulas.fromJson(p))
-              .toList();
-          apiRespuesta.data as List<dynamic>; */
+    apiRespuesta.data = jsonDecode(response.body)['aulas']
+        .map((p) => DropdownItemsModel.fromJson(p))
+        .toList();
+    apiRespuesta.data as List<dynamic>;
 
     //return Users.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
@@ -34,12 +59,11 @@ Future<ApiRespuesta> getAulas(apiUrl) async {
   }
   return apiRespuesta;
 }
+int aula1 = 3;
+int aula2 = 4;
+int aula3 = 6;
 
-void main() {
-  runApp(AgregarEstudiantes());
-}
-
-enum NumeroAulas { aula1, aula2, aula3 }
+enum NumeroAulas {aula1, aula2, aula3}
 
 class AgregarEstudiantes extends StatelessWidget {
   @override
@@ -51,51 +75,64 @@ class AgregarEstudiantes extends StatelessWidget {
 }
 
 class AddStudentsPage extends StatefulWidget {
+  const AddStudentsPage({super.key});
   @override
-  _MyAddStudentsPage createState() => _MyAddStudentsPage();
+  State<AddStudentsPage> createState() => _MyAddStudentsPage();
 }
 
 class _MyAddStudentsPage extends State<AddStudentsPage> {
-  TextEditingController _nombreestudiante = TextEditingController();
-  
 
-
-  Future<void> _guardarEstudiantes() async {
-    String nombrestudent = _nombreestudiante.text;
-
-    var data = {
-      'nombre_es': nombrestudent,
-    };
-    var res = await CallApi().postData(data, 'estudiantes');
-    var body = json.decode(res.body);
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (BuildContext context) {
-      return new AdministracioAulasScreen();
-    }), (Route<dynamic> route) => false);
-  }
-
-  //List<String> opciones = [];
-  String seleccionActual = '';
-  late Future<Aulas> futureAulas;
   List<dynamic> AulasList = [];
   Future<void> mostrarAulas() async {
     ApiRespuesta res = await getAulas('aulas');
     if (res.error == null) {
       setState(() {
-        //AulasList = res.data as List<dynamic>;
+        AulasList = res.data as List<dynamic>;
       });
     }
   }
 
+  late String selectAula;
+
+  
+
+
+  var selectValue;
+  TextEditingController _nombreestudiante = TextEditingController();
+  
+  Future<void> _guardarEstudiantes() async {
+    String nombrestudent = _nombreestudiante.text;
+    
+
+    var data = {
+      'nombre_es': nombrestudent,
+      'id_aulas': selectValue,
+    };
+    var res = await CallApi().postData(data, 'estudiantes');
+    var body = json.decode(res.body);
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) {
+      return new AdministracionEstudiantesScreen();
+    }), (Route<dynamic> route) => false);
+  }
+
   @override
   void initState() {
-    mostrarAulas();
+    //mostrarAulas();
+    // getDatos();
     super.initState();
+    mostrarAulas();
+    
   }
+
+
+  
 
   NumeroAulas selectedAulas =
       NumeroAulas.aula1; //  Forma Parte del RadioListTile
 
+
+  var newData; 
   @override
   Widget build(BuildContext context) {
     // manejar el null
@@ -203,13 +240,13 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
                   
                   const SizedBox(height: 20,),
 
-                  ExpansionTile(
+                  /* ExpansionTile(
                     title: const Text('Aulas'),
                     subtitle:const Text('Seleccione una de las Aulas'),
                     children: [
                       RadioListTile(
                         title: const Text(' Aula numero 1'),
-                        value: 1,
+                        value: NumeroAulas.aula1,
                         groupValue: selectedAulas,
                         onChanged: (value) => setState(() {
                           selectedAulas = NumeroAulas.aula1;
@@ -217,7 +254,7 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
                       ),
                       RadioListTile(
                         title: const Text('Aula numero 2'),
-                        value: 2,
+                        value: NumeroAulas.aula2,
                         groupValue: selectedAulas,
                         onChanged: (value) => setState(() {
                           selectedAulas = NumeroAulas.aula2;
@@ -225,29 +262,57 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
                       ),
                       RadioListTile(
                         title: const Text('Aula numero 3'),
-                        value: 3,
+                        value: NumeroAulas.aula3,
                         groupValue: selectedAulas,
                         onChanged: (value) => setState(() {
                           selectedAulas = NumeroAulas.aula3;
                         }),
                       ),
                     ],
-                  ),
+                  ), */
 
-                  /*  DropdownButton<String>(
-          value: seleccionActual,
-          onChanged: (String? newValue) {
-            setState(() {
-              seleccionActual = newValue!;
-            });
-          },
-          items: opciones.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),   */
+                 
+
+    
+
+
+       
+
+FutureBuilder<void>(
+  future: Future.value(),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    } else if (snapshot.hasError) {
+      return Center(
+        child: Text("Error: ${snapshot.error}"),
+      );
+    } else {
+      return DropdownButton(
+        value: selectValue,
+        dropdownColor: Colors.blue[100],
+        isExpanded: true,
+        hint: const Text("Selecciona un aula"),
+        items: AulasList.map((e) {
+          return DropdownMenuItem(
+            value: e.id.toString(),
+            child: Text(e.nombre_al.toString()),
+          );
+        }).toList(),
+        onChanged: (value) {
+          setState(() {
+            selectValue = value;
+          });
+        },
+      );
+    }
+  },
+)
+                
+
+
                 ],
               ),
             ),
