@@ -102,13 +102,15 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
   
   Future<void> _guardarEstudiantes() async {
     String nombrestudent = _nombreestudiante.text;
-    
 
+    /* print(nombrestudent);
+    print(selectValue); */
     var data = {
       'nombre_es': nombrestudent,
       'id_aulas': selectValue,
     };
     var res = await CallApi().postData(data, 'estudiantes');
+    
     var body = json.decode(res.body);
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (BuildContext context) {

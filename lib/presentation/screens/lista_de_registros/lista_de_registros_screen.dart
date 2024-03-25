@@ -9,15 +9,16 @@ import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 import 'package:widgets_app/presentation/screens/registro_asistencia/registro_asistencia_screen.dart';
 import 'package:widgets_app/util/AulasModelos.dart';
 import 'package:http/http.dart' as http;
-import 'package:widgets_app/util/estudiantesModelo.dart';
-Future<ApiRespuesta> getAulas(apiUrl) async {
+
+import '../../../util/ListaAsistencia.dart';
+Future<ApiRespuesta> getRegistroAsistencia(apiUrl) async {
   ApiRespuesta apiRespuesta = ApiRespuesta();
    String _url = 'http://192.168.1.7:8000/api/';
   var fullUrl = _url + apiUrl;
   final response = await http.get(Uri.parse(fullUrl));
   if (response.statusCode == 200) {
-    apiRespuesta.data = jsonDecode(response.body)['estudiantes']
-        .map((p) => Estudiantes.fromJson(p))
+    apiRespuesta.data = jsonDecode(response.body)['registro']
+        .map((p) => ListaAsistencia.fromJson(p))
         .toList();
     apiRespuesta.data as List<dynamic>;
 
@@ -32,7 +33,9 @@ Future<ApiRespuesta> getAulas(apiUrl) async {
 
 class RegistroAsistencias extends StatefulWidget {
   static const String name = 'Registro-Asistencias';
-  Aulas categoria = Aulas();
+  Aulas categoria =  Aulas();
+
+  ListaAsistencia listAsis =  ListaAsistencia();
   RegistroAsistencias(this.categoria, {super.key});
   @override
   State<RegistroAsistencias> createState() => _RegistroAsistenciasState();
@@ -41,8 +44,9 @@ class RegistroAsistencias extends StatefulWidget {
 class _RegistroAsistenciasState extends State<RegistroAsistencias> {
 
   List<dynamic> AulasList = [];
+    
   Future<void> mostrarAulas() async {
-    ApiRespuesta res = await getAulas('estudiantescursos/${widget.categoria.id}');
+    ApiRespuesta res = await getRegistroAsistencia('registroaula/${widget.categoria.id}');
     if (res.error == null) {
       setState(() {
         AulasList = res.data as List<dynamic>;
@@ -51,14 +55,12 @@ class _RegistroAsistenciasState extends State<RegistroAsistencias> {
   }
   @override
   void initState() {
-    //mostrarAulas();
-    // getDatos();
     super.initState();
     mostrarAulas();
-    print(AulasList);
-    
   }
   Widget build(BuildContext context) {
+    final i =widget.categoria.id;
+    //print(i);
      return MaterialApp(
       debugShowCheckedModeBanner: true,
       home: Scaffold(
@@ -156,13 +158,55 @@ class _RegistroAsistenciasState extends State<RegistroAsistencias> {
                 
                 
 
-                const SizedBox(width: 0,height: 250,),
+                const SizedBox(width: 0,height: 100,),
+
+
+              Container(
+              height: 300,
+              width: 200,
+              child: ListView.builder(
+                itemCount: (AulasList.length / 2)
+                    .ceil(), // Asegura que se muestren todos los elementos
+                itemBuilder: (BuildContext context, int index) {
+                  int startIndex = index * 2;
+                  int endIndex = startIndex + 2;
+                  if (endIndex > AulasList.length) {
+                    endIndex = AulasList.length;
+                  }
+                  List sublist = AulasList.sublist(startIndex, endIndex);
+                  return Row(
+                    children: sublist.map((listAsis) {
+                      return Expanded(
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      RegistroAsistencias(listAsis)),
+                            );
+                          },
+                          icon: Column(
+                            children: [
+                              Text('${listAsis.fecha_registro}'),
+                            ],
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                },
+              ),
+            ),
+
+           
 
 
                 //Boton Volver
-                const _CrearNuevoRegistro(),
+                _CrearNuevoRegistro(i),
                 const SizedBox(width: 0,height: 10,),
 
+                
                 const Expanded(child: SizedBox()),
 
                 const _BotonVolverInicio(),
@@ -226,7 +270,11 @@ class _BotonVolverInicio extends StatelessWidget {
 
 
 class _CrearNuevoRegistro extends StatelessWidget {
-  const _CrearNuevoRegistro ();
+  
+
+  _CrearNuevoRegistro(this.id);
+  int? id;
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -234,28 +282,35 @@ class _CrearNuevoRegistro extends StatelessWidget {
       child: Material(
         color: Colors.green,
         child: InkWell(
-          onTap: () { 
-
+          onTap: () {
             Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const RegistroAsistenciaScreen())
-                );
-             
+              context,
+              MaterialPageRoute(
+                builder: (context) => RegistroAsistenciaScreen(),
+                settings: RouteSettings(
+                    arguments: id,
+                  ),
+                
+                 // Eliminamos las comillas alrededor de id
+              ),
+            );
           },
-          
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text('  Crear Nuevo Registro  ',
-                style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.yellow,
-                )),
+            child: Text(
+              '  Crear Nuevo Registro  ',
+              style: TextStyle(
+                fontSize: 22,
+                color: Colors.yellow,
+              ),
+            ),
           ),
         ),
       ),
     );
   }
 }
+
 
 
 

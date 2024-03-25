@@ -65,11 +65,11 @@ final appRouter = GoRouter(
       builder: (context, state) => const AdministracionUsuariosScreen(),
     ),
 
-    GoRoute(
-      path: '/registro_asistencia',
-      name: RegistroAsistenciaScreen.name,
-      builder: (context, state) => const RegistroAsistenciaScreen(),
-    ),
+    // GoRoute(
+    //   path: '/registro_asistencia',
+    //   name: RegistroAsistenciaScreen.name,
+    //   builder: (context, state) => const RegistroAsistenciaScreen(),
+    // ),
 
     GoRoute(
       path: '/modulo_asistencia',

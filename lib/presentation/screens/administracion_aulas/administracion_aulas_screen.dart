@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
@@ -194,7 +194,9 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
           ],
         ),
 
-        /* body: ListView.builder(
+        /* 
+
+        body: ListView.builder(
           itemCount: UsuariosList.length,
          itemBuilder: (BuildContext context, int index){
           Users categoria = UsuariosList[index];
@@ -204,7 +206,8 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
               
             );
           },
-        ), */
+        ),
+        */
 
         body: Column(
           children: <Widget>[
@@ -231,11 +234,45 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
               ),
             ),
 
+            Container(
+              height: 100,
+              width: 400,
+              child: Row(
+                children: [
+                  Column(
+                  
+                         children: [
+                              Container(
+                                color: Color(0xff83C77E),
+                                width: 180,
+                                height: 50,
+                                padding: EdgeInsets.all(10),
+                               child: Text('Nombre'),
+                              )
+                          ],
+                      ),
+                   Column(
+                         children: [
+                              Container(
+                                color: Color(0xff83C77E),
+                                width: 180,
+                                height: 50,
+                                padding: EdgeInsets.all(10),
+                               child: Text('Acciones'),
+                              )
+                          ],
+                      ),
+                ],
+
+              ),
+              
+            ),
+
             
 
             Container(
-              height: 300,
-              width: 300,
+              height: 350,
+              width: 400,
               child: ListView.builder(
                 itemCount: AulasList.length,
                 itemBuilder: (BuildContext context, int index){
@@ -260,11 +297,21 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
                               IconButton(
                               iconSize: 20,
                               icon: const Icon(Icons.delete),
-                              onPressed: () {
+                              onPressed: 
 
-                                EliminarAulas('${categoria.id}');
-                                
-                              },
+
+                              () async {
+            if (await confirm(
+              context,
+              title: const Text('Confirmar'),
+              content: const Text('Quieres eliminar el aula?'),
+              textOK: const Text('Si'),
+              textCancel: const Text('No'),
+            )) {
+              return EliminarAulas('${categoria.id}');
+            }
+            return print('pressedCancel');
+          },
                             ),
                           ],
                       )
