@@ -83,11 +83,11 @@ final appRouter = GoRouter(
       builder: (context, state) => const ModuloConfiguracion(),
     ),
 
-    GoRoute(
-      path: '/perfil',
-      name: PerfilScreen.name,
-      builder: (context, state) =>  const PerfilScreen()
-    ),
+    // GoRoute(
+    //   path: '/perfil',
+    //   name: PerfilScreen.name,
+    //   builder: (context, state) =>  const PerfilScreen()
+    // ),
 
     // GoRoute(
     //   path: '/Registro-Asistencias',

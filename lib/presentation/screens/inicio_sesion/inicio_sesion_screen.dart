@@ -1,13 +1,6 @@
 import 'dart:convert';
-//import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
-//import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/src/widgets/navigator.dart';
-//import 'package:widgets_app/presentation/screens/home/home_screen.dart';
-//import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
-//import 'package:widgets_app/config/menu/menu_items.dart';
-//import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
 import '../../../api/ConsumoApi.dart';
 import 'package:widgets_app/presentation/screens/pantalla_inicio/Inicio_screen.dart';
 
@@ -136,7 +129,7 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
         obscureText: false,
         style: const TextStyle(fontSize: 15),
         decoration: const InputDecoration(
-            hintText: "                            Usuario",
+            hintText: "Usuario",
             border: InputBorder.none),
       ),
     );
@@ -156,13 +149,44 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
         obscureText: true,
         style: const TextStyle(fontSize: 15),
         decoration: const InputDecoration(
-            hintText: "                         Contraseña",
+            hintText: "Contraseña",
             border: InputBorder.none),
       ),
     );
   }
 
   onSubmit() async {
+     if(_emailController.text=="" && _emailController.text==""){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Ingrese el correo electronico y contraseña",
+          style: TextStyle(color: Colors.white), // Establece el color del texto en blanco
+          ),
+          backgroundColor: Colors.red, // Establece el color de fondo rojo
+          ),
+        );
+        return;
+    }
+    else if(_passwordController.text== ""){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Ingrese el password",
+          
+         style: TextStyle(color: Colors.white), // Establece el color del texto en blanco
+          ),
+          backgroundColor: Colors.red, // Establece el color de fondo rojo
+          ),
+        );
+        return;
+    }else if(_emailController.text== ""){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Ingrese el correo electronico",
+          style: TextStyle(color: Colors.white), // Establece el color del texto en blanco
+          ),
+          backgroundColor: Colors.red, // Establece el color de fondo rojo
+          ),
+        );
+        return;
+
+    }
     var datos = {
       'email': _emailController.text,
       'password': _passwordController.text,
@@ -170,13 +194,10 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
     var res = await CallApi().postData(datos, 'login');
     var body = jsonDecode(res.body);
 
-    print(body);
-    //print(body['status']);
-
     if (body['message'] != 'Informacion invalida') {
-      print('exitoso');
       SharedPreferences preferences = await SharedPreferences.getInstance();
       await preferences.setString('token', body['token']);
+      preferences.setString('user', json.encode(body['user']));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(body['token']),
       ));
@@ -184,45 +205,8 @@ class _InicioSesionScreenState extends State<InicioSesionScreen> {
         context,
         MaterialPageRoute(builder: (context) => const InicioScreen()),
       );
-    } else {
-      print('Error');
     }
 
-    /* Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => HomeScreen(),
-        ),
-      );  */
-
-    //var status = json.decode(res.statusCode);
-    //var argstoken = 'hola';
   }
 }
 
-// class BotonPersonalizado1 extends StatelessWidget {
-//   const BotonPersonalizado1({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ClipRRect(
-//       borderRadius: BorderRadius.circular(50),
-//       child: Material(
-//         color: Colors.green,
-//         child: InkWell(
-//           onTap: () {
-//             onSubmit
-//           },
-
-//           child: const Padding(
-//             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-//             child: Text('Accerder',
-//                 style: TextStyle(
-//                   fontSize: 30,
-//                   color: Colors.yellow,
-//                 )),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-//

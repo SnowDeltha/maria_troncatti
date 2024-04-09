@@ -1,17 +1,19 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
+import 'package:widgets_app/presentation/screens/lista_de_registros/lista_de_registros_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
+import 'package:widgets_app/util/DetalleAsistencia.dart';
+import 'package:widgets_app/util/RegistroModelo.dart';
 import '../../../model/apirespuesta.dart';
-import '../../../api/ConsumoApi.dart';
 import '../../../util/estudiantesModelo.dart';
 import 'package:http/http.dart' as http;
 
 Future<ApiRespuesta> getAulasEstudiantes(apiUrl) async {
   ApiRespuesta apiRespuesta = ApiRespuesta();
-  String _url = 'http://192.168.1.7:8000/api/';
-  var fullUrl = _url + apiUrl;
+  String url = 'http://192.168.1.7:8000/api/';
+  var fullUrl = url + apiUrl;
   final response = await http.get(Uri.parse(fullUrl));
   if (response.statusCode == 200) {
     apiRespuesta.data = jsonDecode(response.body)['estudiantes']
@@ -26,7 +28,8 @@ Future<ApiRespuesta> getAulasEstudiantes(apiUrl) async {
 
 class RegistroAsistenciaScreen extends StatefulWidget {
   static const String name = 'registro_asistencia_screen';
-  const RegistroAsistenciaScreen({Key? key}) : super(key: key);
+  final Registro registro;
+  const RegistroAsistenciaScreen(this.registro,{Key? key}) : super(key: key);
 
   @override
   State<RegistroAsistenciaScreen> createState() =>
@@ -36,17 +39,12 @@ class RegistroAsistenciaScreen extends StatefulWidget {
 class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
   DateTime selectedDate = DateTime.now();
   List<dynamic> AulasList = [];
+    final List<DetalleAsistencia> detallesAsistencia = [];
 
   int? selectedOption;
 
-  @override
-  void initState() {
-    mostrarAulas();
-    super.initState();
-  }
-
   Future<void> mostrarAulas() async {
-    ApiRespuesta res = await getAulasEstudiantes('estudiantescursos/16');
+    ApiRespuesta res = await getAulasEstudiantes('estudiantescursos/${widget.registro.id_aula}');
     if (res.error == null) {
       setState(() {
         AulasList = res.data as List<dynamic>;
@@ -54,8 +52,19 @@ class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
     }
   }
 
+  
+
+  @override
+  void initState() {
+    mostrarAulas();
+    super.initState();
+  }
+
+  
+
   @override
   Widget build(BuildContext context) {
+  
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -88,7 +97,7 @@ class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
                           },
                         ),
                         PopupMenuItem(
-                          child: Text('Acerca de'),
+                          child: const Text('Acerca de'),
                           value: 'Acerca de',
                           onTap: () {
                             Navigator.push(
@@ -137,7 +146,7 @@ class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
                 horizontal: 0,
               ),
               child: Text(
-                "${selectedDate.year} - ${selectedDate.month} - ${selectedDate.day}",
+                "Quito, ${selectedDate.day} de ${selectedDate.month} - ${selectedDate.year}",
               ),
             ),
             ElevatedButton(
@@ -163,13 +172,13 @@ class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
                   shrinkWrap: false,
                   crossAxisCount: 1,
                   children: [
-                    DataTableRegistro(AulasList: AulasList),
+                    DataTableRegistro(AulasList: AulasList,detallesAsistencia: detallesAsistencia,idRegistro: widget.registro.id!),
                   ],
                 ),
               ),
             ),
             const SizedBox(width: 0, height: 10),
-            const BotonPersonalizado2(),
+            BotonPersonalizado2(detallesAsistencia: detallesAsistencia,id: widget.registro.id_aula!, ),
             const Expanded(child: SizedBox()),
             // Pie de página
             Container(
@@ -188,11 +197,12 @@ class _RegistroAsistenciaScreenState extends State<RegistroAsistenciaScreen> {
     );
   }
 }
-
 class DataTableRegistro extends StatefulWidget {
   final List<dynamic> AulasList;
+  final List<DetalleAsistencia> detallesAsistencia;
+  final int idRegistro; 
 
-  const DataTableRegistro({Key? key, required this.AulasList}) : super(key: key);
+  DataTableRegistro({Key? key, required this.AulasList, required this.detallesAsistencia,required this.idRegistro}) : super(key: key);
 
   @override
   _DataTableRegistroState createState() => _DataTableRegistroState();
@@ -239,7 +249,7 @@ class _DataTableRegistroState extends State<DataTableRegistro> {
         ),
       ],
       rows: widget.AulasList.map((estudiante) {
-        selectedOptions[estudiante.id] ??= null; // Inicializa la selección del estudiante
+        selectedOptions[estudiante.id] ??= null;
         return DataRow(
           cells: [
             DataCell(Text(estudiante.nombre_es ?? '')),
@@ -250,7 +260,7 @@ class _DataTableRegistroState extends State<DataTableRegistro> {
                 onChanged: (value) {
                   setState(() {
                     selectedOptions[estudiante.id] = value;
-                    actualizarEstado(estudiante.id);
+                    actualizarEstado(estudiante.id, widget.idRegistro,value!);
                   });
                 },
               ),
@@ -262,7 +272,7 @@ class _DataTableRegistroState extends State<DataTableRegistro> {
                 onChanged: (value) {
                   setState(() {
                     selectedOptions[estudiante.id] = value;
-                    actualizarEstado(estudiante.id);
+                    actualizarEstado(estudiante.id,widget.idRegistro, value!);
                   });
                 },
               ),
@@ -274,7 +284,7 @@ class _DataTableRegistroState extends State<DataTableRegistro> {
                 onChanged: (value) {
                   setState(() {
                     selectedOptions[estudiante.id] = value;
-                    actualizarEstado(estudiante.id);
+                    actualizarEstado(estudiante.id,widget.idRegistro, value!);
                   });
                 },
               ),
@@ -284,16 +294,29 @@ class _DataTableRegistroState extends State<DataTableRegistro> {
       }).toList(),
     );
   }
-}
 
 
-void actualizarEstado(int nuevoValor) {
-  // Aquí puedes actualizar el estado de tu aplicación según sea necesario
-  print('Nuevo valor seleccionado: $nuevoValor');
+
+  void actualizarEstado(int estudianteId,int personaId ,int nuevoValor) {
+    setState(() {
+      var index = widget.detallesAsistencia.indexWhere((detalle) => detalle.id_est == estudianteId);
+      if (index != -1) {
+        widget.detallesAsistencia[index].asistencia_ad = nuevoValor;
+      } else {
+        widget.detallesAsistencia.add(DetalleAsistencia(id_est: estudianteId ,asistencia_ad: nuevoValor,id_registro_persona: personaId,));
+      }
+      // Actualizar el valor en el mapa de opciones seleccionadas
+      selectedOptions[estudianteId] = nuevoValor;
+    });
+  }
 }
+
 
 class BotonPersonalizado2 extends StatelessWidget {
-  const BotonPersonalizado2({Key? key}) : super(key: key);
+  final List<DetalleAsistencia>? detallesAsistencia;
+  final int? id;
+
+  const BotonPersonalizado2({Key? key, this.detallesAsistencia,this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -302,9 +325,15 @@ class BotonPersonalizado2 extends StatelessWidget {
       child: Material(
         color: Colors.green,
         child: InkWell(
-          onTap: () {},
+          onTap: () async {
+            if (detallesAsistencia != 0) {
+              await _guardarDatosAsistencia(context,detallesAsistencia!,id!);
+            } else {
+              print('La lista de detalles de asistencia está vacía.');
+            }
+          },
           child: const Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text(
               'Guardar y salir',
               style: TextStyle(
@@ -319,6 +348,54 @@ class BotonPersonalizado2 extends StatelessWidget {
   }
 }
 
-void main() {
-  runApp(const RegistroAsistenciaScreen());
+
+
+Future<void> _guardarDatosAsistencia(BuildContext context,List<DetalleAsistencia> detallesAsistencia,int id) async {
+  try {
+    final datos = {'detallesAsistencia': detallesAsistencia};
+    final url = 'http://192.168.1.7:8000/api/registroasistencia'; // Reemplaza esto con la URL de tu servidor
+    final respuesta = await http.post(Uri.parse(url), body: jsonEncode(datos));
+    if (respuesta.statusCode == 200) {
+      Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RegistroAsistencias(id)),
+            );
+      // Éxito al guardar los datos
+      print('Datos de asistencia guardados correctamente.');
+    } else {
+      // Error al guardar los datos
+      print('Error al guardar los datos de asistencia. Código de estado: ${respuesta.statusCode}');
+    }
+  } catch (error) {
+    // Error de red u otro error
+    print('Error al procesar la solicitud: $error');
+  }
 }
+
+
+
+
+
+/* class _RegistroElementosState extends State<RegistroElementos> {
+  final nombreController = TextEditingController();
+  final descripcionController = TextEditingController();
+  List<Elemento> elementos = [];
+
+  void agregarElemento() async {
+    final nuevoElemento = Elemento(
+      nombre: nombreController.text,
+      descripcion: descripcionController.text,
+    );
+
+    final exito = await ApiManager.enviarElemento(nuevoElemento);
+
+    if (exito) {
+      setState(() {
+        elementos.add(nuevoElemento);
+        nombreController.clear();
+        descripcionController.clear();
+      });
+    } else {
+      // Manejar error al enviar a la API
+    }
+  } */

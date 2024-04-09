@@ -168,7 +168,7 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      RegistroAsistencias(categoria)),
+                                      RegistroAsistencias(categoria.id)),
                             );
                           },
                           icon: Column(

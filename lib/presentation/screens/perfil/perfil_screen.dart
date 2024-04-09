@@ -1,15 +1,38 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
+
+import '../../../util/usersModelos.dart';
 
 //void main() {
 //runApp(const InicioScreen());0
 //}
 
-class PerfilScreen extends StatelessWidget {
-  static const name = 'perfil';
+class PerfilScreen extends StatefulWidget {
+  const PerfilScreen({Key? key}) : super(key: key);
 
-  const PerfilScreen({super.key});
+  @override
+  State<PerfilScreen> createState() => _PerfilScreenState();
+}
+class _PerfilScreenState extends State<PerfilScreen> {
+ var userData;
+  Users usuario = Users();
+  @override
+  void initState() {
+    _getUserInfo();
+    super.initState();
+  }
+  void _getUserInfo() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var leer = localStorage.getString('user');
+      var user = json.decode(leer!);
+    setState(() {
+      usuario = Users.fromJson(user);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,14 +124,53 @@ class PerfilScreen extends StatelessWidget {
             ),
 
             const Expanded(child: SizedBox()),
+             const SizedBox(height: 22),
+            const Text(
+              "Nombre:",
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Aleo'),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              usuario.nombre != null ? '${usuario.nombre}' : '',
+              style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Aleo',
+                  fontSize: 22),
+            ),
+            const Text(
+              "Cargo:",
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Aleo'),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              usuario.nombre != null ? '${usuario.cargo}' : '',
+              style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Aleo',
+                  fontSize: 22),
+            ),
 
             const BotonPersonalizado4(),
-
+            Container(
+            height: 490,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+          ),
             const SizedBox(
               width: 0,
               height: 10,
             ),
-
+            
             // Pie de página
             Container(
               color: Colors.green,

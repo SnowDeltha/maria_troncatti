@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_inicio/Inicio_screen.dart';
+import 'package:widgets_app/util/usersModelos.dart';
 
 void main() {
   runApp(const HuellaDactillarScreen());
@@ -26,7 +28,6 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
   List<BiometricType>? _availableBiometrics;
   String _authorized = 'Not Authorized';
   bool _isAuthenticating = false;
-
   @override
   void initState() {
     super.initState();
@@ -48,6 +49,7 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
     if (!mounted) {
       return;
     }
+    
 
     setState(() {
       _canCheckBiometrics = canCheckBiometrics;
@@ -186,17 +188,14 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-
                 Column(
                   children: <Widget>[
                     IconButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            InicioSesionScreen()),
-                                  );
+                                 Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+                                );
                                 },
                                 iconSize: 50,
                                 icon: const Icon(Icons.person),
@@ -230,7 +229,9 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
                 Column(
                   children: <Widget>[
                     IconButton(
-                                onPressed: _authenticate,
+                               onPressed: () {
+                                 onSubmit(context);
+                                },
                                 iconSize: 50,
                                 icon: const Icon(Icons.fingerprint),
                                 style: const ButtonStyle(
@@ -290,4 +291,24 @@ enum _SupportState {
   unknown,
   supported,
   unsupported,
+}
+
+onSubmit(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  var leer = localStorage.getString('token');
+  if(leer == "" || leer == null){
+     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("No hay token para ingresar con la Huella",
+          style: TextStyle(color: Colors.white), // Establece el color del texto en blanco
+          ),
+          backgroundColor: Colors.red, // Establece el color de fondo rojo
+          ),
+        );
+        return;
+  }
+  Navigator.push(context,
+    MaterialPageRoute(builder: (context) => const InicioScreen()),
+  );
+  
+  
 }

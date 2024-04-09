@@ -100,11 +100,10 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
   var selectValue;
   TextEditingController _nombreestudiante = TextEditingController();
   
-  Future<void> _guardarEstudiantes() async {
+  /* Future<void> _guardarEstudiantes() async {
     String nombrestudent = _nombreestudiante.text;
 
-    /* print(nombrestudent);
-    print(selectValue); */
+    
     var data = {
       'nombre_es': nombrestudent,
       'id_aulas': selectValue,
@@ -116,6 +115,22 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
         MaterialPageRoute(builder: (BuildContext context) {
       return new AdministracionEstudiantesScreen();
     }), (Route<dynamic> route) => false);
+  } */
+
+
+  Future<void>  _guardarEstudiantes() async {
+    String nombrestudent = _nombreestudiante.text;
+  
+    var data ={
+      'nombre_es' : nombrestudent,
+      'id_aulas' : selectValue,
+    };
+    var res = await CallApi().postData(data, 'estudiantes');
+    var body = json.decode(res.body);
+    Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (BuildContext context) {
+              return new AdministracionEstudiantesScreen();
+            }), (Route<dynamic> route) => false);
   }
 
   @override
@@ -124,7 +139,6 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
     // getDatos();
     super.initState();
     mostrarAulas();
-    
   }
 
 

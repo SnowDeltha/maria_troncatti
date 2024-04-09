@@ -1,21 +1,21 @@
 class Registro{
-  int? id_est;
-  int? asistecia_ad;
-  String? fecha_ad;
+  int? id_aula;
+  int? id;
+  String? fecha_registro;
 
 
   Registro(
-      {this.id_est,
-      this.asistecia_ad,
-      this.fecha_ad
+      {this.id_aula,
+      this.id,
+      this.fecha_registro
       });
 
 
       factory Registro.fromJson(Map<String, dynamic> json) {
     return Registro(
-      id_est: json['id_est'],
-      asistecia_ad: json['asistecia_ad'],
-      fecha_ad: json['fecha_ad'],
+      id_aula: json['id_aula'],
+      id: json['id'],
+      fecha_registro: json['fecha_registro'],
     );
   }
 

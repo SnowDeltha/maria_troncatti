@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
-import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 

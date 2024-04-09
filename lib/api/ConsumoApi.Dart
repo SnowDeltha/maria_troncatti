@@ -160,10 +160,6 @@ class CallApi{
   }
 
 
-
-
-
-
  Future<ApiRespuesta> getAulas(apiUrl) async {
     ApiRespuesta apiRespuesta = ApiRespuesta();
     try {
@@ -203,8 +199,6 @@ class CallApi{
   SharedPreferences pref = await SharedPreferences.getInstance();
   return pref.getString('access_token') ?? '';
 }
-
-
 
 }
 
