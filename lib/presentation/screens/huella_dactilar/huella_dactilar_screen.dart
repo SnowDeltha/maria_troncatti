@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_inicio/Inicio_screen.dart';
-import 'package:widgets_app/util/usersModelos.dart';
 
 void main() {
   runApp(const HuellaDactillarScreen());
@@ -26,7 +24,6 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
   _SupportState _supportState = _SupportState.unknown;
   bool? _canCheckBiometrics;
   List<BiometricType>? _availableBiometrics;
-  String _authorized = 'Not Authorized';
   bool _isAuthenticating = false;
   @override
   void initState() {
@@ -72,13 +69,26 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
       _availableBiometrics = availableBiometrics;
     });
   }
-
+ onSubmit(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  var leer = localStorage.getString('token');
+  if(leer == "" || leer == null){
+     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("No hay token para ingresar con la Huella",
+          style: TextStyle(color: Colors.white), // Establece el color del texto en blanco
+          ),
+          backgroundColor: Colors.red, // Establece el color de fondo rojo
+          ),
+        );
+        return;
+  }
+  _authenticate();
+}
   Future<void> _authenticate() async {
     bool authenticated = false;
     try {
       setState(() {
         _isAuthenticating = true;
-        _authorized = 'Authenticating';
       });
       authenticated = await auth.authenticate(
         localizedReason: 'Let OS determine authentication method',
@@ -102,7 +112,6 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
       print(e);
       setState(() {
         _isAuthenticating = false;
-        _authorized = 'Error - ${e.message}';
       });
       return;
     }
@@ -110,8 +119,6 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
       return;
     }
 
-    setState(
-        () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
   }
 
   Future<void> _authenticateWithBiometrics() async {
@@ -119,7 +126,6 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
     try {
       setState(() {
         _isAuthenticating = true;
-        _authorized = 'Authenticating';
       });
       authenticated = await auth.authenticate(
         localizedReason:
@@ -131,7 +137,6 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
       );
       setState(() {
         _isAuthenticating = false;
-        _authorized = 'Authenticating';
       });
 
       if (_isAuthenticating = true) {
@@ -146,7 +151,6 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
       print(e);
       setState(() {
         _isAuthenticating = false;
-        _authorized = 'Error - ${e.message}';
       });
       return;
     }
@@ -156,7 +160,6 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
 
     final String message = authenticated ? 'Authorized' : 'Not Authorized';
     setState(() {
-      _authorized = message;
     });
   }
 
@@ -291,24 +294,4 @@ enum _SupportState {
   unknown,
   supported,
   unsupported,
-}
-
-onSubmit(BuildContext context) async {
-  SharedPreferences localStorage = await SharedPreferences.getInstance();
-  var leer = localStorage.getString('token');
-  if(leer == "" || leer == null){
-     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("No hay token para ingresar con la Huella",
-          style: TextStyle(color: Colors.white), // Establece el color del texto en blanco
-          ),
-          backgroundColor: Colors.red, // Establece el color de fondo rojo
-          ),
-        );
-        return;
-  }
-  Navigator.push(context,
-    MaterialPageRoute(builder: (context) => const InicioScreen()),
-  );
-  
-  
 }

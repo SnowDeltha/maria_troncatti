@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
@@ -126,7 +124,7 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
       'id_aulas' : selectValue,
     };
     var res = await CallApi().postData(data, 'estudiantes');
-    var body = json.decode(res.body);
+    json.decode(res.body);
     Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (BuildContext context) {
               return new AdministracionEstudiantesScreen();
@@ -148,7 +146,6 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
       NumeroAulas.aula1; //  Forma Parte del RadioListTile
 
 
-  var newData; 
   @override
   Widget build(BuildContext context) {
     // manejar el null

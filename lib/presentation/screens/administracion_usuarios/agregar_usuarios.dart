@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/administracion_usuarios/administracion_de_usuarios_screen.dart';
-import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 
@@ -51,7 +50,7 @@ class _MyAddUsersPage extends State<AddUsersPage> {
       'password': password
     };
     var res = await CallApi().postData(data, 'register');
-    var body = json.decode(res.body);
+    json.decode(res.body);
     Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (BuildContext context) {
               return new AdministracionUsuariosScreen();

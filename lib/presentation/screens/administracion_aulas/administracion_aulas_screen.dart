@@ -234,43 +234,121 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
               ),
             ),
 
-            Container(
-              height: 100,
-              width: 400,
-              child: Row(
-                children: [
-                  Column(
-                  
-                         children: [
-                              Container(
-                                color: Color(0xff83C77E),
-                                width: 180,
-                                height: 50,
-                                padding: EdgeInsets.all(10),
-                               child: Text('Nombre'),
-                              )
-                          ],
-                      ),
-                   Column(
-                         children: [
-                              Container(
-                                color: Color(0xff83C77E),
-                                width: 180,
-                                height: 50,
-                                padding: EdgeInsets.all(10),
-                               child: Text('Acciones'),
-                              )
-                          ],
-                      ),
-                ],
+          
 
+
+
+            const SizedBox(height: 18),
+
+            Row(children: [
+
+              const SizedBox(width: 10),
+
+              Container(
+                        color: const Color(0xff83C77E),
+                        width: 180,
+                        height: 50,
+                        padding: const EdgeInsets.all(10),
+                        child: const Text('       Nombre',
+                        style: TextStyle(
+
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          
+                        ),
+                        ),
+                      ),
+
+                      const Expanded(child: SizedBox()),
+
+                      Container(
+                        color: const Color(0xff83C77E),
+                        width: 180,
+                        height: 50,
+                        padding: const EdgeInsets.all(10),
+                        child: const Text('       Acción',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                        ),),
+                      ),
+                      const SizedBox(width: 10),  
+            ],),
+
+
+
+            Container(
+              padding: const EdgeInsets.only(left: 5),
+              height: 350,
+              width: 400,
+              child: ListView.builder(
+                itemCount: AulasList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Aulas categoria = AulasList[index];
+                  return Row(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            color: Color(0xffDDDDDD),
+                            width: 180,
+                            height: 50,
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.all(5),
+                            child: Text('    ${categoria.nombre_al}',
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                            ),),
+                          )
+                        ],
+                      ),
+
+                      //Expanded(child: SizedBox()),
+                      //const SizedBox(width: 5,),
+
+
+                      Padding(
+                        padding: const EdgeInsets.all(7.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              color: Color(0xffDDDDDD),
+                              width: 180,
+                              height: 50,
+                        
+                              child: IconButton(
+                              
+                              iconSize: 20,
+                              icon: const Icon(Icons.delete),
+                              onPressed: () async {
+                                if (await confirm(
+                                  context,
+                                  title: const Text('Confirmar'),
+                                  content:
+                                      const Text('Quieres eliminar el estudiante?'),
+                                  textOK: const Text('Si'),
+                                  textCancel: const Text('No'),
+                                )) {
+                                  return EliminarAulas('${categoria.id}');
+                                }
+                                return print('pressedCancel');
+                              },
+                            ),
+                        
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  );
+                },
               ),
-              
             ),
 
             
 
-            Container(
+            /* Container(
               height: 350,
               width: 400,
               child: ListView.builder(
@@ -319,7 +397,7 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
                   );
                 },
               ),
-            ),
+            ), */
 
             
 

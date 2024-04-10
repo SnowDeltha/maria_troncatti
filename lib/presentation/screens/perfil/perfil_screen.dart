@@ -17,18 +17,20 @@ class PerfilScreen extends StatefulWidget {
   @override
   State<PerfilScreen> createState() => _PerfilScreenState();
 }
+
 class _PerfilScreenState extends State<PerfilScreen> {
- var userData;
+  var userData;
   Users usuario = Users();
   @override
   void initState() {
     _getUserInfo();
     super.initState();
   }
+
   void _getUserInfo() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var leer = localStorage.getString('user');
-      var user = json.decode(leer!);
+    var user = json.decode(leer!);
     setState(() {
       usuario = Users.fromJson(user);
     });
@@ -123,54 +125,101 @@ class _PerfilScreenState extends State<PerfilScreen> {
               ),
             ),
 
-            const Expanded(child: SizedBox()),
-             const SizedBox(height: 22),
-            const Text(
-              "Nombre:",
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Aleo'),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              usuario.nombre != null ? '${usuario.nombre}' : '',
-              style: const TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Aleo',
-                  fontSize: 22),
-            ),
-            const Text(
-              "Cargo:",
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Aleo'),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              usuario.nombre != null ? '${usuario.cargo}' : '',
-              style: const TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Aleo',
-                  fontSize: 22),
+            //const Expanded(child: SizedBox()),
+
+            const SizedBox(height: 50),
+
+            Row(children: [
+
+              const SizedBox(width: 20),
+
+              const Row(
+              children: [
+                SizedBox(width: 10),
+                CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/images/buho2.png')),
+              ],
             ),
 
-            const BotonPersonalizado4(),
-            Container(
-            height: 490,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
+
+            Column(children: [
+
+              Row(
+              children: [
+                const SizedBox(width:30),
+                const Text(
+                  "Nombre:",
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Aleo'),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  usuario.nombre != null ? '${usuario.nombre}' : '',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Aleo',
+                      fontSize: 22),
+                ),
+              ],
             ),
-          ),
+
+            const SizedBox(height: 20),
+
+            Row(
+              children: [
+                const SizedBox(width: 10),
+                const Text(
+                  "Cargo:",
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Aleo'),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  usuario.nombre != null ? '${usuario.cargo}' : '',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Aleo',
+                      fontSize: 22),
+                ),
+              ],
+            ),
+
+            ],),
+            ],),
+
+            
+
             const SizedBox(
-              width: 0,
+              height: 20,
+            ),
+
+            Expanded(child: SizedBox.expand()),
+
+            const BotonPersonalizado4(),
+
+            const SizedBox(
               height: 10,
             ),
-            
+
+            //   Container(
+            //   height: 490,
+            //   decoration: const BoxDecoration(
+            //     borderRadius: BorderRadius.only(
+            //       topLeft: Radius.circular(20),
+            //       topRight: Radius.circular(20),
+            //     ),
+            //   ),
+            // ),
+            //   const SizedBox(
+            //     width: 0,
+            //     height: 10,
+            //   ),
+
             // Pie de página
             Container(
               color: Colors.green,

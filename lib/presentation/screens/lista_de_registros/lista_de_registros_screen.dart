@@ -236,13 +236,10 @@ class _RegistroAsistenciasState extends State<RegistroAsistencias> {
                     children: sublist.map((listAsis) {
                       return Expanded(
                         child: IconButton(
+                        
+                          
                           onPressed: () {
-                            /* Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      RegistroAsistencias(listAsis)),
-                            ); */
+                            
                             generateExcelReport(listAsis);
                           },
                           icon: Column(

@@ -39,7 +39,6 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
                   itemBuilder: (BuildContext context) {
                     return [
                       PopupMenuItem(
-                        child: const Text('Perfil'),
                         value: 'Perfil',
                         onTap: () {
                           Navigator.push(
@@ -48,9 +47,9 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
                                 builder: (context) => const PerfilScreen()),
                           );
                         },
+                        child: const Text('Perfil'),
                       ),
                       PopupMenuItem(
-                        child: Text('Acerca de'),
                         value: 'Acerca de',
                         onTap: () {
                           Navigator.push(
@@ -59,9 +58,9 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
                                 builder: (context) => const AcercaScreen()),
                           );
                         },
+                        child: const Text('Acerca de'),
                       ),
                       PopupMenuItem(
-                        child: Text('Cerrar Sesión'),
                         value: 'Cerrar Sesión',
                         onTap: () {
                           Navigator.push(
@@ -70,6 +69,7 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
                                 builder: (context) => const InicioScreen()),
                           );
                         },
+                        child: const  Text('Cerrar Sesión'),
                       ),
                     ];
                   },

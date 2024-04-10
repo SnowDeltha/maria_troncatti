@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
@@ -52,6 +53,47 @@ class _AdministracionUsuariosScreenState
         UsuariosList = res.data as List<dynamic>;
       });
     }
+  }
+
+
+   EliminarUsuario(String id) async {
+    deleteUsuario(id);
+  }
+
+
+
+ Future<void> deleteUsuario(String id) async {
+  String _url = 'http://192.168.1.7:8000/api/userdelete/';
+  var fullUrl = _url + id;
+
+  final response = await http.delete(Uri.parse(fullUrl));
+
+  if (response.statusCode == 200) {
+    print('Eliminado');
+
+     setState(() {
+        
+      });
+
+    _reloadPage();
+    
+  } else {
+    
+    throw Exception('Fallo al eliminar el registro');
+  }
+}
+
+
+// Función para recargar la página
+  Future<void> _reloadPage() async {
+    // Esperar un breve período de tiempo para simular la carga
+    await Future.delayed(Duration(seconds: 1));
+
+    // Actualizar el estado para indicar que la carga ha terminado
+    setState(() {
+      
+    });
+    await mostrarUsuarios();
   }
 
   @override
@@ -163,7 +205,119 @@ class _AdministracionUsuariosScreenState
               height: 20,
             ),
 
-            SizedBox(
+
+
+            const SizedBox(height: 18),
+
+            Row(children: [
+
+              const SizedBox(width: 10),
+
+              Container(
+                        color: const Color(0xff83C77E),
+                        width: 180,
+                        height: 50,
+                        padding: const EdgeInsets.all(10),
+                        child: const Text('       Nombre',
+                        style: TextStyle(
+
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          
+                        ),
+                        ),
+                      ),
+
+                      const Expanded(child: SizedBox()),
+
+                      Container(
+                        color: const Color(0xff83C77E),
+                        width: 180,
+                        height: 50,
+                        padding: const EdgeInsets.all(10),
+                        child: const Text('       Acción',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                        ),),
+                      ),
+                      const SizedBox(width: 10),  
+            ],),
+
+            const SizedBox(height: 10),
+
+            
+
+            Container(
+              padding: const EdgeInsets.only(left: 5),
+              height: 350,
+              width: 400,
+              child: ListView.builder(
+                itemCount: UsuariosList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Users categoria = UsuariosList[index];
+                  return Row(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            color: Color(0xffDDDDDD),
+                            width: 180,
+                            height: 50,
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.all(5),
+                            child: Text('    ${categoria.nombre} ${categoria.apellido}',
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                            ),),
+                          )
+                        ],
+                      ),
+
+                      //Expanded(child: SizedBox()),
+                      //const SizedBox(width: 5,),
+
+
+                      Padding(
+                        padding: const EdgeInsets.all(7.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              color: Color(0xffDDDDDD),
+                              width: 180,
+                              height: 50,
+                        
+                              child: IconButton(
+                              
+                              iconSize: 20,
+                              icon: const Icon(Icons.delete),
+                              onPressed: () async {
+                                if (await confirm(
+                                  context,
+                                  title: const Text('Confirmar'),
+                                  content:
+                                      const Text('Quieres eliminar el aula?'),
+                                  textOK: const Text('Si'),
+                                  textCancel: const Text('No'),
+                                )) {
+                                  return EliminarUsuario('${categoria.id}');
+                                }
+                                return print('pressedCancel');
+                              },
+                            ),
+                        
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  );
+                },
+              ),
+            ),
+
+            /* SizedBox(
               height: 400,
               width: 350,
               child: ListView.builder(
@@ -188,7 +342,7 @@ class _AdministracionUsuariosScreenState
                               ))),
                     );
                   }),
-            ),
+            ), */
 
             //const SizedBox(height: 5),
 
