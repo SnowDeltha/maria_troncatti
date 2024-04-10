@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:widgets_app/model/apirespuesta.dart';
@@ -15,6 +16,7 @@ import 'package:widgets_app/util/RegistroModelo.dart';
 import '../../../api/ConsumoApi.dart';
 import '../../../util/ListaAsistencia.dart';
 import '../../../util/ReporteModelo.dart';
+import 'package:intl/intl.dart';
 
 Future<ApiRespuesta> getRegistroAsistencia(apiUrl) async {
   ApiRespuesta apiRespuesta = ApiRespuesta();
@@ -359,10 +361,11 @@ class _CrearNuevoRegistro extends StatelessWidget {
 
 Future<void> _guardarAulas(BuildContext context, int id) async {
   DateTime now = DateTime.now();
+  var formatter = DateFormat('yyyy-MM-dd');
   var registro=Registro();
   var data ={
     'id_aula' : id,
-    'fecha_registro': now.toString(),
+    'fecha_registro':formatter.format(now),
     
   };
   
@@ -377,23 +380,33 @@ Future<void> _guardarAulas(BuildContext context, int id) async {
       // Puedes acceder a los datos del registro como desees
        registro = Registro.fromJson(body['registro']);
       print('Registro creado: $registro');
-      
-      // Aquí puedes realizar cualquier acción adicional con los datos del registro
-    } else {
-      // El cuerpo de la respuesta no contiene el registro
-      print('No se pudo encontrar el registro en la respuesta del servidor');
-    }
-    
-    // Navegamos de regreso a la pantalla de registro de asistencia
-    Navigator.of(context).pushAndRemoveUntil(
+
+      Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (BuildContext context) {
         return RegistroAsistenciaScreen(registro);
       }), 
       (Route<dynamic> route) => false
     );
-  } else {
-    // La solicitud al servidor no fue exitosa
-    // Puedes manejar el error de acuerdo a tus necesidades
+      
+      // Aquí puedes realizar cualquier acción adicional con los datos del registro
+    }
+    
+    // Navegamos de regreso a la pantalla de registro de asistencia
+    
+  } else if(res.statusCode == 404){
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+    return const AlertDialog(
+      title: Text('Error'),
+      content: Text('No se pudo encontrar el registro en la respuesta del servidor'),
+    );
+  },
+);
+
+    
+  }else{
     print('Error en la solicitud al servidor: ${res.statusCode}');
   }
 }
