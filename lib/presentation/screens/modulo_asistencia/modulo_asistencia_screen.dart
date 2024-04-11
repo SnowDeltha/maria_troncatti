@@ -72,7 +72,8 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
               children: <Widget>[
                 const SizedBox(width: 15),
                 Image.asset('assets/images/Escuela.png'),
-                const SizedBox(width: 70),
+                const Expanded(child: SizedBox()),
+                //const SizedBox(width: 70),
                 const Text("Nombre del Usuario"),
                 PopupMenuButton(
                   icon: const CircleAvatar(

@@ -55,34 +55,26 @@ class _AdministracionUsuariosScreenState
     }
   }
 
-
-   EliminarUsuario(String id) async {
+  EliminarUsuario(String id) async {
     deleteUsuario(id);
   }
 
+  Future<void> deleteUsuario(String id) async {
+    String _url = 'http://192.168.1.7:8000/api/userdelete/';
+    var fullUrl = _url + id;
 
+    final response = await http.delete(Uri.parse(fullUrl));
 
- Future<void> deleteUsuario(String id) async {
-  String _url = 'http://192.168.1.7:8000/api/userdelete/';
-  var fullUrl = _url + id;
+    if (response.statusCode == 200) {
+      print('Eliminado');
 
-  final response = await http.delete(Uri.parse(fullUrl));
+      setState(() {});
 
-  if (response.statusCode == 200) {
-    print('Eliminado');
-
-     setState(() {
-        
-      });
-
-    _reloadPage();
-    
-  } else {
-    
-    throw Exception('Fallo al eliminar el registro');
+      _reloadPage();
+    } else {
+      throw Exception('Fallo al eliminar el registro');
+    }
   }
-}
-
 
 // Función para recargar la página
   Future<void> _reloadPage() async {
@@ -90,9 +82,7 @@ class _AdministracionUsuariosScreenState
     await Future.delayed(Duration(seconds: 1));
 
     // Actualizar el estado para indicar que la carga ha terminado
-    setState(() {
-      
-    });
+    setState(() {});
     await mostrarUsuarios();
   }
 
@@ -115,7 +105,8 @@ class _AdministracionUsuariosScreenState
               children: <Widget>[
                 const SizedBox(width: 15),
                 Image.asset('assets/images/Escuela.png'),
-                const SizedBox(width: 70),
+                const Expanded(child: SizedBox()),
+                //const SizedBox(width: 70),
                 const Text("Nombre del Usuario"),
                 PopupMenuButton(
                   icon: const CircleAvatar(
@@ -123,7 +114,7 @@ class _AdministracionUsuariosScreenState
                   itemBuilder: (BuildContext context) {
                     return [
                       PopupMenuItem(
-                        child: const Text('Perfil'),
+                        child: Text('Perfil'),
                         value: 'Perfil',
                         onTap: () {
                           Navigator.push(
@@ -134,7 +125,7 @@ class _AdministracionUsuariosScreenState
                         },
                       ),
                       PopupMenuItem(
-                        child: const Text('Acerca de'),
+                        child: Text('Acerca de'),
                         value: 'Acerca de',
                         onTap: () {
                           Navigator.push(
@@ -145,7 +136,7 @@ class _AdministracionUsuariosScreenState
                         },
                       ),
                       PopupMenuItem(
-                        child: const Text('Cerrar Sesión'),
+                        child: Text('Cerrar Sesión'),
                         value: 'Cerrar Sesión',
                         onTap: () {
                           Navigator.push(
@@ -174,198 +165,188 @@ class _AdministracionUsuariosScreenState
             )),
           ],
         ),
-        body: Column(
-          children: <Widget>[
-            const SizedBox(
-              height: 35,
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 5),
-              child: Text(
-                'Administración de Usuarios',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 28,
-                  color: Colors.orange,
+        body: SingleChildScrollView(
+          //padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 30,
+              ),
+
+              const Padding(
+                padding: EdgeInsets.only(left: 5),
+                child: Text(
+                  'Administración de',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28,
+                    color: Colors.orange,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 15),
 
-            const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Row(
-                children: [
-                  _ButtonAdd(),
-                ],
+              const Padding(
+                padding: EdgeInsets.only(left: 5),
+                child: Text(
+                  'Usuarios',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28,
+                    color: Colors.orange,
+                  ),
+                ),
               ),
-            ),
 
-            const SizedBox(
-              height: 20,
-            ),
+              const SizedBox(height: 15),
 
+              const Padding(
+                padding: EdgeInsets.only(left: 25),
+                child: Row(
+                  children: [
+                    _ButtonAdd(),
+                  ],
+                ),
+              ),
 
+              const SizedBox(
+                height: 10,
+              ),
 
-            const SizedBox(height: 18),
+              const SizedBox(height: 10),
 
-            Row(children: [
-
-              const SizedBox(width: 10),
-
-              Container(
-                        color: const Color(0xff83C77E),
-                        width: 180,
-                        height: 50,
-                        padding: const EdgeInsets.all(10),
-                        child: const Text('       Nombre',
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      color: const Color(0xff83C77E),
+                      width: 180,
+                      height: 50,
+                      padding: const EdgeInsets.all(10),
+                      child: const Text(
+                        '       Nombre',
                         style: TextStyle(
-
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          
-                        ),
                         ),
                       ),
+                    ),
 
-                      const Expanded(child: SizedBox()),
+                    //const Expanded(child: SizedBox()),
+                    const SizedBox(
+                      width: 10,
+                    ),
 
-                      Container(
-                        color: const Color(0xff83C77E),
-                        width: 180,
-                        height: 50,
-                        padding: const EdgeInsets.all(10),
-                        child: const Text('       Acción',
+                    Container(
+                      color: const Color(0xff83C77E),
+                      width: 150,
+                      height: 50,
+                      padding: const EdgeInsets.all(10),
+                      child: const Text(
+                        '  Acción',
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold
-                        ),),
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(width: 10),  
-            ],),
+                    ),
+                  ],
+                ),
+              ),
 
-            const SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-            
-
-            Container(
-              padding: const EdgeInsets.only(left: 5),
-              height: 350,
-              width: 400,
-              child: ListView.builder(
-                itemCount: UsuariosList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Users categoria = UsuariosList[index];
-                  return Row(
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            color: Color(0xffDDDDDD),
-                            width: 180,
-                            height: 50,
-                            padding: EdgeInsets.all(10),
-                            margin: EdgeInsets.all(5),
-                            child: Text('    ${categoria.nombre} ${categoria.apellido}',
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.normal,
-                            ),),
-                          )
-                        ],
-                      ),
-
-                      //Expanded(child: SizedBox()),
-                      //const SizedBox(width: 5,),
-
-
-                      Padding(
-                        padding: const EdgeInsets.all(7.0),
-                        child: Column(
+              Container(
+                padding: const EdgeInsets.only(left: 5),
+                height: 305,
+                width: 400,
+                child: ListView.builder(
+                  itemCount: UsuariosList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Users categoria = UsuariosList[index];
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
                           children: [
                             Container(
                               color: Color(0xffDDDDDD),
                               width: 180,
                               height: 50,
-                        
-                              child: IconButton(
-                              
-                              iconSize: 20,
-                              icon: const Icon(Icons.delete),
-                              onPressed: () async {
-                                if (await confirm(
-                                  context,
-                                  title: const Text('Confirmar'),
-                                  content:
-                                      const Text('Quieres eliminar el aula?'),
-                                  textOK: const Text('Si'),
-                                  textCancel: const Text('No'),
-                                )) {
-                                  return EliminarUsuario('${categoria.id}');
-                                }
-                                return print('pressedCancel');
-                              },
-                            ),
-                        
-                            ),
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.all(5),
+                              child: Text(
+                                '    ${categoria.nombre} ${categoria.apellido}',
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            )
                           ],
                         ),
-                      )
-                    ],
-                  );
-                },
-              ),
-            ),
 
-            /* SizedBox(
-              height: 400,
-              width: 350,
-              child: ListView.builder(
-                  itemCount: UsuariosList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Users categoria = UsuariosList[index];
+                        //Expanded(child: SizedBox()),
+                        //const SizedBox(width: 5,),
 
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 0),
-                      child: GestureDetector(
-                          child: SizedBox(
-                              width: 0,
-                              height: 50,
-                              child: Stack(
-                                children: [
-                                  Text('${categoria.nombre} ${categoria.apellido}',
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                  ),),
-                                  
-                                ],
-                              ))),
+                        Padding(
+                          padding: const EdgeInsets.all(7.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                color: Color(0xffDDDDDD),
+                                width: 150,
+                                height: 50,
+                                child: IconButton(
+                                  iconSize: 20,
+                                  icon: const Icon(Icons.delete),
+                                  onPressed: () async {
+                                    if (await confirm(
+                                      context,
+                                      title: const Text('Confirmar'),
+                                      content: const Text(
+                                          'Quieres eliminar el aula?'),
+                                      textOK: const Text('Si'),
+                                      textCancel: const Text('No'),
+                                    )) {
+                                      return EliminarUsuario('${categoria.id}');
+                                    }
+                                    return print('pressedCancel');
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     );
-                  }),
-            ), */
-
-            //const SizedBox(height: 5),
-
-            const Expanded(child: SizedBox()),
-
-            //const Expanded(child: SizedBox()),
-            const _BotonVolver(),
-
-            const SizedBox(
-              height: 10,
-            ),
-
-            Container(
-              color: Colors.green,
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              child: const Text(
-                '©2024 Instituto Tecnológico Superior Japón',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-                textAlign: TextAlign.center,
+                  },
+                ),
               ),
-            ),
-          ],
+
+              const SizedBox(height: 70),
+
+              //const Expanded(child: SizedBox()),
+
+              //const Expanded(child: SizedBox()),
+              const _BotonVolver(),
+
+              const SizedBox(
+                height: 10,
+              ),
+
+              Container(
+                color: Colors.green,
+                width: double.infinity,
+                padding: const EdgeInsets.all(10),
+                child: const Text(
+                  '©2024 Instituto Tecnológico Superior Japón',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

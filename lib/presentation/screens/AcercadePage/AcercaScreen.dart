@@ -15,76 +15,74 @@ class AcercaScreen extends StatelessWidget {
       debugShowCheckedModeBanner: true,
       home: Scaffold(
         appBar: AppBar(
-        title: const Text(''),
-        backgroundColor: Colors.yellow,
-        actions: <Widget>[
-
-          Expanded(
-            child: Row(
-            children: <Widget>[
-
-              const SizedBox(width:  15),
-
-              Image.asset('assets/images/Escuela.png'),
-
-              const SizedBox(width:  70),
-
-              const Text("Nombre del Usuario"),
-
-              PopupMenuButton(
-                icon: const CircleAvatar(backgroundImage: AssetImage('assets/images/buho2.png')),
-                itemBuilder: (BuildContext context) {
-                  return [
-                     PopupMenuItem(
-                      child: Text('Perfil'),
-                      value: 'Perfil',
-                      onTap: () {
-
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const PerfilScreen()),
-                        ); 
-                        
-                      },
+          title: const Text(''),
+          backgroundColor: Colors.yellow,
+          actions: <Widget>[
+            Expanded(
+                child: Row(
+              children: <Widget>[
+                const SizedBox(width: 15),
+                Image.asset('assets/images/Escuela.png'),
+                const Expanded(child: SizedBox()),
+                //const SizedBox(width: 70),
+                const Text("Nombre del Usuario"),
+                PopupMenuButton(
+                  icon: const CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/buho2.png')),
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      PopupMenuItem(
+                        child: Text('Perfil'),
+                        value: 'Perfil',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PerfilScreen()),
+                          );
+                        },
                       ),
-                       PopupMenuItem(
-                        child:  Text('Acerca de'),
+                      PopupMenuItem(
+                        child: Text('Acerca de'),
                         value: 'Acerca de',
                         onTap: () {
-                          Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const AcercaScreen()),
-                        ); 
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AcercaScreen()),
+                          );
                         },
+                      ),
+                      PopupMenuItem(
+                        child: Text('Cerrar Sesión'),
+                        value: 'Cerrar Sesión',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const InicioScreen()),
+                          );
+                        },
+                      ),
+                    ];
+                  },
+                  onSelected: (value) {
+                    if (value == 'Perfil') {
+                      //Realiza la accion de boton
+                    } else if (value == 'Acerca de') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AcercaScreen(),
                         ),
-
-                         PopupMenuItem(
-                          child: Text('Cerrar Sesión'),
-                          value: 'Cerrar Sesión',
-                          onTap: () {
-                            Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const InicioScreen()),
-                        ); 
-                          },
-                          ),
-                          ];
-                          },
-                          onSelected: (value) {
-                            if (value == 'Perfil') {
-                              //Realiza la accion de boton
-                            } else if (value == 'Acerca de') {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const AcercaScreen(),
-                                ),
-                              );
-                            }
-                          },
-               )
-             ],
+                      );
+                    }
+                  },
+                )
+              ],
             )),
-
-        ],
-      ),
+          ],
+        ),
 
       body: Column(
         children: [

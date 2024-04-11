@@ -57,11 +57,12 @@ Future<ApiRespuesta> getAulas(apiUrl) async {
   }
   return apiRespuesta;
 }
+
 int aula1 = 3;
 int aula2 = 4;
 int aula3 = 6;
 
-enum NumeroAulas {aula1, aula2, aula3}
+enum NumeroAulas { aula1, aula2, aula3 }
 
 class AgregarEstudiantes extends StatelessWidget {
   @override
@@ -79,7 +80,6 @@ class AddStudentsPage extends StatefulWidget {
 }
 
 class _MyAddStudentsPage extends State<AddStudentsPage> {
-
   List<dynamic> AulasList = [];
   Future<void> mostrarAulas() async {
     ApiRespuesta res = await getAulas('aulas');
@@ -92,12 +92,9 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
 
   late String selectAula;
 
-  
-
-
   var selectValue;
   TextEditingController _nombreestudiante = TextEditingController();
-  
+
   /* Future<void> _guardarEstudiantes() async {
     String nombrestudent = _nombreestudiante.text;
 
@@ -115,20 +112,19 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
     }), (Route<dynamic> route) => false);
   } */
 
-
-  Future<void>  _guardarEstudiantes() async {
+  Future<void> _guardarEstudiantes() async {
     String nombrestudent = _nombreestudiante.text;
-  
-    var data ={
-      'nombre_es' : nombrestudent,
-      'id_aulas' : selectValue,
+
+    var data = {
+      'nombre_es': nombrestudent,
+      'id_aulas': selectValue,
     };
     var res = await CallApi().postData(data, 'estudiantes');
     json.decode(res.body);
     Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (BuildContext context) {
-              return new AdministracionEstudiantesScreen();
-            }), (Route<dynamic> route) => false);
+        MaterialPageRoute(builder: (BuildContext context) {
+      return new AdministracionEstudiantesScreen();
+    }), (Route<dynamic> route) => false);
   }
 
   @override
@@ -139,12 +135,8 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
     mostrarAulas();
   }
 
-
-  
-
   NumeroAulas selectedAulas =
       NumeroAulas.aula1; //  Forma Parte del RadioListTile
-
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +152,8 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
             children: <Widget>[
               const SizedBox(width: 15),
               Image.asset('assets/images/Escuela.png'),
-              const SizedBox(width: 70),
+              const Expanded(child: SizedBox()),
+              //const SizedBox(width: 70),
               const Text("Nombre del Usuario"),
               PopupMenuButton(
                 icon: const CircleAvatar(
@@ -224,11 +217,22 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const SizedBox(
-              height: 100,
+              height: 30,
             ),
-
-            //_inputCampo1(),
-
+            const Padding(
+              padding: EdgeInsets.only(left: 5),
+              child: Text(
+                'Añadir estudiante ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 28,
+                  color: Colors.orange,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
             Padding(
               padding: const EdgeInsets.only(
                 top: 105,
@@ -250,100 +254,54 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
                       ),
                     ),
                   ),
-                  
-                  const SizedBox(height: 20,),
-
-                  /* ExpansionTile(
-                    title: const Text('Aulas'),
-                    subtitle:const Text('Seleccione una de las Aulas'),
-                    children: [
-                      RadioListTile(
-                        title: const Text(' Aula numero 1'),
-                        value: NumeroAulas.aula1,
-                        groupValue: selectedAulas,
-                        onChanged: (value) => setState(() {
-                          selectedAulas = NumeroAulas.aula1;
-                        }),
-                      ),
-                      RadioListTile(
-                        title: const Text('Aula numero 2'),
-                        value: NumeroAulas.aula2,
-                        groupValue: selectedAulas,
-                        onChanged: (value) => setState(() {
-                          selectedAulas = NumeroAulas.aula2;
-                        }),
-                      ),
-                      RadioListTile(
-                        title: const Text('Aula numero 3'),
-                        value: NumeroAulas.aula3,
-                        groupValue: selectedAulas,
-                        onChanged: (value) => setState(() {
-                          selectedAulas = NumeroAulas.aula3;
-                        }),
-                      ),
-                    ],
-                  ), */
-
-                 
-
-    
-
-
-       
-
-FutureBuilder<void>(
-  future: Future.value(),
-  builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    } else if (snapshot.hasError) {
-      return Center(
-        child: Text("Error: ${snapshot.error}"),
-      );
-    } else {
-      return DropdownButton(
-        value: selectValue,
-        dropdownColor: Colors.blue[100],
-        isExpanded: true,
-        hint: const Text("Selecciona un aula"),
-        items: AulasList.map((e) {
-          return DropdownMenuItem(
-            value: e.id.toString(),
-            child: Text(e.nombre_al.toString()),
-          );
-        }).toList(),
-        onChanged: (value) {
-          setState(() {
-            selectValue = value;
-          });
-        },
-      );
-    }
-  },
-)
-                
-
-
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  FutureBuilder<void>(
+                    future: Future.value(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text("Error: ${snapshot.error}"),
+                        );
+                      } else {
+                        return DropdownButton(
+                          value: selectValue,
+                          dropdownColor: Colors.blue[100],
+                          isExpanded: true,
+                          hint: const Text("Selecciona el aula"),
+                          items: AulasList.map((e) {
+                            return DropdownMenuItem(
+                              value: e.id.toString(),
+                              child: Text(e.nombre_al.toString()),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              selectValue = value;
+                            });
+                          },
+                        );
+                      }
+                    },
+                  )
                 ],
               ),
             ),
-
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _guardarEstudiantes,
               child: const Text(' Guardar '),
             ),
-
             const SizedBox(
-              height: 205,
+              height: 230,
             ),
-
             const _BotonVolver(),
-
             const SizedBox(height: 10),
-
             Container(
               color: Colors.green,
               width: double.infinity,
@@ -354,7 +312,6 @@ FutureBuilder<void>(
                 textAlign: TextAlign.center,
               ),
             ),
-
           ],
         ),
       ),

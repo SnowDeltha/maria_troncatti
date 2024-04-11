@@ -13,25 +13,24 @@ import 'package:http/http.dart' as http;
 
 Future<ApiRespuesta> getAulas(apiUrl) async {
   ApiRespuesta apiRespuesta = ApiRespuesta();
-   const String _url = 'http://192.168.1.7:8000/api/';
-   var fullUrl = _url + apiUrl;
-   final response = await http
-       .get(Uri.parse(fullUrl));
-   if (response.statusCode == 200) {
-     // If the server did return a 200 OK response,
-     // then parse the JSON.
-     apiRespuesta.data = jsonDecode(response.body)['aulas']
-              .map((p) => Aulas.fromJson(p))
-              .toList();
-          apiRespuesta.data as List<dynamic>;
+  const String _url = 'http://192.168.1.7:8000/api/';
+  var fullUrl = _url + apiUrl;
+  final response = await http.get(Uri.parse(fullUrl));
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    apiRespuesta.data = jsonDecode(response.body)['aulas']
+        .map((p) => Aulas.fromJson(p))
+        .toList();
+    apiRespuesta.data as List<dynamic>;
 
     //return Users.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-   } else {
-     // If the server did not return a 200 OK response,
-     // then throw an exception.
-     throw Exception('Fallo al traer la informacion');
-   }
-   return apiRespuesta;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Fallo al traer la informacion');
+  }
+  return apiRespuesta;
 }
 
 class AdministracioAulasScreen extends StatefulWidget {
@@ -57,43 +56,42 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
 
   late Future<Aulas> futureAulas;
   List<dynamic> AulasList = [];
-   Future<void> mostrarAulas() async {
-    ApiRespuesta res =await getAulas('aulas');
-   if (res.error == null) {
+  Future<void> mostrarAulas() async {
+    ApiRespuesta res = await getAulas('aulas');
+    if (res.error == null) {
       setState(() {
         AulasList = res.data as List<dynamic>;
       });
     }
   }
+
   EliminarAulas(String id) async {
-  deleteAulas(id);
-}
+    deleteAulas(id);
+  }
 
 // Variable para almacenar el estado de la página
   bool _isLoading = false;
 
- Future<void> deleteAulas(String id) async {
-  String _url = 'http://192.168.1.7:8000/api/aulasdelete/';
-  var fullUrl = _url + id;
+  Future<void> deleteAulas(String id) async {
+    String _url = 'http://192.168.1.7:8000/api/aulasdelete/';
+    var fullUrl = _url + id;
 
-  final response = await http.delete(Uri.parse(fullUrl));
+    final response = await http.delete(Uri.parse(fullUrl));
 
-  if (response.statusCode == 200) {
-    print('Eliminar');
+    if (response.statusCode == 200) {
+      print('Eliminar');
 
-     setState(() {
+      setState(() {
         _isLoading = true;
       });
 
-    _reloadPage();
-    
-  } else {
-    // Si el servidor no devuelve un código de estado 200 OK,
-    // lanza una excepción con un mensaje de error.
-    throw Exception('Fallo al eliminar el registro');
+      _reloadPage();
+    } else {
+      // Si el servidor no devuelve un código de estado 200 OK,
+      // lanza una excepción con un mensaje de error.
+      throw Exception('Fallo al eliminar el registro');
+    }
   }
-}
-
 
 // Función para recargar la página
   Future<void> _reloadPage() async {
@@ -106,7 +104,6 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
     });
     await mostrarAulas();
   }
-
 
   @override
   void initState() {
@@ -122,20 +119,15 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
         appBar: AppBar(
           title: const Text(''),
           backgroundColor: Colors.yellow,
-          
           actions: <Widget>[
             Expanded(
                 child: Row(
               children: <Widget>[
                 const SizedBox(width: 15),
-
                 Image.asset('assets/images/Escuela.png'),
                 const Expanded(child: SizedBox()),
-
-                //const SizedBox(width:  70),
-
+                //const SizedBox(width: 70),
                 const Text("Nombre del Usuario"),
-
                 PopupMenuButton(
                   icon: const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/buho2.png')),
@@ -209,83 +201,80 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
         ),
         */
 
-        body: Column(
-          children: <Widget>[
-            const SizedBox(
-              height: 50,
-            ),
-
-            const Text(
-              'Administración de Aulas',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 28,
-                color: Colors.orange,
+        body: SingleChildScrollView(
+          //padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 30,
               ),
-            ),
-
-            const SizedBox(height: 15),
-            const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Row(
+              const Text(
+                'Administración de Aulas',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 28,
+                  color: Colors.orange,
+                ),
+              ),
+              const SizedBox(height: 15),
+              const Padding(
+                padding: EdgeInsets.only(left: 25),
+                child: Row(
+                  children: [
+                    _ButtonAdd(),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 18),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _ButtonAdd(),
+                  const SizedBox(width: 10),
+                  Container(
+                    color: const Color(0xff83C77E),
+                    width: 180,
+                    height: 50,
+                    padding: const EdgeInsets.all(10),
+                    child: const Text(
+                      '       Nombre',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+
+
+                  const SizedBox(width: 10,),
+
+
+                  Container(
+                    color: const Color(0xff83C77E),
+                    width: 150,
+                    height: 50,
+                    padding: const EdgeInsets.all(10),
+                    child: const Text(
+                      '       Acción',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
                 ],
               ),
-            ),
 
-          
-
-
-
-            const SizedBox(height: 18),
-
-            Row(children: [
-
-              const SizedBox(width: 10),
 
               Container(
-                        color: const Color(0xff83C77E),
-                        width: 180,
-                        height: 50,
-                        padding: const EdgeInsets.all(10),
-                        child: const Text('       Nombre',
-                        style: TextStyle(
-
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          
-                        ),
-                        ),
-                      ),
-
-                      const Expanded(child: SizedBox()),
-
-                      Container(
-                        color: const Color(0xff83C77E),
-                        width: 180,
-                        height: 50,
-                        padding: const EdgeInsets.all(10),
-                        child: const Text('       Acción',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold
-                        ),),
-                      ),
-                      const SizedBox(width: 10),  
-            ],),
-
-
-
-            Container(
               padding: const EdgeInsets.only(left: 5),
-              height: 350,
+              height: 400,
               width: 400,
               child: ListView.builder(
                 itemCount: AulasList.length,
                 itemBuilder: (BuildContext context, int index) {
                   Aulas categoria = AulasList[index];
                   return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(
                         children: [
@@ -314,7 +303,7 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
                           children: [
                             Container(
                               color: Color(0xffDDDDDD),
-                              width: 180,
+                              width: 150,
                               height: 50,
                         
                               child: IconButton(
@@ -346,64 +335,14 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
               ),
             ),
 
-            
-
-            /* Container(
-              height: 350,
-              width: 400,
-              child: ListView.builder(
-                itemCount: AulasList.length,
-                itemBuilder: (BuildContext context, int index){
-                  Aulas categoria = AulasList[index];
-                  return Row(
-                    children: [
-                      
-                      Column(
-                         children: [
-                              Container(
-                                color: Color(0xffDDDDDD),
-                                width: 250,
-                                height: 50,
-                                padding: EdgeInsets.all(10),
-                               child: Text('${categoria.nombre_al}'),
-                              )
-                          ],
-                      ),
-                     
-                      Column(
-                         children: [
-                              IconButton(
-                              iconSize: 20,
-                              icon: const Icon(Icons.delete),
-                              onPressed: 
-
-
-                              () async {
-            if (await confirm(
-              context,
-              title: const Text('Confirmar'),
-              content: const Text('Quieres eliminar el aula?'),
-              textOK: const Text('Si'),
-              textCancel: const Text('No'),
-            )) {
-              return EliminarAulas('${categoria.id}');
-            }
-            return print('pressedCancel');
-          },
-                            ),
-                          ],
-                      )
-                    ],
-                  );
-                },
-              ),
-            ), */
-
-            
-
             //Boton Volver
             
-            const Expanded(child: SizedBox()),
+            //const Expanded(child: SizedBox()),
+
+            const SizedBox(
+              width: 0,
+              height: 50,
+            ),
 
             const _BotonVolver(),
 
@@ -412,20 +351,20 @@ class _AdministracioAulasScreenState extends State<AdministracioAulasScreen> {
               height: 10,
             ),
 
-            
 
             // Pie de página
-            Container(
-              color: Colors.green,
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              child: const Text(
-                '©2024 Instituto Tecnológico Superior Japón',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-                textAlign: TextAlign.center,
+              Container(
+                color: Colors.green,
+                width: double.infinity,
+                padding: const EdgeInsets.all(10),
+                child: const Text(
+                  '©2024 Instituto Tecnológico Superior Japón',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -460,12 +399,6 @@ class _BotonVolver extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
 
 class _ButtonAdd extends StatelessWidget {
   const _ButtonAdd({super.key});

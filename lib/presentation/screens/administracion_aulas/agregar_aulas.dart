@@ -29,19 +29,18 @@ class AddCoursesPage extends StatefulWidget {
 class _MyAddCoursesPage extends State<AddCoursesPage> {
   TextEditingController _nombreaula = TextEditingController();
 
-
-  Future<void>  _guardarAulas() async {
+  Future<void> _guardarAulas() async {
     String nombrecourse = _nombreaula.text;
-  
-    var data ={
-      'nombre_al' : nombrecourse,
+
+    var data = {
+      'nombre_al': nombrecourse,
     };
     var res = await CallApi().postData(data, 'aulas');
     var body = json.decode(res.body);
     Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (BuildContext context) {
-              return new AdministracioAulasScreen();
-            }), (Route<dynamic> route) => false);
+        MaterialPageRoute(builder: (BuildContext context) {
+      return new AdministracioAulasScreen();
+    }), (Route<dynamic> route) => false);
   }
 
   @override
@@ -56,7 +55,8 @@ class _MyAddCoursesPage extends State<AddCoursesPage> {
               children: <Widget>[
                 const SizedBox(width: 15),
                 Image.asset('assets/images/Escuela.png'),
-                const SizedBox(width: 70),
+                const Expanded(child: SizedBox()),
+                //const SizedBox(width: 70),
                 const Text("Nombre del Usuario"),
                 PopupMenuButton(
                   icon: const CircleAvatar(
@@ -115,14 +115,24 @@ class _MyAddCoursesPage extends State<AddCoursesPage> {
             )),
           ],
         ),
-
       body: SingleChildScrollView(
-        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
-            const SizedBox(height: 100,),
+            const SizedBox(
+              height: 30,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 5),
+              child: Text(
+                'Añadir aula ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 28,
+                  color: Colors.orange,
+                ),
+              ),
+            ),
 
             //_inputCampo1(),
 
@@ -135,36 +145,32 @@ class _MyAddCoursesPage extends State<AddCoursesPage> {
               child: Column(
                 children: <Widget>[
                   TextField(
-                controller: _nombreaula,
-                decoration: InputDecoration(
-                  
-                  labelText: 'Ingrese el nombre del aula',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: const BorderSide(
-                      width: 1, 
-                     //style: BorderStyle.none,
+                    controller: _nombreaula,
+                    decoration: InputDecoration(
+                      labelText: 'Ingrese el nombre del aula',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(
+                          width: 1,
+                          //style: BorderStyle.none,
+                        ),
+                      ),
                     ),
                   ),
-                  
-                ),
-              ),
-              
                 ],
               ),
             ),
 
-            
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _guardarAulas,
               child: const Text(' Guardar '),
             ),
 
-            const SizedBox(height: 205,),
+            const SizedBox(
+              height: 235,
+            ),
 
-            
-            
             const _BotonVolver(),
 
             const SizedBox(height: 10),
@@ -186,32 +192,26 @@ class _MyAddCoursesPage extends State<AddCoursesPage> {
   }
 }
 
-
-
-
-
 Container inputCampo() {
-    return Container(
-      decoration:  BoxDecoration(
-          color: const Color.fromARGB(255, 175, 175, 175),
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey)),
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      margin: const EdgeInsets.symmetric(horizontal: 30),
-      child: TextFormField(
-        //controller: ,
-        enableInteractiveSelection: false,
-        obscureText: false,
-        style: const TextStyle(fontSize: 15),
-        decoration: const InputDecoration(
-            hintText: "Campo 1",
-            
-            border: InputBorder.none),
-      ),
-    );
-  }
+  return Container(
+    decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 175, 175, 175),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey)),
+    padding: const EdgeInsets.symmetric(horizontal: 30),
+    margin: const EdgeInsets.symmetric(horizontal: 30),
+    child: TextFormField(
+      //controller: ,
+      enableInteractiveSelection: false,
+      obscureText: false,
+      style: const TextStyle(fontSize: 15),
+      decoration:
+          const InputDecoration(hintText: "Campo 1", border: InputBorder.none),
+    ),
+  );
+}
 
-  class _BotonVolver extends StatelessWidget {
+class _BotonVolver extends StatelessWidget {
   const _BotonVolver({super.key});
   @override
   Widget build(BuildContext context) {
@@ -223,7 +223,8 @@ Container inputCampo() {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AdministracioAulasScreen()),
+              MaterialPageRoute(
+                  builder: (context) => AdministracioAulasScreen()),
             );
           },
           child: const Padding(
