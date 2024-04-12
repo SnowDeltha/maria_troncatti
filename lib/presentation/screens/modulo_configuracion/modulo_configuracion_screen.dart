@@ -19,7 +19,7 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text(''),
@@ -99,7 +99,16 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
             ),
 
             const Text(
-                    'Modulo de Configuración',
+                    'Modulo de',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.orange,
+                    
+                    ),
+                  ),
+                  const Text(
+                    'configuración',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,

@@ -129,70 +129,64 @@ class _PerfilScreenState extends State<PerfilScreen> {
 
             const SizedBox(height: 50),
 
-            Row(children: [
-
-              const SizedBox(width: 20),
-
-              const Row(
-              children: [
-                SizedBox(width: 10),
-                CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage('assets/images/buho2.png')),
-              ],
-            ),
-
-
-            Column(children: [
-
-              Row(
-              children: [
-                const SizedBox(width:30),
-                const Text(
-                  "Nombre:",
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Aleo'),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  usuario.nombre != null ? '${usuario.nombre}' : '',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Aleo',
-                      fontSize: 22),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 20),
-
             Row(
               children: [
-                const SizedBox(width: 10),
-                const Text(
-                  "Cargo:",
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Aleo'),
+                const SizedBox(width: 20),
+                const Row(
+                  children: [
+                    SizedBox(width: 10),
+                    CircleAvatar(
+                        radius: 50,
+                        backgroundImage: AssetImage('assets/images/buho2.png')),
+                  ],
                 ),
-                const SizedBox(width: 10),
-                Text(
-                  usuario.nombre != null ? '${usuario.cargo}' : '',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Aleo',
-                      fontSize: 22),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        const SizedBox(width: 30),
+                        const Text(
+                          "Nombre:",
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Aleo'),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          usuario.nombre != null ? '${usuario.nombre}' : '',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Aleo',
+                              fontSize: 22),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        const Text(
+                          "Cargo:",
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Aleo'),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          usuario.nombre != null ? '${usuario.cargo}' : '',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Aleo',
+                              fontSize: 22),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
-
-            ],),
-            ],),
-
-            
 
             const SizedBox(
               height: 20,

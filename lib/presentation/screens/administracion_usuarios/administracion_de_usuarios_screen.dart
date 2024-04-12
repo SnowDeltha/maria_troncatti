@@ -94,7 +94,7 @@ class _AdministracionUsuariosScreenState
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text(''),
@@ -226,7 +226,7 @@ class _AdministracionUsuariosScreenState
                       height: 50,
                       padding: const EdgeInsets.all(10),
                       child: const Text(
-                        '       Nombre',
+                        '        Nombre',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -245,7 +245,7 @@ class _AdministracionUsuariosScreenState
                       height: 50,
                       padding: const EdgeInsets.all(10),
                       child: const Text(
-                        '  Acción',
+                        '       Acción',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
