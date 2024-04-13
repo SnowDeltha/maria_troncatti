@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 
@@ -9,10 +11,19 @@ void Acerca_Screen() {
 class AcercaScreen extends StatelessWidget {
   const AcercaScreen({Key? key}) : super(key: key);
     static const name = 'Accerca';
+  void _borrarCache(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  await localStorage.remove('user');
+  await localStorage.remove('token');
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+  ); 
+}
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text(''),
@@ -25,7 +36,7 @@ class AcercaScreen extends StatelessWidget {
                 Image.asset('assets/images/Escuela.png'),
                 const Expanded(child: SizedBox()),
                 //const SizedBox(width: 70),
-                const Text("Nombre del Usuario"),
+                const Text("Administrador"),
                 PopupMenuButton(
                   icon: const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/buho2.png')),
@@ -53,17 +64,13 @@ class AcercaScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      PopupMenuItem(
+                      /* PopupMenuItem(
                         child: Text('Cerrar Sesión'),
                         value: 'Cerrar Sesión',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const InicioScreen()),
-                          );
+                          _borrarCache(context);
                         },
-                      ),
+                      ), */
                     ];
                   },
                   onSelected: (value) {

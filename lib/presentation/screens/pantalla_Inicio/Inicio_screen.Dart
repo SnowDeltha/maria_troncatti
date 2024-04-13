@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
+import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 import 'package:widgets_app/presentation/screens/registro_asistencia/registro_asistencia_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_asistencia/modulo_asistencia_screen.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/presentation/screens/home/home_screen.dart';
 
 //void main() {
@@ -13,6 +14,17 @@ import 'package:widgets_app/presentation/screens/home/home_screen.dart';
 
 class InicioScreen extends StatelessWidget {
   static const name = 'Inicio';
+
+void _borrarCache(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  await localStorage.remove('user');
+  await localStorage.remove('token');
+  Navigator.popUntil(context, ModalRoute.withName('/'));
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+  ); 
+}
 
   const InicioScreen({super.key});
 
@@ -36,7 +48,7 @@ class InicioScreen extends StatelessWidget {
 
               const Expanded(child: SizedBox()),
 
-              const Text("Nombre del Usuario"),
+              const Text("Administrador"),
 
               PopupMenuButton(
                 icon: const CircleAvatar(backgroundImage: AssetImage('assets/images/buho2.png')),
@@ -67,9 +79,8 @@ class InicioScreen extends StatelessWidget {
                           child: Text('Cerrar Sesión'),
                           value: 'Cerrar Sesión',
                           onTap: () {
-                            Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const InicioScreen()),
-                        ); 
+                            
+                           _borrarCache(context);
                           },
                           ),
                           ];
@@ -118,23 +129,7 @@ class InicioScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      // Acción cuando se presiona el botón
-
-                      Navigator.push(
-                       context,
-                       MaterialPageRoute(builder: (context) => const HomeScreen()),
-                        );
-                       
-                    },
-                    icon: Column(
-                      children: [
-                        Image.asset('assets/images/2.png'),
-                        const Text('Todas las Pantallas'),
-                      ],
-                    ),
-                  ),
+                
                   IconButton(
                     onPressed: () {
                       // Acción cuando se presiona el botón

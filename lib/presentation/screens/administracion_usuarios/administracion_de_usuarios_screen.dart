@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:confirm_dialog/confirm_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
+import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
@@ -58,6 +60,16 @@ class _AdministracionUsuariosScreenState
   EliminarUsuario(String id) async {
     deleteUsuario(id);
   }
+  void _borrarCache(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  await localStorage.remove('user');
+  await localStorage.remove('token');
+  Navigator.popUntil(context, ModalRoute.withName('/'));
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+  ); 
+}
 
   Future<void> deleteUsuario(String id) async {
     String _url = 'http://192.168.1.7:8000/api/userdelete/';
@@ -94,7 +106,7 @@ class _AdministracionUsuariosScreenState
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+     debugShowCheckedModeBanner:false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text(''),
@@ -107,7 +119,7 @@ class _AdministracionUsuariosScreenState
                 Image.asset('assets/images/Escuela.png'),
                 const Expanded(child: SizedBox()),
                 //const SizedBox(width: 70),
-                const Text("Nombre del Usuario"),
+                const Text("Administrador"),
                 PopupMenuButton(
                   icon: const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/buho2.png')),
@@ -132,17 +144,6 @@ class _AdministracionUsuariosScreenState
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const AcercaScreen()),
-                          );
-                        },
-                      ),
-                      PopupMenuItem(
-                        child: Text('Cerrar Sesión'),
-                        value: 'Cerrar Sesión',
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const InicioScreen()),
                           );
                         },
                       ),
@@ -189,7 +190,7 @@ class _AdministracionUsuariosScreenState
               const Padding(
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                  'Usuarios',
+                  'usuarios',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 28,
@@ -234,6 +235,26 @@ class _AdministracionUsuariosScreenState
                       ),
                     ),
 
+
+                    const SizedBox(
+                      width: 10,
+                    ),
+
+                    Container(
+                      color: const Color(0xff83C77E),
+                      width: 90,
+                      height: 50,
+                      padding: const EdgeInsets.all(10),
+                      child: const Text(
+                        '  Rol',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+
+
+                    
+
                     //const Expanded(child: SizedBox()),
                     const SizedBox(
                       width: 10,
@@ -241,11 +262,11 @@ class _AdministracionUsuariosScreenState
 
                     Container(
                       color: const Color(0xff83C77E),
-                      width: 150,
+                      width: 60,
                       height: 50,
                       padding: const EdgeInsets.all(10),
                       child: const Text(
-                        '       Acción',
+                        'AC',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -258,7 +279,7 @@ class _AdministracionUsuariosScreenState
 
               Container(
                 padding: const EdgeInsets.only(left: 5),
-                height: 305,
+                height: 350,
                 width: 400,
                 child: ListView.builder(
                   itemCount: UsuariosList.length,
@@ -286,6 +307,28 @@ class _AdministracionUsuariosScreenState
                           ],
                         ),
 
+
+
+
+                        Column(
+                          children: [
+                            Container(
+                              color: Color(0xffDDDDDD),
+                              width: 90,
+                              height: 50,
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.all(5),
+                              child: Text(
+                                '    ${categoria.rol}',
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+
                         //Expanded(child: SizedBox()),
                         //const SizedBox(width: 5,),
 
@@ -295,7 +338,7 @@ class _AdministracionUsuariosScreenState
                             children: [
                               Container(
                                 color: Color(0xffDDDDDD),
-                                width: 150,
+                                width: 60,
                                 height: 50,
                                 child: IconButton(
                                   iconSize: 20,
@@ -324,7 +367,7 @@ class _AdministracionUsuariosScreenState
                 ),
               ),
 
-              const SizedBox(height: 70),
+              const SizedBox(height: 30),
 
               //const Expanded(child: SizedBox()),
 

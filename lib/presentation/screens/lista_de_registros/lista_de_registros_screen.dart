@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/model/apirespuesta.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
+import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_asistencia/modulo_asistencia_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
@@ -111,6 +113,17 @@ class RegistroAsistencias extends StatefulWidget {
 
 class _RegistroAsistenciasState extends State<RegistroAsistencias> {
   List<dynamic> AulasList = [];
+  
+  void _borrarCache(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  await localStorage.remove('user');
+  await localStorage.remove('token');
+  Navigator.popUntil(context, ModalRoute.withName('/'));
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+  ); 
+}
 
   Future<void> mostrarAulas() async {
     ApiRespuesta res = await getRegistroAsistencia('registroaula/${widget.id}');
@@ -175,8 +188,9 @@ class _RegistroAsistenciasState extends State<RegistroAsistencias> {
               children: <Widget>[
                 const SizedBox(width: 15),
                 Image.asset('assets/images/Escuela.png'),
-                const SizedBox(width: 70),
-                const Text("Nombre del Usuario"),
+                const Expanded(child: SizedBox()),
+                //const SizedBox(width: 70),
+                const Text("Administrador"),
                 PopupMenuButton(
                   icon: const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/buho2.png')),
@@ -204,17 +218,13 @@ class _RegistroAsistenciasState extends State<RegistroAsistencias> {
                           );
                         },
                       ),
-                      PopupMenuItem(
+                      /* PopupMenuItem(
                         child: Text('Cerrar Sesión'),
                         value: 'Cerrar Sesión',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const InicioScreen()),
-                          );
+                          _borrarCache(context);
                         },
-                      ),
+                      ), */
                     ];
                   },
                   onSelected: (value) {
@@ -258,14 +268,14 @@ class _RegistroAsistenciasState extends State<RegistroAsistencias> {
 
               const SizedBox(
                 width: 0,
-                height: 20,
+                height: 35,
               ),
 
-              const SizedBox(height: 15),
+              
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 10),
 
                   Container(
                     color: const Color(0xff83C77E),

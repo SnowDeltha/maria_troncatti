@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/administracion_usuarios/administracion_de_usuarios_screen.dart';
+import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
 import 'package:widgets_app/presentation/screens/administracion_estudiantes/administrador_estudiantes_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
+
 
 class ModuloConfiguracion extends StatefulWidget {
   static const String name = 'modulo_configuracion_screen';
@@ -16,6 +19,17 @@ class ModuloConfiguracion extends StatefulWidget {
 
 
 class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
+  void _borrarCache(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  await localStorage.remove('user');
+  await localStorage.remove('token');
+  Navigator.popUntil(context, ModalRoute.withName('/'));
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+  ); 
+}
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +46,7 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
                 Image.asset('assets/images/Escuela.png'),
                 const Expanded(child: SizedBox()),
                 //const SizedBox(width: 70),
-                const Text("Nombre del Usuario"),
+                const Text("Administrador"),
                 PopupMenuButton(
                   icon: const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/buho2.png')),
@@ -63,11 +77,7 @@ class _ModuloConfiguracionState extends State<ModuloConfiguracion> {
                       PopupMenuItem(
                         value: 'Cerrar Sesión',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const InicioScreen()),
-                          );
+                         _borrarCache(context);
                         },
                         child: const  Text('Cerrar Sesión'),
                       ),

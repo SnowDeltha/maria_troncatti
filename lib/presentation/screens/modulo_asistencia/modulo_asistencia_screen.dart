@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/model/apirespuesta.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
+import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/lista_de_registros/lista_de_registros_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
@@ -50,6 +52,16 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
       });
     }
   }
+  void _borrarCache(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  await localStorage.remove('user');
+  await localStorage.remove('token');
+  Navigator.popUntil(context, ModalRoute.withName('/'));
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+  ); 
+}
 
   @override
   void initState() {
@@ -61,7 +73,7 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text(''),
@@ -74,7 +86,7 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
                 Image.asset('assets/images/Escuela.png'),
                 const Expanded(child: SizedBox()),
                 //const SizedBox(width: 70),
-                const Text("Nombre del Usuario"),
+                const Text("Administrador"),
                 PopupMenuButton(
                   icon: const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/buho2.png')),
@@ -102,17 +114,13 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
                           );
                         },
                       ),
-                      PopupMenuItem(
+                      /* PopupMenuItem(
                         child: Text('Cerrar Sesión'),
                         value: 'Cerrar Sesión',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const InicioScreen()),
-                          );
+                          _borrarCache(context);
                         },
-                      ),
+                      ), */
                     ];
                   },
                   onSelected: (value) {
@@ -147,7 +155,62 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
               ),
             ),
 
-            Container(
+
+
+             Container(
+              padding: const EdgeInsets.only(left: 5),
+              height: 500,
+              width: 400,
+              child: ListView.builder(
+                itemCount: AulasList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Aulas categoria = AulasList[index];
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            color: Color(0xffDDDDDD),
+                            width: 230,
+                            height: 60,
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.all(5),
+                            child: TextButton(
+                                onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      RegistroAsistencias(categoria.id!)),
+                            );
+                          },
+                                child: Column(
+                                  children: [
+                                    Text('${categoria.nombre_al}'),
+                                  ],
+                                ),
+                              ),
+                            
+                            
+                             
+                          )
+                        ],
+                      ),
+
+                      //Expanded(child: SizedBox()),
+                      //const SizedBox(width: 5,),
+                    ],
+                  );
+                },
+              ),
+            ),
+
+
+
+            
+
+            /* Container(
               height: 300,
               width: 200,
               child: ListView.builder(
@@ -183,7 +246,7 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
                   );
                 },
               ),
-            ),
+            ), */
 
             //Boton Volver
             const Expanded(child: SizedBox()),

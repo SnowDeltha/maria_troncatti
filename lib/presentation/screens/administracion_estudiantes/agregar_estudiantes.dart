@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
 import 'package:widgets_app/presentation/screens/administracion_estudiantes/administrador_estudiantes_screen.dart';
+import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 import 'package:http/http.dart' as http;
@@ -80,6 +82,16 @@ class AddStudentsPage extends StatefulWidget {
 }
 
 class _MyAddStudentsPage extends State<AddStudentsPage> {
+  void _borrarCache(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  await localStorage.remove('user');
+  await localStorage.remove('token');
+  Navigator.popUntil(context, ModalRoute.withName('/'));
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+  ); 
+}
   List<dynamic> AulasList = [];
   Future<void> mostrarAulas() async {
     ApiRespuesta res = await getAulas('aulas');
@@ -113,6 +125,7 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
   } */
 
   Future<void> _guardarEstudiantes() async {
+    
     String nombrestudent = _nombreestudiante.text;
 
     var data = {
@@ -142,7 +155,11 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
   Widget build(BuildContext context) {
     // manejar el null
 
-    return Scaffold(
+
+    return MaterialApp(
+     debugShowCheckedModeBanner:false,
+
+     home: Scaffold(
       appBar: AppBar(
         title: const Text(''),
         backgroundColor: Colors.yellow,
@@ -154,7 +171,7 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
               Image.asset('assets/images/Escuela.png'),
               const Expanded(child: SizedBox()),
               //const SizedBox(width: 70),
-              const Text("Nombre del Usuario"),
+              const Text("Administrador"),
               PopupMenuButton(
                 icon: const CircleAvatar(
                     backgroundImage: AssetImage('assets/images/buho2.png')),
@@ -182,17 +199,13 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
                         );
                       },
                     ),
-                    PopupMenuItem(
+                    /* PopupMenuItem(
                       child: Text('Cerrar Sesión'),
                       value: 'Cerrar Sesión',
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const InicioScreen()),
-                        );
+                        _borrarCache(context);
                       },
-                    ),
+                    ), */
                   ];
                 },
                 onSelected: (value) {
@@ -315,6 +328,7 @@ class _MyAddStudentsPage extends State<AddStudentsPage> {
           ],
         ),
       ),
+    ),
     );
   }
 }

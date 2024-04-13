@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/administracion_usuarios/administracion_de_usuarios_screen.dart';
+import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 
@@ -27,6 +29,16 @@ class AddUsersPage extends StatefulWidget {
 }
 
 class _MyAddUsersPage extends State<AddUsersPage> {
+  void _borrarCache(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  await localStorage.remove('user');
+  await localStorage.remove('token');
+  Navigator.popUntil(context, ModalRoute.withName('/'));
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+  ); 
+}
   TextEditingController _nombreuser = TextEditingController();
   TextEditingController _apellidouser = TextEditingController();
   TextEditingController _cargouser = TextEditingController();
@@ -56,80 +68,96 @@ class _MyAddUsersPage extends State<AddUsersPage> {
       return new AdministracionUsuariosScreen();
     }), (Route<dynamic> route) => false);
   }
+  
+  
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-        backgroundColor: Colors.yellow,
-        actions: <Widget>[
-          Expanded(
-              child: Row(
-            children: <Widget>[
-              const SizedBox(width: 15),
-              Image.asset('assets/images/Escuela.png'),
-              const Expanded(child: SizedBox()),
-              //const SizedBox(width: 70),
-              const Text("Nombre del Usuario"),
-              PopupMenuButton(
-                icon: const CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/buho2.png')),
-                itemBuilder: (BuildContext context) {
-                  return [
-                    PopupMenuItem(
-                      child: Text('Perfil'),
-                      value: 'Perfil',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const PerfilScreen()),
-                        );
-                      },
-                    ),
-                    PopupMenuItem(
-                      child: Text('Acerca de'),
-                      value: 'Acerca de',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AcercaScreen()),
-                        );
-                      },
-                    ),
-                    PopupMenuItem(
-                      child: Text('Cerrar Sesión'),
-                      value: 'Cerrar Sesión',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const InicioScreen()),
-                        );
-                      },
-                    ),
-                  ];
-                },
-                onSelected: (value) {
-                  if (value == 'Perfil') {
-                    //Realiza la accion de boton
-                  } else if (value == 'Acerca de') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AcercaScreen(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text(''),
+          backgroundColor: Colors.yellow,
+          actions: <Widget>[
+            Expanded(
+                child: Row(
+              children: <Widget>[
+                const SizedBox(width: 15),
+                Image.asset('assets/images/Escuela.png'),
+                const Expanded(child: SizedBox()),
+                //const SizedBox(width: 70),
+                const Text("Administrador"),
+                PopupMenuButton(
+                  icon: const CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/buho2.png')),
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      PopupMenuItem(
+                        child: Text('Perfil'),
+                        value: 'Perfil',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PerfilScreen()),
+                          );
+                        },
                       ),
-                    );
-                  }
-                },
-              )
-            ],
-          )),
-        ],
-      ),
-      body: SingleChildScrollView(
+                      PopupMenuItem(
+                        child: Text('Acerca de'),
+                        value: 'Acerca de',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AcercaScreen()),
+                          );
+                        },
+                      ),
+                      /* PopupMenuItem(
+                        child: Text('Cerrar Sesión'),
+                        value: 'Cerrar Sesión',
+                        onTap: () {
+                         _borrarCache(context);
+                        },
+                      ), */
+                    ];
+                  },
+                  onSelected: (value) {
+                    if (value == 'Perfil') {
+                      //Realiza la accion de boton
+                    } else if (value == 'Acerca de') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AcercaScreen(),
+                        ),
+                      );
+                    }
+                  },
+                )
+              ],
+            )),
+          ],
+        ),
+
+        /* 
+
+        body: ListView.builder(
+          itemCount: UsuariosList.length,
+         itemBuilder: (BuildContext context, int index){
+          Users categoria = UsuariosList[index];
+            return Text(
+              '${categoria.nombre}'
+              '${categoria.id}'
+              
+            );
+          },
+        ),
+        */
+
+        body: SingleChildScrollView(
         //padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -266,6 +294,7 @@ class _MyAddUsersPage extends State<AddUsersPage> {
             ),
           ],
         ),
+      ),
       ),
     );
   }

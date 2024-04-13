@@ -27,6 +27,8 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
   bool _isAuthenticating = false;
   @override
   void initState() {
+
+    _checkBiometrics();
     super.initState();
     auth.isDeviceSupported().then(
           (bool isSupported) => setState(() => _supportState = isSupported
@@ -84,84 +86,84 @@ class _HuellaDactillarScreenState extends State<HuellaDactillarScreen> {
   }
   _authenticate();
 }
-  Future<void> _authenticate() async {
-    bool authenticated = false;
-    try {
-      setState(() {
-        _isAuthenticating = true;
-      });
-      authenticated = await auth.authenticate(
-        localizedReason: 'Let OS determine authentication method',
-        options: const AuthenticationOptions(
-          stickyAuth: true,
-        ),
-      );
-      setState(() {
-        _isAuthenticating = false;
-      });
-
-      if (_isAuthenticating = true) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => InicioScreen()),
-        );
-      } else {
-        print('Error con la huella');
-      }
-    } on PlatformException catch (e) {
-      print(e);
-      setState(() {
-        _isAuthenticating = false;
-      });
-      return;
-    }
-    if (!mounted) {
-      return;
-    }
-
-  }
-
-  Future<void> _authenticateWithBiometrics() async {
-    bool authenticated = false;
-    try {
-      setState(() {
-        _isAuthenticating = true;
-      });
-      authenticated = await auth.authenticate(
-        localizedReason:
-            'Scan your fingerprint (or face or whatever) to authenticate',
-        options: const AuthenticationOptions(
-          stickyAuth: true,
-          biometricOnly: true,
-        ),
-      );
-      setState(() {
-        _isAuthenticating = false;
-      });
-
-      if (_isAuthenticating = true) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => InicioScreen()),
-        );
-      } else {
-        print('Error con la huella');
-      }
-    } on PlatformException catch (e) {
-      print(e);
-      setState(() {
-        _isAuthenticating = false;
-      });
-      return;
-    }
-    if (!mounted) {
-      return;
-    }
-
-    final String message = authenticated ? 'Authorized' : 'Not Authorized';
+ Future<void> _authenticate() async {
+  bool authenticated = false;
+  try {
     setState(() {
+      _isAuthenticating = true;
     });
+    authenticated = await auth.authenticate(
+      localizedReason: 'Let OS determine authentication method',
+      options: const AuthenticationOptions(
+        stickyAuth: true,
+      ),
+    );
+    setState(() {
+      _isAuthenticating = false;
+    });
+
+    if (authenticated) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => InicioScreen()),
+      );
+    } else {
+      print('Error con la huella');
+    }
+  } on PlatformException catch (e) {
+    print(e);
+    setState(() {
+      _isAuthenticating = false;
+    });
+    return;
   }
+  if (!mounted) {
+    return;
+  }
+}
+
+
+  // Future<void> _authenticateWithBiometrics() async {
+  //   bool authenticated = false;
+  //   try {
+  //     setState(() {
+  //       _isAuthenticating = true;
+  //     });
+  //     authenticated = await auth.authenticate(
+  //       localizedReason:
+  //           'Scan your fingerprint (or face or whatever) to authenticate',
+  //       options: const AuthenticationOptions(
+  //         stickyAuth: true,
+  //         biometricOnly: true,
+  //       ),
+  //     );
+  //     setState(() {
+  //       _isAuthenticating = false;
+  //     });
+
+  //     if (_isAuthenticating = true) {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => InicioScreen()),
+  //       );
+  //     } else {
+  //       print('Error con la huella');
+  //     }
+  //   } on PlatformException catch (e) {
+  //     print(e);
+  //     setState(() {
+  //       _isAuthenticating = false;
+  //     });
+  //     return;
+  //   }
+  //   if (!mounted) {
+  //     return;
+  //   }
+
+  //   final String message = authenticated ? 'Authorized' : 'Not Authorized';
+  //   setState(() {
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

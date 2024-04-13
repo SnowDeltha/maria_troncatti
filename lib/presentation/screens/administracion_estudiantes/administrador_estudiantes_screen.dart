@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
+import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
@@ -76,6 +78,16 @@ class _AdministracionEstudiantesScreenState
       throw Exception('Fallo al eliminar el registro');
     }
   }
+  void _borrarCache(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  await localStorage.remove('user');
+  await localStorage.remove('token');
+  Navigator.popUntil(context, ModalRoute.withName('/'));
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+  ); 
+}
 
 // Función para recargar la página
   Future<void> _reloadPage() async {
@@ -109,7 +121,7 @@ class _AdministracionEstudiantesScreenState
                 Image.asset('assets/images/Escuela.png'),
                 const Expanded(child: SizedBox()),
                 //const SizedBox(width: 70),
-                const Text("Nombre del Usuario"),
+                const Text("Administrador"),
                 PopupMenuButton(
                   icon: const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/buho2.png')),
@@ -137,17 +149,13 @@ class _AdministracionEstudiantesScreenState
                           );
                         },
                       ),
-                      PopupMenuItem(
+                      /* PopupMenuItem(
                         child: Text('Cerrar Sesión'),
                         value: 'Cerrar Sesión',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const InicioScreen()),
-                          );
+                          _borrarCache(context);
                         },
-                      ),
+                      ), */
                     ];
                   },
                   onSelected: (value) {
@@ -214,7 +222,7 @@ class _AdministracionEstudiantesScreenState
 
                   Container(
                     color: const Color(0xff83C77E),
-                    width: 180,
+                    width: 230,
                     height: 50,
                     padding: const EdgeInsets.all(10),
                     child: const Text(
@@ -234,11 +242,11 @@ class _AdministracionEstudiantesScreenState
 
                   Container(
                     color: const Color(0xff83C77E),
-                    width: 150,
+                    width: 70,
                     height: 50,
                     padding: const EdgeInsets.all(10),
                     child: const Text(
-                      '       Acción',
+                      '  AC',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -261,7 +269,7 @@ class _AdministracionEstudiantesScreenState
                           children: [
                             Container(
                               color: Color(0xffDDDDDD),
-                              width: 180,
+                              width: 230,
                               height: 50,
                               padding: EdgeInsets.all(10),
                               margin: EdgeInsets.all(5),
@@ -285,7 +293,7 @@ class _AdministracionEstudiantesScreenState
                             children: [
                               Container(
                                 color: Color(0xffDDDDDD),
-                                width: 150,
+                                width: 70,
                                 height: 50,
                                 child: IconButton(
                                   iconSize: 20,

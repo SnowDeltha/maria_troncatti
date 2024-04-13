@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
+import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
 import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 
@@ -28,6 +30,16 @@ class AddCoursesPage extends StatefulWidget {
 
 class _MyAddCoursesPage extends State<AddCoursesPage> {
   TextEditingController _nombreaula = TextEditingController();
+  void _borrarCache(BuildContext context) async {
+  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  await localStorage.remove('user');
+  await localStorage.remove('token');
+  Navigator.popUntil(context, ModalRoute.withName('/'));
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+  ); 
+}
 
   Future<void> _guardarAulas() async {
     String nombrecourse = _nombreaula.text;
@@ -45,7 +57,9 @@ class _MyAddCoursesPage extends State<AddCoursesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+     debugShowCheckedModeBanner:false,
+      home:  Scaffold(
       appBar: AppBar(
           title: const Text(''),
           backgroundColor: Colors.yellow,
@@ -57,7 +71,7 @@ class _MyAddCoursesPage extends State<AddCoursesPage> {
                 Image.asset('assets/images/Escuela.png'),
                 const Expanded(child: SizedBox()),
                 //const SizedBox(width: 70),
-                const Text("Nombre del Usuario"),
+                const Text("Administrador"),
                 PopupMenuButton(
                   icon: const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/buho2.png')),
@@ -85,17 +99,13 @@ class _MyAddCoursesPage extends State<AddCoursesPage> {
                           );
                         },
                       ),
-                      PopupMenuItem(
+                      /* PopupMenuItem(
                         child: Text('Cerrar Sesión'),
                         value: 'Cerrar Sesión',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const InicioScreen()),
-                          );
+                          _borrarCache(context);
                         },
-                      ),
+                      ), */
                     ];
                   },
                   onSelected: (value) {
@@ -188,7 +198,8 @@ class _MyAddCoursesPage extends State<AddCoursesPage> {
           ],
         ),
       ),
-    );
+    ),
+  );
   }
 }
 
