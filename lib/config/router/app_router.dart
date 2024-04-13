@@ -1,11 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:widgets_app/presentation/screens/administracion_aulas/administracion_aulas_screen.dart';
 import 'package:widgets_app/presentation/screens/administracion_usuarios/administracion_de_usuarios_screen.dart';
-import 'package:widgets_app/presentation/screens/lista_de_registros/lista_de_registros_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_asistencia/modulo_asistencia_screen.dart';
 import 'package:widgets_app/presentation/screens/modulo_configuracion/modulo_configuracion_screen.dart';
-import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
-import 'package:widgets_app/presentation/screens/registro_asistencia/registro_asistencia_screen.dart';
 import 'package:widgets_app/presentation/screens/screens.dart';
 
 

@@ -5,6 +5,7 @@ import 'package:widgets_app/config/theme/app_theme.dart';
 import 'package:widgets_app/presentation/providers/theme_provider.dart';
 //flutter build apk --release
 //flutter run --release
+//flutter build apk --release
 
 void main() {
   runApp(

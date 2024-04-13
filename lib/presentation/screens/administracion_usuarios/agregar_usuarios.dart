@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:widgets_app/presentation/screens/AcercadePage/AcercaScreen.dart';
 import 'package:widgets_app/presentation/screens/administracion_usuarios/administracion_de_usuarios_screen.dart';
 import 'package:widgets_app/presentation/screens/inicio_sesion/inicio_sesion_screen.dart';
-import 'package:widgets_app/presentation/screens/pantalla_Inicio/Inicio_screen.dart';
 import 'package:widgets_app/presentation/screens/perfil/perfil_screen.dart';
 
 import '../../../api/ConsumoApi.dart';
