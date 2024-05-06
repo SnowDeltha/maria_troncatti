@@ -52,16 +52,17 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
       });
     }
   }
+
   void _borrarCache(BuildContext context) async {
-  SharedPreferences localStorage = await SharedPreferences.getInstance();
-  await localStorage.remove('user');
-  await localStorage.remove('token');
-  Navigator.popUntil(context, ModalRoute.withName('/'));
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
-  ); 
-}
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    await localStorage.remove('user');
+    await localStorage.remove('token');
+    Navigator.popUntil(context, ModalRoute.withName('/'));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const InicioSesionScreen()),
+    );
+  }
 
   @override
   void initState() {
@@ -140,141 +141,94 @@ class _ModuloAsistenciaScreenState extends State<ModuloAsistenciaScreen> {
             )),
           ],
         ),
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 50,
-            ),
-
-            const Text(
-              'Modulo de Asistencia',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 28,
-                color: Colors.orange,
+        body: SingleChildScrollView(
+          //padding: const EdgeInsets.all(16.0),
+          child: Column(
+            //mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 50,
               ),
-            ),
+              const Text(
+                'Modulo de Asistencia',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 28,
+                  color: Colors.orange,
+                ),
+              ),
 
+              const SizedBox(
+                height: 35,
+              ),
 
-
-             Container(
-              padding: const EdgeInsets.only(left: 5),
-              height: 500,
-              width: 400,
-              child: ListView.builder(
-                itemCount: AulasList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Aulas categoria = AulasList[index];
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            color: Color(0xffDDDDDD),
-                            width: 230,
-                            height: 60,
-                            padding: EdgeInsets.all(10),
-                            margin: EdgeInsets.all(5),
-                            child: TextButton(
+              Container(
+                padding: const EdgeInsets.only(left: 5),
+                height: 500,
+                width: 400,
+                child: ListView.builder(
+                  itemCount: AulasList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Aulas categoria = AulasList[index];
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              color: Color(0xffDDDDDD),
+                              width: 230,
+                              height: 60,
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.all(5),
+                              child: TextButton(
                                 onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      RegistroAsistencias(categoria.id!)),
-                            );
-                          },
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            RegistroAsistencias(categoria.id!)),
+                                  );
+                                },
                                 child: Column(
                                   children: [
                                     Text('${categoria.nombre_al}'),
                                   ],
                                 ),
                               ),
-                            
-                            
-                             
-                          )
-                        ],
-                      ),
-
-                      //Expanded(child: SizedBox()),
-                      //const SizedBox(width: 5,),
-                    ],
-                  );
-                },
-              ),
-            ),
-
-
-
-            
-
-            /* Container(
-              height: 300,
-              width: 200,
-              child: ListView.builder(
-                itemCount: (AulasList.length / 2)
-                    .ceil(), // Asegura que se muestren todos los elementos
-                itemBuilder: (BuildContext context, int index) {
-                  int startIndex = index * 2;
-                  int endIndex = startIndex + 2;
-                  if (endIndex > AulasList.length) {
-                    endIndex = AulasList.length;
-                  }
-                  List sublist = AulasList.sublist(startIndex, endIndex);
-                  return Row(
-                    children: sublist.map((categoria) {
-                      return Expanded(
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      RegistroAsistencias(categoria.id)),
-                            );
-                          },
-                          icon: Column(
-                            children: [
-                              Text('${categoria.nombre_al}'),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      );
-                    }).toList(),
-                  );
-                },
+                        //Expanded(child: SizedBox()),
+                        //const SizedBox(width: 5,),
+                      ],
+                    );
+                  },
+                ),
               ),
-            ), */
-
-            //Boton Volver
-            const Expanded(child: SizedBox()),
-
-            const SizedBox(
-              width: 0,
-              height: 10,
-            ),
-
-            const _BotonVolverInicio(),
-
-            const SizedBox(
-              width: 0,
-              height: 10,
-            ),
-
-            // Pie de página
-            Container(
-              color: Colors.green,
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              child: const Text(
-                '©2024 Instituto Tecnológico Superior Japón',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-                textAlign: TextAlign.center,
+              //const Expanded(child: SizedBox()),
+              const SizedBox(
+                width: 0,
+                height: 10,
               ),
-            ),
-          ],
+              const _BotonVolverInicio(),
+              const SizedBox(
+                width: 0,
+                height: 10,
+              ),
+
+              Container(
+                color: Colors.green,
+                width: double.infinity,
+                padding: const EdgeInsets.all(10),
+                child: const Text(
+                  '©2024 Instituto Tecnológico Superior Japón',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
